@@ -36,6 +36,9 @@ class Start:
         self.btnController.registerEvents()
         self.grafikController.registerEvents()
 
+        #register commands
+        self.btnController.registerCommands()
+
         MainWindow.show()
         sys.exit(app.exec_())
 

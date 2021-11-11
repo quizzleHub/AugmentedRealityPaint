@@ -47,10 +47,14 @@ class View(object):
         self.btnButton2.setText(_translate("MainWindow", "PushButton"))
         self.lblLabel.setText(_translate("MainWindow", "TextLabel"))
 
+
+#___________Getter_________________
     def getbtnButton1(self):
         return self.btnButton1
+
     def getbtnButton2(self):
         return self.btnButton2
+
     def getlblLabel(self):
         return self.lblLabel
 
