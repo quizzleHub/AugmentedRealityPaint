@@ -1,14 +1,14 @@
 from commands.CommandInterface import CommandInterface
 
 
-class DummyCommand(CommandInterface):
+class CmdSetStrokeColor(CommandInterface):
 
     def __init__(self):
         self.view = None                
         self.model = None
     def execute(self):
-        print("DummyCommand executed")
+        print("CmdSetStrokeColor executed")
     def redo(self):
-        print("DummyCommand redo")
+        print("CmdSetStrokeColor redo")
     def undo(self):
-        print("DummyCommand undo")
+        print("CmdSetStrokeColor undo")

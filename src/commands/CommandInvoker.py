@@ -1,7 +1,6 @@
 
 
 class CommandInvoker:
-    commands = None
 
     def __init__(self):
         self.commands = {}   #dict

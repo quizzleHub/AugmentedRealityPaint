@@ -1,14 +1,14 @@
 from commands.CommandInterface import CommandInterface
 
 
-class DummyCommand(CommandInterface):
+class CmdOpenFile(CommandInterface):
 
     def __init__(self):
         self.view = None                
         self.model = None
     def execute(self):
-        print("DummyCommand executed")
+        print("CmdOpenFile executed")
     def redo(self):
-        print("DummyCommand redo")
+        print("You cannot redo Open File")
     def undo(self):
-        print("DummyCommand undo")
+        print("You cannot undo Open File")

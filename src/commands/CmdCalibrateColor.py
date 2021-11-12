@@ -1,14 +1,14 @@
 from commands.CommandInterface import CommandInterface
 
 
-class DummyCommand(CommandInterface):
+class CmdCalibrateColor(CommandInterface):
 
     def __init__(self):
         self.view = None                
         self.model = None
     def execute(self):
-        print("DummyCommand executed")
+        print("CmdCalibrateColor executed")
     def redo(self):
-        print("DummyCommand redo")
+        print("You cannot redo Calibrate Color")
     def undo(self):
-        print("DummyCommand undo")
+        print("You cannot undo Calibrate Color")

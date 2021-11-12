@@ -1,14 +1,14 @@
 from commands.CommandInterface import CommandInterface
 
 
-class DummyCommand(CommandInterface):
+class CmdSetStrokeWeight(CommandInterface):
 
     def __init__(self):
         self.view = None                
         self.model = None
     def execute(self):
-        print("DummyCommand executed")
+        print("CmdSetStrokeWeight executed")
     def redo(self):
-        print("DummyCommand redo")
+        print("CmdSetStrokeWeight redo")
     def undo(self):
-        print("DummyCommand undo")
+        print("CmdSetStrokeWeight undo")

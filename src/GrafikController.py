@@ -4,10 +4,6 @@ from GrafikView import GrafikView
 
 
 class GrafikController:
-
-    grafikView = None
-    model = None
-
     
     def __init__(self, grafikView, model) -> None:
         self.grafikView = grafikView

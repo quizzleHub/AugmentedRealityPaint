@@ -1,14 +1,14 @@
 from commands.CommandInterface import CommandInterface
 
 
-class DummyCommand(CommandInterface):
+class CmdExportDrawing(CommandInterface):
 
     def __init__(self):
         self.view = None                
         self.model = None
     def execute(self):
-        print("DummyCommand executed")
+        print("CmdExportDrawing executed")
     def redo(self):
-        print("DummyCommand redo")
+        print("You cannot redo Export Drawing")
     def undo(self):
-        print("DummyCommand undo")
+        print("You cannot undo Export Drawing")

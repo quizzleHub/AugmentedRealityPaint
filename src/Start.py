@@ -12,12 +12,6 @@ import sys
 
 class Start:
 
-    view = None
-    grafikView = None
-    model = None
-    btnController = None
-    grafikController = None
-
     def run(self):
         #qt stuff
         app = QtWidgets.QApplication(sys.argv)
