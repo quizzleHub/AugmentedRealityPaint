@@ -19,15 +19,18 @@ class View(object):
         MainWindow.resize(800, 600)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
-        self.btnButton1 = QtWidgets.QPushButton(self.centralwidget)
-        self.btnButton1.setGeometry(QtCore.QRect(210, 380, 113, 32))
-        self.btnButton1.setObjectName("btnButton1")
-        self.btnButton2 = QtWidgets.QPushButton(self.centralwidget)
-        self.btnButton2.setGeometry(QtCore.QRect(510, 380, 113, 32))
-        self.btnButton2.setObjectName("btnButton2")
+        self.btnAction = QtWidgets.QPushButton(self.centralwidget)
+        self.btnAction.setGeometry(QtCore.QRect(210, 380, 113, 32))
+        self.btnAction.setObjectName("Action")
+        self.btnUndo = QtWidgets.QPushButton(self.centralwidget)
+        self.btnUndo.setGeometry(QtCore.QRect(310, 380, 113, 32))
+        self.btnUndo.setObjectName("Undo")
+        self.btnRedo = QtWidgets.QPushButton(self.centralwidget)
+        self.btnRedo.setGeometry(QtCore.QRect(410, 380, 113, 32))
+        self.btnRedo.setObjectName("Undo")
         self.lblLabel = QtWidgets.QLabel(self.centralwidget)
-        self.lblLabel.setGeometry(QtCore.QRect(300, 200, 60, 16))
-        self.lblLabel.setObjectName("lblLabel")
+        self.lblLabel.setGeometry(QtCore.QRect(210, 200, 400, 16))
+        self.lblLabel.setObjectName("Label")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 22))
@@ -43,17 +46,21 @@ class View(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.btnButton1.setText(_translate("MainWindow", "PushButton"))
-        self.btnButton2.setText(_translate("MainWindow", "PushButton"))
-        self.lblLabel.setText(_translate("MainWindow", "TextLabel"))
+        self.btnAction.setText(_translate("MainWindow", "Action"))
+        self.btnUndo.setText(_translate("MainWindow", "Undo"))
+        self.btnRedo.setText(_translate("MainWindow", "Redo"))
+        self.lblLabel.setText(_translate("MainWindow", "Trial Version AugmentedRealityPaint"))
 
 
 #___________Getter_________________
-    def getbtnButton1(self):
-        return self.btnButton1
+    def getbtnAction(self):
+        return self.btnAction
 
-    def getbtnButton2(self):
-        return self.btnButton2
+    def getbtnUndo(self):
+        return self.btnUndo
+
+    def getbtnRedo(self):
+        return self.btnRedo
 
     def getlblLabel(self):
         return self.lblLabel

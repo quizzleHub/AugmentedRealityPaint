@@ -1,12 +1,9 @@
 from View import View
-from commands.CommandInvoker import CommandInvoker
-from commands.CmdCalibrateColor import CmdCalibrateColor
-from commands.CmdExportDrawing import CmdExportDrawing
-from commands.CmdHelp import CmdHelp
-from commands.CmdOpenFile import CmdOpenFile
-from commands.CmdPaint import CmdPaint
-from commands.CmdSetStrokeColor import CmdSetStrokeColor
-from commands.CmdSetStrokeWeight import CmdSetStrokeWeight
+from CommandInvoker import CommandInvoker
+from commands.CmdAction import CmdAction
+from commands.CmdUndo import CmdUndo
+from commands.CmdRedo import CmdRedo
+
 
 
 
@@ -19,27 +16,37 @@ class BtnController:
         
     def registerEvents(self):
 
-        
-        btnButton1 = self.view.getbtnButton1()                          #get btnButton1
-        btnButton2 = self.view.getbtnButton2()                          #get btnButton2
-        lblLabel = self.view.getlblLabel()                              #get label
+        btnAction = self.view.getbtnAction()            #get btnAction
+        btnUndo = self.view.getbtnUndo()                #get btnUndo
+        btnRedo = self.view.getbtnRedo()                #get btnRedo
+        lblLabel = self.view.getlblLabel()              #get lblLabel
 
-        btnButton1.pressed.connect(self.actionPerformed)   #register "pressed" event to actionPerformed
-        btnButton2.pressed.connect(self.actionPerformed)
+        #register "pressed" event to actionPerformed for all buttons
+        btnAction.pressed.connect(self.actionPerformed) 
+        btnUndo.pressed.connect(self.actionPerformed)
+        btnRedo.pressed.connect(self.actionPerformed)
 
         print("registered events in BtnController")
         
 
     def registerCommands(self):
-        self.commandInvoker.addCommand(self.view.getbtnButton1(), CmdSetStrokeWeight())     #register btnButton1 to CmdSetStrokeWeight -> Pressing Button1 will execute TestCommand          
-        self.commandInvoker.addCommand(self.view.getbtnButton2(), CmdPaint())     #Was wenn zwei Buttons den selben Command aufrufen sollen? Evt Problem. ggfs alle commands zentral instanzieren
+        self.commandInvoker.addCommand(self.view.getbtnAction(), CmdAction())   #register btnButton1 to CmdSetStrokeWeight -> Pressing Button1 will execute TestCommand          
+        self.commandInvoker.addCommand(self.view.getbtnUndo(), CmdUndo())       #Was wenn zwei Buttons den selben Command aufrufen sollen? Evt Problem. ggfs alle commands zentral instanzieren
+        self.commandInvoker.addCommand(self.view.getbtnRedo(), CmdRedo())
         print("registerd Commands in BtnController")
-
 
 
     def actionPerformed(self):
         eventSource = self.view.centralwidget.sender()                  #Problem: Was wenn kein centralwidget vorhanden ist??
         print("trying to perform action: " + eventSource.text() + "_" + str(id(eventSource)))
-        self.commandInvoker.executeCommand(eventSource)
+
+        if (eventSource == self.view.getbtnUndo()):
+            self.commandInvoker.undoCommand()
+        elif(eventSource == self.view.getbtnRedo()):
+            self.commandInvoker.redoCommand()
+        else:
+            self.commandInvoker.executeCommand(eventSource)
+
+
 
 
