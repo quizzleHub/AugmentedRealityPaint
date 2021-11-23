@@ -7,11 +7,12 @@ from commands.CmdRedo import CmdRedo
 
 
 
-class BtnController:
+class BtnController: #windowListener, ActionListener
     
-    def __init__(self, view, model) -> None:
+    def __init__(self, view, cvModel, app) -> None:
         self.view = view
-        self.model = model
+        self.cvModel = cvModel
+        self.app = app
         self.commandInvoker = CommandInvoker()
         
     def registerEvents(self):
@@ -26,6 +27,13 @@ class BtnController:
         btnUndo.pressed.connect(self.actionPerformed)
         btnRedo.pressed.connect(self.actionPerformed)
 
+        self.app.aboutToQuit.connect(self.onExit)   #closing app
+        
+
+
+
+        
+
         print("registered events in BtnController")
         
 
@@ -33,11 +41,12 @@ class BtnController:
         self.commandInvoker.addCommand(self.view.getbtnAction(), CmdAction())   #register btnButton1 to CmdSetStrokeWeight -> Pressing Button1 will execute TestCommand          
         self.commandInvoker.addCommand(self.view.getbtnUndo(), CmdUndo())       #Was wenn zwei Buttons den selben Command aufrufen sollen? Evt Problem. ggfs alle commands zentral instanzieren
         self.commandInvoker.addCommand(self.view.getbtnRedo(), CmdRedo())
+
         print("registerd Commands in BtnController")
 
 
     def actionPerformed(self):
-        eventSource = self.view.centralwidget.sender()                  #Problem: Was wenn kein centralwidget vorhanden ist??
+        eventSource = self.app.sender()
         print("trying to perform action: " + eventSource.text() + "_" + str(id(eventSource)))
 
         if (eventSource == self.view.getbtnUndo()):
@@ -47,6 +56,10 @@ class BtnController:
         else:
             self.commandInvoker.executeCommand(eventSource)
 
+    def onExit(self):
+        #collect all threads
+        self.cvModel.stop()
+        print("Exit Clean Up")
 
 
 

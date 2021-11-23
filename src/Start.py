@@ -1,5 +1,6 @@
 
-from Model import Model
+from CVModel import CVModel
+from GrafikModel import GrafikModel
 from View import View
 from GrafikView import GrafikView
 from BtnController import BtnController
@@ -22,9 +23,13 @@ class Start:
         self.view.setupUi(MainWindow)
 
         self.grafikView = GrafikView()
-        self.model = Model()
-        self.btnController = BtnController(self.view, self.model)
-        self.grafikController = GrafikController(self.grafikView, self.model)
+
+        self.grafikModel = GrafikModel()
+        self.cvModel = CVModel(self.grafikModel)
+        self.btnController = BtnController(self.view, self.cvModel, app)
+        self.grafikController = GrafikController(self.grafikView, self.cvModel)
+
+    
 
         #register events
         self.btnController.registerEvents()
@@ -34,7 +39,10 @@ class Start:
         self.btnController.registerCommands()
 
         MainWindow.show()
+        self.cvModel.start()
         sys.exit(app.exec_())
+
+
 
 
 
