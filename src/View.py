@@ -1,5 +1,14 @@
 # -*- coding: utf-8 -*-
 
+
+# Verändern falls neue .ui Datei:
+#   1. Pfad für icons erstellen :
+#         cwd = Path.cwd()
+#         rootdir = cwd.parent.absolute()
+#         iconsdir = rootdir / "icons"
+#   2. Pfade anpassen mit (str(iconsdir/"Bildname.PNG"))
+#   3. Getter einfügen
+#----------------------------------------------------------
 # Neue View in Projekt einpflegen:
 #   1. form.ui mit designer erstellen
 #   2. pyuic5 -x form.ui -o form.py
@@ -24,6 +33,7 @@ class Ui_MainWindow(object):
         View.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(View)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1232, 22))
+        self.menubar.setNativeMenuBar(False)
         self.menubar.setObjectName("menubar")
         self.menuOptionen = QtWidgets.QMenu(self.menubar)
         self.menuOptionen.setObjectName("menuOptionen")
