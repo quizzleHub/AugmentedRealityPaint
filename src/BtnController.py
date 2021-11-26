@@ -17,15 +17,15 @@ class BtnController: #windowListener, ActionListener
         
     def registerEvents(self):
 
-        btnAction = self.view.getbtnAction()            #get btnAction
+        btnRot = self.view.getbtnRot()
         btnUndo = self.view.getbtnUndo()                #get btnUndo
         btnRedo = self.view.getbtnRedo()                #get btnRedo
-        lblLabel = self.view.getlblLabel()              #get lblLabel
+
 
         #register "pressed" event to actionPerformed for all buttons
-        btnAction.pressed.connect(self.actionPerformed) 
-        btnUndo.pressed.connect(self.actionPerformed)
-        btnRedo.pressed.connect(self.actionPerformed)
+        btnRot.triggered.connect(self.actionPerformed) 
+        btnUndo.triggered.connect(self.actionPerformed)
+        btnRedo.triggered.connect(self.actionPerformed)
 
         self.app.aboutToQuit.connect(self.onExit)   #closing app
         
@@ -38,7 +38,7 @@ class BtnController: #windowListener, ActionListener
         
 
     def registerCommands(self):
-        self.commandInvoker.addCommand(self.view.getbtnAction(), CmdAction())   #register btnButton1 to CmdSetStrokeWeight -> Pressing Button1 will execute TestCommand          
+        self.commandInvoker.addCommand(self.view.getbtnRot(), CmdAction())   #register btnButton1 to CmdSetStrokeWeight -> Pressing Button1 will execute TestCommand          
         self.commandInvoker.addCommand(self.view.getbtnUndo(), CmdUndo())       #Was wenn zwei Buttons den selben Command aufrufen sollen? Evt Problem. ggfs alle commands zentral instanzieren
         self.commandInvoker.addCommand(self.view.getbtnRedo(), CmdRedo())
 

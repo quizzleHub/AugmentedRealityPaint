@@ -7,4 +7,3 @@ class GrafikModel():
     
     def recPoint(self, point):
         self.points.append(point)
-        print("gm: " + str(point))

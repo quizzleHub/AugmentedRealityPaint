@@ -77,7 +77,7 @@ class CVModel(Thread):
                 center = (int(M['m10'] / M['m00']), int(M['m01'] / M['m00'])) #coordinates
                 
                 self.grafikModel.recPoint(center) #send point to grafikModel
-                print("cvm: " + str(center))
+
                 
 
 
