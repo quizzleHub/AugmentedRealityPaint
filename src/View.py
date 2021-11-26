@@ -1,35 +1,37 @@
 # -*- coding: utf-8 -*-
 
 
-
+# Verändern falls neue .ui Datei:
+#   1. Pfad für icons erstellen :
+#         cwd = Path.cwd()
+#         rootdir = cwd.parent.absolute()
+#         iconsdir = rootdir / "icons"
+#   2. Pfade anpassen mit (str(iconsdir/"Bildname.PNG"))
+#   3. Getter einfügen
+#----------------------------------------------------------
 # Neue View in Projekt einpflegen:
 #   1. form.ui mit designer erstellen
 #   2. pyuic5 -x form.ui -o form.py
 #   3. Klassenname in "View" ändern
 #   4. Alles nach und inklusive "if __name__ == "__main__": löschen
-#   5. Getter für sämtliche Button/Labels/Objekte erstellen
-
-
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from pathlib import Path
 
-
-
-class View(object):
-    def setupUi(self, MainWindow):
+class Ui_MainWindow(object):
+    def setupUi(self, View):
         cwd = Path.cwd()
         rootdir = cwd.parent.absolute()
-        iconsdir = rootdir/"icons"
-        MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1232, 768)
-        self.centralwidget = QtWidgets.QWidget(MainWindow)
+        iconsdir = rootdir / "icons"
+        View.setObjectName("View")
+        View.resize(1232, 768)
+        self.centralwidget = QtWidgets.QWidget(View)
         self.centralwidget.setObjectName("centralwidget")
         self.graphicsView = QtWidgets.QGraphicsView(self.centralwidget)
         self.graphicsView.setGeometry(QtCore.QRect(0, 0, 1231, 721))
         self.graphicsView.setObjectName("graphicsView")
-        MainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QtWidgets.QMenuBar(MainWindow)
+        View.setCentralWidget(self.centralwidget)
+        self.menubar = QtWidgets.QMenuBar(View)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1232, 22))
         self.menubar.setNativeMenuBar(False)
         self.menubar.setObjectName("menubar")
@@ -50,11 +52,11 @@ class View(object):
         icon2.addPixmap(QtGui.QPixmap(str(iconsdir/"Farbe.PNG")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.menuFarbe.setIcon(icon2)
         self.menuFarbe.setObjectName("menuFarbe")
-        self.menuStrickdicke = QtWidgets.QMenu(self.menubar)
+        self.menuStrichdicke = QtWidgets.QMenu(self.menubar)
         icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap(str(iconsdir/"Strickdicke.PNG")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.menuStrickdicke.setIcon(icon3)
-        self.menuStrickdicke.setObjectName("menuStrickdicke")
+        icon3.addPixmap(QtGui.QPixmap(str(iconsdir / "Strichdicke.PNG")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.menuStrichdicke.setIcon(icon3)
+        self.menuStrichdicke.setObjectName("menuStrichdicke")
         self.menuUndo = QtWidgets.QMenu(self.menubar)
         icon4 = QtGui.QIcon()
         icon4.addPixmap(QtGui.QPixmap(str(iconsdir/"undo.PNG")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -65,63 +67,63 @@ class View(object):
         icon5.addPixmap(QtGui.QPixmap(str(iconsdir/"redo.PNG")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.menuRedo.setIcon(icon5)
         self.menuRedo.setObjectName("menuRedo")
-        MainWindow.setMenuBar(self.menubar)
-        self.statusbar = QtWidgets.QStatusBar(MainWindow)
+        View.setMenuBar(self.menubar)
+        self.statusbar = QtWidgets.QStatusBar(View)
         self.statusbar.setObjectName("statusbar")
-        MainWindow.setStatusBar(self.statusbar)
-        self.actionNeu = QtWidgets.QAction(MainWindow)
+        View.setStatusBar(self.statusbar)
+        self.actionNeu = QtWidgets.QAction(View)
         self.actionNeu.setObjectName("actionNeu")
-        self.actionOeffnen = QtWidgets.QAction(MainWindow)
+        self.actionOeffnen = QtWidgets.QAction(View)
         self.actionOeffnen.setObjectName("actionOeffnen")
-        self.actionSpeichern = QtWidgets.QAction(MainWindow)
+        self.actionSpeichern = QtWidgets.QAction(View)
         self.actionSpeichern.setObjectName("actionSpeichern")
-        self.actionExportieren = QtWidgets.QAction(MainWindow)
+        self.actionExportieren = QtWidgets.QAction(View)
         self.actionExportieren.setObjectName("actionExportieren")
-        self.actionKalibrieren = QtWidgets.QAction(MainWindow)
+        self.actionKalibrieren = QtWidgets.QAction(View)
         self.actionKalibrieren.setObjectName("actionKalibrieren")
-        self.actionHilfe = QtWidgets.QAction(MainWindow)
+        self.actionHilfe = QtWidgets.QAction(View)
         self.actionHilfe.setObjectName("actionHilfe")
-        self.actionrot = QtWidgets.QAction(MainWindow)
+        self.actionrot = QtWidgets.QAction(View)
         icon6 = QtGui.QIcon()
         icon6.addPixmap(QtGui.QPixmap(str(iconsdir/"rot.PNG")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actionrot.setIcon(icon6)
         self.actionrot.setObjectName("actionrot")
-        self.actiongruen = QtWidgets.QAction(MainWindow)
+        self.actiongruen = QtWidgets.QAction(View)
         icon7 = QtGui.QIcon()
         icon7.addPixmap(QtGui.QPixmap(str(iconsdir/"gruen.PNG")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actiongruen.setIcon(icon7)
         self.actiongruen.setObjectName("actiongruen")
-        self.actionblau = QtWidgets.QAction(MainWindow)
+        self.actionblau = QtWidgets.QAction(View)
         icon8 = QtGui.QIcon()
         icon8.addPixmap(QtGui.QPixmap(str(iconsdir/"blau.PNG")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actionblau.setIcon(icon8)
         self.actionblau.setObjectName("actionblau")
-        self.actiongelb = QtWidgets.QAction(MainWindow)
+        self.actiongelb = QtWidgets.QAction(View)
         icon9 = QtGui.QIcon()
         icon9.addPixmap(QtGui.QPixmap(str(iconsdir/"gelb.PNG")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actiongelb.setIcon(icon9)
         self.actiongelb.setObjectName("actiongelb")
-        self.actionweiss = QtWidgets.QAction(MainWindow)
+        self.actionweiss = QtWidgets.QAction(View)
         icon10 = QtGui.QIcon()
         icon10.addPixmap(QtGui.QPixmap(str(iconsdir/"weiss.PNG")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actionweiss.setIcon(icon10)
         self.actionweiss.setObjectName("actionweiss")
-        self.actionDuenn = QtWidgets.QAction(MainWindow)
+        self.actionDuenn = QtWidgets.QAction(View)
         icon11 = QtGui.QIcon()
         icon11.addPixmap(QtGui.QPixmap(str(iconsdir/"duenn.PNG")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actionDuenn.setIcon(icon11)
         self.actionDuenn.setObjectName("actionDuenn")
-        self.actionMittel = QtWidgets.QAction(MainWindow)
+        self.actionMittel = QtWidgets.QAction(View)
         icon12 = QtGui.QIcon()
         icon12.addPixmap(QtGui.QPixmap(str(iconsdir/"mittel.PNG")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actionMittel.setIcon(icon12)
         self.actionMittel.setObjectName("actionMittel")
-        self.actionDick = QtWidgets.QAction(MainWindow)
+        self.actionDick = QtWidgets.QAction(View)
         icon13 = QtGui.QIcon()
         icon13.addPixmap(QtGui.QPixmap(str(iconsdir/"dick.PNG")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actionDick.setIcon(icon13)
         self.actionDick.setObjectName("actionDick")
-        self.actionschwarz = QtWidgets.QAction(MainWindow)
+        self.actionschwarz = QtWidgets.QAction(View)
         icon14 = QtGui.QIcon()
         icon14.addPixmap(QtGui.QPixmap(str(iconsdir/"schwarz.PNG")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actionschwarz.setIcon(icon14)
@@ -138,48 +140,50 @@ class View(object):
         self.menuFarbe.addAction(self.actiongelb)
         self.menuFarbe.addAction(self.actionweiss)
         self.menuFarbe.addAction(self.actionschwarz)
-        self.menuStrickdicke.addAction(self.actionDuenn)
-        self.menuStrickdicke.addAction(self.actionMittel)
-        self.menuStrickdicke.addAction(self.actionDick)
+        self.menuStrichdicke.addAction(self.actionDuenn)
+        self.menuStrichdicke.addAction(self.actionMittel)
+        self.menuStrichdicke.addAction(self.actionDick)
         self.menubar.addAction(self.menuOptionen.menuAction())
         self.menubar.addAction(self.menuZeichnen.menuAction())
         self.menubar.addAction(self.menuRadieren.menuAction())
         self.menubar.addAction(self.menuFarbe.menuAction())
-        self.menubar.addAction(self.menuStrickdicke.menuAction())
+        self.menubar.addAction(self.menuStrichdicke.menuAction())
         self.menubar.addAction(self.menuUndo.menuAction())
         self.menubar.addAction(self.menuRedo.menuAction())
 
-        self.retranslateUi(MainWindow)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        self.retranslateUi(View)
+        QtCore.QMetaObject.connectSlotsByName(View)
 
-    def retranslateUi(self, MainWindow):
+    def retranslateUi(self, View):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.menuOptionen.setTitle(_translate("MainWindow", "Optionen"))
-        self.menuZeichnen.setTitle(_translate("MainWindow", "Zeichnen"))
-        self.menuRadieren.setTitle(_translate("MainWindow", "Radieren"))
-        self.menuFarbe.setTitle(_translate("MainWindow", "Farbe"))
-        self.menuStrickdicke.setTitle(_translate("MainWindow", "Strickdicke"))
-        self.menuUndo.setTitle(_translate("MainWindow", "Undo"))
-        self.menuRedo.setTitle(_translate("MainWindow", "Redo"))
-        self.actionNeu.setText(_translate("MainWindow", "Neu"))
-        self.actionOeffnen.setText(_translate("MainWindow", "Öffnen"))
-        self.actionSpeichern.setText(_translate("MainWindow", "Speichern"))
-        self.actionExportieren.setText(_translate("MainWindow", "Exportieren"))
-        self.actionKalibrieren.setText(_translate("MainWindow", "Kalibrieren"))
-        self.actionHilfe.setText(_translate("MainWindow", "Hilfe"))
-        self.actionrot.setText(_translate("MainWindow", "rot"))
-        self.actiongruen.setText(_translate("MainWindow", "grün"))
-        self.actiongruen.setToolTip(_translate("MainWindow", "grün"))
-        self.actionblau.setText(_translate("MainWindow", "blau"))
-        self.actiongelb.setText(_translate("MainWindow", "gelb"))
-        self.actionweiss.setText(_translate("MainWindow", "weiß"))
-        self.actionDuenn.setText(_translate("MainWindow", "Dünn"))
-        self.actionMittel.setText(_translate("MainWindow", "Mittel"))
-        self.actionDick.setText(_translate("MainWindow", "Dick"))
-        self.actionschwarz.setText(_translate("MainWindow", "schwarz"))
+        View.setWindowTitle(_translate("View", "View"))
+        self.menuOptionen.setTitle(_translate("View", "Optionen"))
+        self.menuZeichnen.setTitle(_translate("View", "Zeichnen"))
+        self.menuRadieren.setTitle(_translate("View", "Radieren"))
+        self.menuFarbe.setTitle(_translate("View", "Farbe"))
+        self.menuStrichdicke.setTitle(_translate("View", "Strichdicke"))
+        self.menuUndo.setTitle(_translate("View", "Undo"))
+        self.menuRedo.setTitle(_translate("View", "Redo"))
+        self.actionNeu.setText(_translate("View", "Neu"))
+        self.actionOeffnen.setText(_translate("View", "Öffnen"))
+        self.actionSpeichern.setText(_translate("View", "Speichern"))
+        self.actionExportieren.setText(_translate("View", "Exportieren"))
+        self.actionKalibrieren.setText(_translate("View", "Kalibrieren"))
+        self.actionHilfe.setText(_translate("View", "Hilfe"))
+        self.actionrot.setText(_translate("View", "rot"))
+        self.actiongruen.setText(_translate("View", "grün"))
+        self.actiongruen.setToolTip(_translate("View", "grün"))
+        self.actionblau.setText(_translate("View", "blau"))
+        self.actiongelb.setText(_translate("View", "gelb"))
+        self.actionweiss.setText(_translate("View", "weiß"))
+        self.actionDuenn.setText(_translate("View", "Dünn"))
+        self.actionMittel.setText(_translate("View", "Mittel"))
+        self.actionDick.setText(_translate("View", "Dick"))
+        self.actionschwarz.setText(_translate("View", "schwarz"))
 
 # -------------------------------------Getter---------------------------
+    def getGraphicsView(self):
+        return self.graphicsView
 
     def getbtnOptionen(self):
         return self.menuOptionen
@@ -229,8 +233,8 @@ class View(object):
     def getbtnSchwarz(self):
         return self.actionschwarz
 
-    def getbtnStrickdicke(self):
-        return self.menuStrickdicke
+    def getbtnStrichdicke(self):
+        return self.menuStrichdicke
 
     def getbtnDick(self):
         return self.actionDick
