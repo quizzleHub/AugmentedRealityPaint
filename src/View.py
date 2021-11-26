@@ -31,6 +31,7 @@ class View(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1232, 22))
+        self.menubar.setNativeMenuBar(False)
         self.menubar.setObjectName("menubar")
         self.menuOptionen = QtWidgets.QMenu(self.menubar)
         self.menuOptionen.setObjectName("menuOptionen")
@@ -245,5 +246,8 @@ class View(object):
 
     def getbtnRedo(self):
         return self.menuRedo
+    
+    def getgraphicsView(self):
+        return self.graphicsView
 
 
