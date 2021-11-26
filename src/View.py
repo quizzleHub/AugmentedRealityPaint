@@ -18,7 +18,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from pathlib import Path
 
-class Ui_MainWindow(object):
+class View(object):
     def setupUi(self, View):
         cwd = Path.cwd()
         rootdir = cwd.parent.absolute()
