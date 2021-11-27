@@ -27,7 +27,7 @@ class View(object):
         View.resize(1232, 768)
         self.centralwidget = QtWidgets.QWidget(View)
         self.centralwidget.setObjectName("centralwidget")
-        self.graphicsView = QtWidgets.QGraphicsView(self.centralwidget)
+        self.graphicsView = QtWidgets.QLabel(self.centralwidget)
         self.graphicsView.setGeometry(QtCore.QRect(0, 0, 1231, 721))
         self.graphicsView.setObjectName("graphicsView")
         View.setCentralWidget(self.centralwidget)
