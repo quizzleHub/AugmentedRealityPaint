@@ -1,18 +1,17 @@
-from View import View
+from Main_view import MainView
 from CommandInvoker import CommandInvoker
 from commands.CmdAction import CmdAction
 from commands.CmdUndo import CmdUndo
 from commands.CmdRedo import CmdRedo
+from PyQt5.QtCore import QObject, pyqtSlot
 
 
-
-
-class BtnController: #windowListener, ActionListener
+class BtnController(QObject): #windowListener, ActionListener
     
-    def __init__(self, view, cvModel, app) -> None:
+    def __init__(self, view, cvModel):
+        super().__init__()
         self.view = view
         self.cvModel = cvModel
-        self.app = app
         self.commandInvoker = CommandInvoker()
         
     def registerEvents(self):
@@ -22,17 +21,22 @@ class BtnController: #windowListener, ActionListener
         btnRedo = self.view.getbtnRedo()                #get btnRedo
 
 
-        #register "pressed" event to actionPerformed for all buttons
+        #custom events
+        self.view.keyPressed.connect(self.keyPressEvent)
+        self.view.quitApp.connect(self.quitApp)
+        self.view.windowResize.connect(self.windowResize)
+        self.view.windowHide.connect(self.windowHide)
+        self.view.windowActivate.connect(self.windowActivate)
+
+
+        #register event to actionPerformed for all buttons
         btnRot.triggered.connect(self.actionPerformed) 
         btnUndo.triggered.connect(self.actionPerformed)
         btnRedo.triggered.connect(self.actionPerformed)
 
-        self.app.aboutToQuit.connect(self.onExit)   #closing app
-        
 
 
-
-        
+    
 
         print("registered events in BtnController")
         
@@ -56,10 +60,23 @@ class BtnController: #windowListener, ActionListener
         else:
             self.commandInvoker.executeCommand(eventSource)
 
-    def onExit(self):
+    def keyPressEvent(self):
+            print("keyPressEvent")
+
+
+    def quitApp(self):
         #collect all threads
         self.cvModel.stop()
         print("Exit Clean Up")
+
+    def windowResize(self):
+        print("window resized")
+
+    def windowHide(self):
+        print("window hide event")
+    
+    def windowActivate(self):
+        print("Window activate event")
 
 
 

@@ -20,6 +20,8 @@ from pathlib import Path
 
 class View(object):
     def setupUi(self, View):
+
+
         cwd = Path.cwd()
         rootdir = cwd.parent.absolute()
         iconsdir = rootdir / "icons"
@@ -27,9 +29,11 @@ class View(object):
         View.resize(1232, 768)
         self.centralwidget = QtWidgets.QWidget(View)
         self.centralwidget.setObjectName("centralwidget")
-        self.graphicsView = QtWidgets.QGraphicsView(self.centralwidget)
+        self.graphicsView = QtWidgets.QLabel(self.centralwidget)
         self.graphicsView.setGeometry(QtCore.QRect(0, 0, 1231, 721))
+        self.graphicsView.setText("")
         self.graphicsView.setObjectName("graphicsView")
+        self.graphicsView.setPixmap(QtGui.QPixmap(str(iconsdir/"radierer.PNG")))
         View.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(View)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1232, 22))
@@ -181,77 +185,6 @@ class View(object):
         self.actionDick.setText(_translate("View", "Dick"))
         self.actionschwarz.setText(_translate("View", "schwarz"))
 
-# -------------------------------------Getter---------------------------
-    def getGraphicsView(self):
-        return self.graphicsView
 
-    def getbtnOptionen(self):
-        return self.menuOptionen
-
-    def getbtnNeu(self):
-        return self.actionNeu
-
-    def getbtnOeffnen(self):
-        return self.actionOeffnen
-
-    def getbtnSpeichern(self):
-        return self.actionSpeichern
-
-    def getbtnExportieren(self):
-        return self.actionExportieren
-
-    def getbtnKalibrieren(self):
-        return self.actionKalibrieren
-
-    def getbtnHilfe(self):
-        return self.actionHilfe
-
-    def getbtnZeichnen(self):
-        return self.menuZeichnen
-
-    def getbtnRadieren(self):
-        return self.menuRadieren
-
-    def getbtnFarbe(self):
-        return self.menuFarbe
-
-    def getbtnRot(self):
-        return self.actionrot
-
-    def getbtnGruen(self):
-        return self.actiongruen
-
-    def getbtnBlau(self):
-        return self.actionblau
-
-    def getbtnGelb(self):
-        return self.actiongelb
-
-    def getbtnWeiss(self):
-        return self.actionweiss
-
-    def getbtnSchwarz(self):
-        return self.actionschwarz
-
-    def getbtnStrichdicke(self):
-        return self.menuStrichdicke
-
-    def getbtnDick(self):
-        return self.actionDick
-
-    def getbtnMittel(self):
-        return self.actionMittel
-
-    def getbtnDuenn(self):
-        return self.actionDuenn
-
-    def getbtnUndo(self):
-        return self.menuUndo
-
-    def getbtnRedo(self):
-        return self.menuRedo
-    
-    def getgraphicsView(self):
-        return self.graphicsView
 
 
