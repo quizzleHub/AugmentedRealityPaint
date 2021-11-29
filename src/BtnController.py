@@ -13,12 +13,57 @@ class BtnController(QObject): #windowListener, ActionListener
         self.view = view
         self.cvModel = cvModel
         self.commandInvoker = CommandInvoker()
+
+        #all buttons
+                #get buttons
+        self.btnNeu = self.view.getbtnNeu()
+        self.btnOeffnen = self.view.getbtnOeffnen()
+        self.btnSpeichern = self.view.getbtnSpeichern()
+        self.btnExportieren = self.view.getbtnExportieren()
+        self.btnKallibrieren = self.view.getbtnKalibrieren()
+        self.btnHilfe = self.view.getbtnHilfe()
+        self.btnZeichnen = self.view.getbtnHilfe()
+        self.btnRadieren = self.view.getbtnRadieren()
+        self.btnRot = self.view.getbtnRot()
+        self.btnGruen = self.view.getbtnGruen()
+        self.btnBlau = self.view.getbtnBlau()
+        self.btnGelb = self.view.getbtnGelb()
+        self.btnWeiss = self.view.getbtnWeiss()
+        self.btnSchwarz = self.view.getbtnSchwarz()
+        self.btnDick = self.view.getbtnDick()
+        self.btnMittel = self.view.getbtnMittel()
+        self.btnDuenn = self.view.getbtnDuenn()
+        self.btnUndo = self.view.getbtnUndo()
+        self.btnRedo = self.view.getbtnRedo()
+        
+        #all commands
+        self.cmdAction = CmdAction()
+        self.cmdRedo = CmdRedo()
+        self.cmdUndo = CmdUndo()
         
     def registerEvents(self):
 
-        btnRot = self.view.getbtnRot()
-        btnUndo = self.view.getbtnUndo()                #get btnUndo
-        btnRedo = self.view.getbtnRedo()                #get btnRedo
+
+
+
+        #register event to actionPerformed for all buttons
+        self.btnNeu.triggered.connect(self.actionPerformed)
+        self.btnOeffnen.triggered.connect(self.actionPerformed) 
+        self.btnSpeichern.triggered.connect(self.actionPerformed) 
+        self.btnExportieren.triggered.connect(self.actionPerformed) 
+        self.btnKallibrieren.triggered.connect(self.actionPerformed) 
+        self.btnHilfe.triggered.connect(self.actionPerformed) 
+        self.btnZeichnen.triggered.connect(self.actionPerformed) 
+        self.btnRadieren.triggered.connect(self.actionPerformed) 
+        self.btnRot.triggered.connect(self.actionPerformed) 
+        self.btnGruen.triggered.connect(self.actionPerformed) 
+        self.btnBlau.triggered.connect(self.actionPerformed) 
+        self.btnGelb.triggered.connect(self.actionPerformed) 
+        self.btnWeiss.triggered.connect(self.actionPerformed) 
+        self.btnSchwarz.triggered.connect(self.actionPerformed) 
+        self.btnDick.triggered.connect(self.actionPerformed) 
+        self.btnMittel.triggered.connect(self.actionPerformed) 
+        self.btnDuenn.triggered.connect(self.actionPerformed) 
 
 
         #custom events
@@ -27,42 +72,54 @@ class BtnController(QObject): #windowListener, ActionListener
         self.view.windowResize.connect(self.windowResize)
         self.view.windowHide.connect(self.windowHide)
         self.view.windowActivate.connect(self.windowActivate)
-
-
-        #register event to actionPerformed for all buttons
-        btnRot.triggered.connect(self.actionPerformed) 
-        btnUndo.triggered.connect(self.actionPerformed)
-        btnRedo.triggered.connect(self.actionPerformed)
-
-
-
+        self.btnUndo.triggered.connect(self.undo)
+        self.btnRedo.triggered.connect(self.redo)
     
 
         print("registered events in BtnController")
         
 
     def registerCommands(self):
-        self.commandInvoker.addCommand(self.view.getbtnRot(), CmdAction())   #register btnButton1 to CmdSetStrokeWeight -> Pressing Button1 will execute TestCommand          
-        self.commandInvoker.addCommand(self.view.getbtnUndo(), CmdUndo())       #Was wenn zwei Buttons den selben Command aufrufen sollen? Evt Problem. ggfs alle commands zentral instanzieren
-        self.commandInvoker.addCommand(self.view.getbtnRedo(), CmdRedo())
+        #register buttons to commands
+        self.commandInvoker.addCommand(self.btnNeu, self.cmdAction)
+        self.commandInvoker.addCommand(self.btnOeffnen, self.cmdAction)
+        self.commandInvoker.addCommand(self.btnSpeichern, self.cmdAction)
+        self.commandInvoker.addCommand(self.btnExportieren, self.cmdAction)
+        self.commandInvoker.addCommand(self.btnKallibrieren, self.cmdAction)
+        self.commandInvoker.addCommand(self.btnHilfe, self.cmdAction)
+        self.commandInvoker.addCommand(self.btnZeichnen, self.cmdAction)
+        self.commandInvoker.addCommand(self.btnRadieren, self.cmdAction)
+        self.commandInvoker.addCommand(self.btnRot, self.cmdAction)
+        self.commandInvoker.addCommand(self.btnGruen, self.cmdAction)
+        self.commandInvoker.addCommand(self.btnBlau, self.cmdAction)
+        self.commandInvoker.addCommand(self.btnGelb, self.cmdAction)
+        self.commandInvoker.addCommand(self.btnWeiss, self.cmdAction)
+        self.commandInvoker.addCommand(self.btnSchwarz, self.cmdAction)
+        self.commandInvoker.addCommand(self.btnDick, self.cmdAction)
+        self.commandInvoker.addCommand(self.btnMittel, self.cmdAction)
+        self.commandInvoker.addCommand(self.btnDuenn, self.cmdAction)
+
+        self.commandInvoker.addCommand(self.btnUndo, self.cmdUndo)    
+        self.commandInvoker.addCommand(self.btnRedo, self.cmdRedo)
 
         print("registerd Commands in BtnController")
 
 
     def actionPerformed(self):
-        eventSource = self.app.sender()
+        eventSource = self.sender()
         print("trying to perform action: " + eventSource.text() + "_" + str(id(eventSource)))
+        self.commandInvoker.executeCommand(eventSource)
 
-        if (eventSource == self.view.getbtnUndo()):
-            self.commandInvoker.undoCommand()
-        elif(eventSource == self.view.getbtnRedo()):
-            self.commandInvoker.redoCommand()
-        else:
-            self.commandInvoker.executeCommand(eventSource)
+
+
+    def undo(self):
+        self.commandInvoker.undoCommand()
+
+    def redo(self):
+        self.commandInvoker.redoCommand()
 
     def keyPressEvent(self):
             print("keyPressEvent")
-
 
     def quitApp(self):
         #collect all threads

@@ -12,7 +12,7 @@ import sys
 from PyQt5.QtWidgets import QApplication
 
 
-
+#https://stackoverflow.com/questions/26698628/mvc-design-with-qt-designer-and-pyqt-pyside
 class Start(QApplication):
 
     def __init__(self, sys_argv):

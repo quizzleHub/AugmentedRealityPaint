@@ -12,33 +12,29 @@
 # Neue View in Projekt einpflegen:
 #   1. form.ui mit designer erstellen
 #   2. pyuic5 -x form.ui -o form.py
-#   3. Klassenname in "View" ändern
-#   4. Alles nach und inklusive "if __name__ == "__main__": löschen
+
+
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from pathlib import Path
 
-class Ui_MainWindow(object):
+
+class Ui_View(object):
     def setupUi(self, View):
-
-
-        cwd = Path.cwd()
-        rootdir = cwd.parent.absolute()
-        iconsdir = rootdir / "icons"
+        iconsdir = Path.cwd().parent.absolute() / "icons"
         View.setObjectName("View")
         View.resize(1232, 768)
         self.centralwidget = QtWidgets.QWidget(View)
         self.centralwidget.setObjectName("centralwidget")
-        self.graphicsView = QtWidgets.QLabel(self.centralwidget)
-        self.graphicsView.setGeometry(QtCore.QRect(0, 0, 1231, 721))
-        self.graphicsView.setText("")
-        self.graphicsView.setObjectName("graphicsView")
-        self.graphicsView.setPixmap(QtGui.QPixmap(str(iconsdir/"radierer.PNG")))
+        self.GraphicsView = QtWidgets.QLabel(self.centralwidget)
+        self.GraphicsView.setGeometry(QtCore.QRect(-1, -52, 1231, 771))
+        self.GraphicsView.setText("")
+        self.GraphicsView.setObjectName("GraphicsView")
         View.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(View)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1232, 22))
-        self.menubar.setNativeMenuBar(False)
         self.menubar.setObjectName("menubar")
+        self.menubar.setNativeMenuBar(False)
         self.menuOptionen = QtWidgets.QMenu(self.menubar)
         self.menuOptionen.setObjectName("menuOptionen")
         self.menuZeichnen = QtWidgets.QMenu(self.menubar)
@@ -58,7 +54,7 @@ class Ui_MainWindow(object):
         self.menuFarbe.setObjectName("menuFarbe")
         self.menuStrichdicke = QtWidgets.QMenu(self.menubar)
         icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap(str(iconsdir / "Strichdicke.PNG")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon3.addPixmap(QtGui.QPixmap(str(iconsdir/"Strichdicke.PNG")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.menuStrichdicke.setIcon(icon3)
         self.menuStrichdicke.setObjectName("menuStrichdicke")
         self.menuUndo = QtWidgets.QMenu(self.menubar)
@@ -114,17 +110,17 @@ class Ui_MainWindow(object):
         self.actionweiss.setObjectName("actionweiss")
         self.actionDuenn = QtWidgets.QAction(View)
         icon11 = QtGui.QIcon()
-        icon11.addPixmap(QtGui.QPixmap(str(iconsdir/"duenn.PNG")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon11.addPixmap(QtGui.QPixmap(str(iconsdir/"icons/duenn.PNG")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actionDuenn.setIcon(icon11)
         self.actionDuenn.setObjectName("actionDuenn")
         self.actionMittel = QtWidgets.QAction(View)
         icon12 = QtGui.QIcon()
-        icon12.addPixmap(QtGui.QPixmap(str(iconsdir/"mittel.PNG")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon12.addPixmap(QtGui.QPixmap(str(iconsdir/"icons/mittel.PNG")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actionMittel.setIcon(icon12)
         self.actionMittel.setObjectName("actionMittel")
         self.actionDick = QtWidgets.QAction(View)
         icon13 = QtGui.QIcon()
-        icon13.addPixmap(QtGui.QPixmap(str(iconsdir/"dick.PNG")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon13.addPixmap(QtGui.QPixmap(str(iconsdir/"icons/dick.PNG")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actionDick.setIcon(icon13)
         self.actionDick.setObjectName("actionDick")
         self.actionschwarz = QtWidgets.QAction(View)
@@ -184,7 +180,5 @@ class Ui_MainWindow(object):
         self.actionMittel.setText(_translate("View", "Mittel"))
         self.actionDick.setText(_translate("View", "Dick"))
         self.actionschwarz.setText(_translate("View", "schwarz"))
-
-
 
 

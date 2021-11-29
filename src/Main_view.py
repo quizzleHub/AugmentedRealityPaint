@@ -9,10 +9,11 @@ The view class(es) should contain the minimal code required to connect to the si
 
 
 
+from PyQt5 import QtCore
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.QtCore import pyqtSlot, QEvent, pyqtSignal
 from PyQt5.QtGui import QKeyEvent
-from View_ui_rcs import Ui_MainWindow
+from View_ui_rcs import Ui_View
 
 
 
@@ -28,12 +29,14 @@ class MainView(QMainWindow):
     windowHide = pyqtSignal(QEvent)
     windowActivate = pyqtSignal(QEvent)
 
+
     def __init__(self):
         super().__init__()
 
         
-        self._ui = Ui_MainWindow()
+        self._ui = Ui_View()
         self._ui.setupUi(self)
+
 
     #_____emit events______
     # all possible events: https://doc.qt.io/qt-5/qevent.html
@@ -74,11 +77,8 @@ class MainView(QMainWindow):
 
     #_____Getter______
     def getGraphicsView(self):
-        return self._ui.graphicsView
+        return self._ui.GraphicsView
 
-
-    def getGraphicsView(self):
-        return self._ui.graphicsView
 
     def getbtnOptionen(self):
         return self._ui.menuOptionen
