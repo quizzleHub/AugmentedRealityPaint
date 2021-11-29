@@ -6,4 +6,6 @@ class GrafikModel():
         self.points = [] 
     
     def recPoint(self, point):
-        self.points.append(point)
+        #REMOVE OLD POINTS!!!! -> malloc!!!
+        #self.points.append(point)
+        pass
