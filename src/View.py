@@ -18,8 +18,10 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from pathlib import Path
 
-class Ui_MainWindow(object):
+class View(object):
     def setupUi(self, View):
+
+
         cwd = Path.cwd()
         rootdir = cwd.parent.absolute()
         iconsdir = rootdir / "icons"
@@ -27,9 +29,11 @@ class Ui_MainWindow(object):
         View.resize(1232, 768)
         self.centralwidget = QtWidgets.QWidget(View)
         self.centralwidget.setObjectName("centralwidget")
-        self.graphicsView = QtWidgets.QGraphicsView(self.centralwidget)
+        self.graphicsView = QtWidgets.QLabel(self.centralwidget)
         self.graphicsView.setGeometry(QtCore.QRect(0, 0, 1231, 721))
+        self.graphicsView.setText("")
         self.graphicsView.setObjectName("graphicsView")
+        self.graphicsView.setPixmap(QtGui.QPixmap(str(iconsdir/"radierer.PNG")))
         View.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(View)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1232, 22))
@@ -181,6 +185,7 @@ class Ui_MainWindow(object):
         self.actionDick.setText(_translate("View", "Dick"))
         self.actionschwarz.setText(_translate("View", "schwarz"))
 
+
 # -------------------------------------Getter---------------------------
     def getGraphicsView(self):
         return self.graphicsView
@@ -251,7 +256,9 @@ class Ui_MainWindow(object):
     def getbtnRedo(self):
         return self.menuRedo
     
-    def getgraphicsView(self):
-        return self.graphicsView
+    def getCentralWidget(self):
+        return self.centralwidget
+    
+
 
 

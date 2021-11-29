@@ -3,16 +3,18 @@ from CommandInvoker import CommandInvoker
 from commands.CmdAction import CmdAction
 from commands.CmdUndo import CmdUndo
 from commands.CmdRedo import CmdRedo
+from PyQt5 import QtCore
+from PyQt5.QtWidgets import (QApplication, QWidget)
 
 
 
-
-class BtnController: #windowListener, ActionListener
+class BtnController(): #windowListener, ActionListener
     
-    def __init__(self, view, cvModel, app) -> None:
+    def __init__(self, view, cvModel, app, centralWidget):
         self.view = view
         self.cvModel = cvModel
         self.app = app
+        self.centralWidget = centralWidget
         self.commandInvoker = CommandInvoker()
         
     def registerEvents(self):
@@ -28,6 +30,8 @@ class BtnController: #windowListener, ActionListener
         btnRedo.triggered.connect(self.actionPerformed)
 
         self.app.aboutToQuit.connect(self.onExit)   #closing app
+
+
         
 
 
@@ -55,6 +59,10 @@ class BtnController: #windowListener, ActionListener
             self.commandInvoker.redoCommand()
         else:
             self.commandInvoker.executeCommand(eventSource)
+
+    def keyPressEvent(self):
+            print("butttonnn")
+
 
     def onExit(self):
         #collect all threads

@@ -6,10 +6,11 @@ from threading import Thread
 
 class CVModel(Thread):
     
-    def __init__(self, grafikModel):
+    def __init__(self, grafikModel, grafikAdapter):
 
         self.grafikModel = grafikModel
         self.runningFlag = True
+        self.grafikAdapter = grafikAdapter
 
         #color range of interest (blue as standart)
         self.colLower = np.array([100, 60, 60])
@@ -34,6 +35,7 @@ class CVModel(Thread):
         # Blue, Green, Red, Yellow respectively
         self.colors = [(255, 0, 0), (0, 255, 0), (0, 0, 255), (0, 255, 255)] 
         self.colorIndex = 0
+        
 
         # Create a blank white image
         self.paintWindow = np.zeros((471,636,3)) + 255
@@ -52,6 +54,7 @@ class CVModel(Thread):
             
             # Grab the current paintWindow
             (grabbed, frame) = self.camera.read()
+            self.grafikAdapter.recCamImg(frame) #send webCamFrame to grafikAdapter
             frame = cv2.flip(frame, 1)
             hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 

@@ -5,13 +5,14 @@ from View import View
 from GrafikView import GrafikView
 from BtnController import BtnController
 from GrafikController import GrafikController
+from GrafikAdapter import GrafikAdapter
 from PyQt5 import QtCore, QtGui, QtWidgets
 import sys
 
 
 
 
-class Start:
+class Start():
 
     def run(self):
         #qt stuff
@@ -22,11 +23,13 @@ class Start:
         self.view = View()
         self.view.setupUi(MainWindow)
 
-        self.grafikView = GrafikView()
-
+        self.grafikView = GrafikView(self.view.getGraphicsView(), app)
         self.grafikModel = GrafikModel()
-        self.cvModel = CVModel(self.grafikModel)
-        self.btnController = BtnController(self.view, self.cvModel, app)
+        
+
+        self.grafikAdapter = GrafikAdapter(self.grafikView, self.grafikModel)
+        self.cvModel = CVModel(self.grafikModel, self.grafikAdapter)
+        self.btnController = BtnController(self.view, self.cvModel, app, self.view.getCentralWidget())
         self.grafikController = GrafikController(self.grafikView, self.cvModel)
 
     
