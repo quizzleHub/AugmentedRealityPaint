@@ -1,35 +1,34 @@
 
 from CVModel import CVModel
 from GrafikModel import GrafikModel
-from View import View
+from Main_view import MainView
+
 from GrafikView import GrafikView
 from BtnController import BtnController
 from GrafikController import GrafikController
 from GrafikAdapter import GrafikAdapter
 from PyQt5 import QtCore, QtGui, QtWidgets
 import sys
+from PyQt5.QtWidgets import QApplication
 
 
 
+class Start(QApplication):
 
-class Start():
+    def __init__(self, sys_argv):
+        super(Start, self).__init__(sys_argv)
 
-    def run(self):
-        #qt stuff
-        app = QtWidgets.QApplication(sys.argv)
-        MainWindow = QtWidgets.QMainWindow()
 
         #initiate objects
-        self.view = View()
-        self.view.setupUi(MainWindow)
+        self.main_view = MainView()
 
-        self.grafikView = GrafikView(self.view.getGraphicsView(), app)
+        self.grafikView = GrafikView(self.main_view.getGraphicsView())
         self.grafikModel = GrafikModel()
         
 
         self.grafikAdapter = GrafikAdapter(self.grafikView, self.grafikModel)
         self.cvModel = CVModel(self.grafikModel, self.grafikAdapter)
-        self.btnController = BtnController(self.view, self.cvModel, app, self.view.getCentralWidget())
+        self.btnController = BtnController(self.main_view, self.cvModel)
         self.grafikController = GrafikController(self.grafikView, self.cvModel)
 
     
@@ -41,11 +40,16 @@ class Start():
         #register commands
         self.btnController.registerCommands()
 
-        MainWindow.show()
+        self.main_view.show()
         self.cvModel.start()
-        sys.exit(app.exec_())
 
 
+
+
+
+if __name__ == '__main__':
+    app = Start(sys.argv)
+    sys.exit(app.exec_())
 
 
 

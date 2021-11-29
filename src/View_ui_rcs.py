@@ -18,7 +18,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from pathlib import Path
 
-class View(object):
+class Ui_MainWindow(object):
     def setupUi(self, View):
 
 
@@ -185,80 +185,6 @@ class View(object):
         self.actionDick.setText(_translate("View", "Dick"))
         self.actionschwarz.setText(_translate("View", "schwarz"))
 
-
-# -------------------------------------Getter---------------------------
-    def getGraphicsView(self):
-        return self.graphicsView
-
-    def getbtnOptionen(self):
-        return self.menuOptionen
-
-    def getbtnNeu(self):
-        return self.actionNeu
-
-    def getbtnOeffnen(self):
-        return self.actionOeffnen
-
-    def getbtnSpeichern(self):
-        return self.actionSpeichern
-
-    def getbtnExportieren(self):
-        return self.actionExportieren
-
-    def getbtnKalibrieren(self):
-        return self.actionKalibrieren
-
-    def getbtnHilfe(self):
-        return self.actionHilfe
-
-    def getbtnZeichnen(self):
-        return self.menuZeichnen
-
-    def getbtnRadieren(self):
-        return self.menuRadieren
-
-    def getbtnFarbe(self):
-        return self.menuFarbe
-
-    def getbtnRot(self):
-        return self.actionrot
-
-    def getbtnGruen(self):
-        return self.actiongruen
-
-    def getbtnBlau(self):
-        return self.actionblau
-
-    def getbtnGelb(self):
-        return self.actiongelb
-
-    def getbtnWeiss(self):
-        return self.actionweiss
-
-    def getbtnSchwarz(self):
-        return self.actionschwarz
-
-    def getbtnStrichdicke(self):
-        return self.menuStrichdicke
-
-    def getbtnDick(self):
-        return self.actionDick
-
-    def getbtnMittel(self):
-        return self.actionMittel
-
-    def getbtnDuenn(self):
-        return self.actionDuenn
-
-    def getbtnUndo(self):
-        return self.menuUndo
-
-    def getbtnRedo(self):
-        return self.menuRedo
-    
-    def getCentralWidget(self):
-        return self.centralwidget
-    
 
 
 

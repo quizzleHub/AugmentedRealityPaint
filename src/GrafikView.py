@@ -6,9 +6,9 @@ from PyQt5.QtWidgets import QGraphicsScene
 
 class GrafikView:
     
-    def __init__(self, qtGrafikView, app):
+    def __init__(self, qtGrafikView):
         self.qtGrafikView = qtGrafikView
-        self.app = app
+
         self.pixmap = QPixmap()
         self.painter = QPainter(self.pixmap)
         
