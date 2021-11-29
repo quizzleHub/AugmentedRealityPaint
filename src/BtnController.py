@@ -1,8 +1,6 @@
 from Main_view import MainView
 from CommandInvoker import CommandInvoker
 from commands.CmdAction import CmdAction
-from commands.CmdUndo import CmdUndo
-from commands.CmdRedo import CmdRedo
 from PyQt5.QtCore import QObject, pyqtSlot
 
 
@@ -14,8 +12,7 @@ class BtnController(QObject): #windowListener, ActionListener
         self.cvModel = cvModel
         self.commandInvoker = CommandInvoker()
 
-        #all buttons
-                #get buttons
+        #get buttons
         self.btnNeu = self.view.getbtnNeu()
         self.btnOeffnen = self.view.getbtnOeffnen()
         self.btnSpeichern = self.view.getbtnSpeichern()
@@ -38,8 +35,9 @@ class BtnController(QObject): #windowListener, ActionListener
         
         #all commands
         self.cmdAction = CmdAction()
-        self.cmdRedo = CmdRedo()
-        self.cmdUndo = CmdUndo()
+        #self.cmdRedo = CmdRedo()
+        #self.cmdUndo = CmdUndo()
+        #etc...
         
     def registerEvents(self):
 
@@ -71,7 +69,7 @@ class BtnController(QObject): #windowListener, ActionListener
         self.view.quitApp.connect(self.quitApp)
         self.view.windowResize.connect(self.windowResize)
         self.view.windowHide.connect(self.windowHide)
-        self.view.windowActivate.connect(self.windowActivate)
+        #self.view.windowActivate.connect(self.windowActivate)
         self.btnUndo.triggered.connect(self.undo)
         self.btnRedo.triggered.connect(self.redo)
     
@@ -99,8 +97,8 @@ class BtnController(QObject): #windowListener, ActionListener
         self.commandInvoker.addCommand(self.btnMittel, self.cmdAction)
         self.commandInvoker.addCommand(self.btnDuenn, self.cmdAction)
 
-        self.commandInvoker.addCommand(self.btnUndo, self.cmdUndo)    
-        self.commandInvoker.addCommand(self.btnRedo, self.cmdRedo)
+        #self.commandInvoker.addCommand(self.btnUndo, self.cmdUndo)    
+        #self.commandInvoker.addCommand(self.btnRedo, self.cmdRedo)
 
         print("registerd Commands in BtnController")
 
@@ -109,9 +107,7 @@ class BtnController(QObject): #windowListener, ActionListener
         eventSource = self.sender()
         print("trying to perform action: " + eventSource.text() + "_" + str(id(eventSource)))
         self.commandInvoker.executeCommand(eventSource)
-
-
-
+        
     def undo(self):
         self.commandInvoker.undoCommand()
 
@@ -119,7 +115,7 @@ class BtnController(QObject): #windowListener, ActionListener
         self.commandInvoker.redoCommand()
 
     def keyPressEvent(self):
-            print("keyPressEvent")
+        print("keyPressEvent")
 
     def quitApp(self):
         #collect all threads

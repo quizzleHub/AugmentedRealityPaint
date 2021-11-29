@@ -27,7 +27,9 @@ class MainView(QMainWindow):
     quitApp = pyqtSignal(QEvent)
     windowResize = pyqtSignal(QEvent)
     windowHide = pyqtSignal(QEvent)
-    windowActivate = pyqtSignal(QEvent)
+    #windowActivate = pyqtSignal(QEvent)
+    #redoEvent = pyqtSignal(QEvent)
+    #undoEvent = pyqtSignal(QEvent)
 
 
     def __init__(self):
@@ -36,6 +38,10 @@ class MainView(QMainWindow):
         
         self._ui = Ui_View()
         self._ui.setupUi(self)
+        #connect redo/undo?
+
+        
+        
 
 
     #_____emit events______
@@ -56,6 +62,7 @@ class MainView(QMainWindow):
         super(MainView, self).hideEvent(event)
         self.windowHide.emit(event)
     
+    """
     def changeEvent(self, event):
         #______FUNZT nicht________!
         # hex codes for events
@@ -72,7 +79,7 @@ class MainView(QMainWindow):
             print("win fullscr")
         elif(self.windowState() == 0x00000008):     #window activated (focused)
             print("win foc")
-
+    """
 
 
     #_____Getter______
