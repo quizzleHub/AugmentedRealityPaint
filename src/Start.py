@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 
 from CVModel import CVModel
 from GrafikModel import GrafikModel

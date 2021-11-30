@@ -10,7 +10,7 @@ class GrafikView:
         self.qtGrafikView = qtGrafikView
 
         self.pixmap = QPixmap()
-        self.painter = QPainter(self.pixmap)
+        #self.painter = QPainter(self.pixmap)
         
 
         """    def setPaintColor(self, qcolor):
@@ -43,3 +43,6 @@ class GrafikView:
 
         self.qtGrafikView.setPixmap(self.pixmap)
         self.qtGrafikView.update()
+
+
+
