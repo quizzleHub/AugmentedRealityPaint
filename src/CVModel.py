@@ -62,7 +62,6 @@ class CVModel(Thread):
                 cnt = sorted(cnts, key = cv2.contourArea, reverse = True)[0]
                 # Get the radius of the enclosing circle around the found contour
                 ((x, y), radius) = cv2.minEnclosingCircle(cnt)
-                print(radius)
                 # Draw the circle around the contour
                 #cv2.circle(frame, (int(x), int(y)), int(radius), (0, 255, 255), 2)
                 # Get the moments to calculate the center of the contour (in this case a circle)

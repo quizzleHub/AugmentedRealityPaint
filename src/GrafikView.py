@@ -31,8 +31,9 @@ class GrafikView:
 
     def showImg(self, img):
         
-
-        #some weird conversion from numpy array to QPixmap
+        #-----------------------------------------------#
+        # CONVERT NUMPY ARRAY FROM CV CAMERA TO PIXMAP  #
+        #-----------------------------------------------#
         height, width, channel = img.shape
         bytesPerLine = 3 * width
         qImg = QImage(img.data, width, height, bytesPerLine, QImage.Format_BGR888)
@@ -43,6 +44,11 @@ class GrafikView:
 
         self.qtGrafikView.setPixmap(self.pixmap)
         self.qtGrafikView.update()
+
+    def drawImage(self, pixmap):
+        self.qtGrafikView.setPixmap(pixmap)
+        self.qtGrafikView.update()
+
 
 
 
