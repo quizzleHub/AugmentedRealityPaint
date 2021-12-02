@@ -3,9 +3,9 @@ from CommandInterface import CommandInterface
 
 class CmdAction(CommandInterface):
 
-    def __init__(self):
-        self.view = None                
-        self.model = None
+    def __init__(self, view, model):
+        self.view = view                
+        self.model = model
         self.isUndoableBool = True
     def execute(self):
         print("Action executed")

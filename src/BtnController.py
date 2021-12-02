@@ -3,6 +3,8 @@ from CommandInvoker import CommandInvoker
 from commands.CmdAction import CmdAction
 from PyQt5.QtCore import QObject, pyqtSlot
 
+from commands.CmdSetStrokeColor import CmdSetStrokeColor
+
 
 class BtnController(QObject): #windowListener, ActionListener
     
@@ -34,7 +36,8 @@ class BtnController(QObject): #windowListener, ActionListener
         self.btnRedo = self.view.getbtnRedo()
         
         #all commands
-        self.cmdAction = CmdAction()
+        self.cmdAction = CmdAction(self.view, self.cvModel)
+        self.cmdSetStrokeColor = CmdSetStrokeColor(self.view, self.cvModel)
         #self.cmdRedo = CmdRedo()
         #self.cmdUndo = CmdUndo()
         #etc...
@@ -87,7 +90,7 @@ class BtnController(QObject): #windowListener, ActionListener
         self.commandInvoker.addCommand(self.btnHilfe, self.cmdAction)
         self.commandInvoker.addCommand(self.btnZeichnen, self.cmdAction)
         self.commandInvoker.addCommand(self.btnRadieren, self.cmdAction)
-        self.commandInvoker.addCommand(self.btnRot, self.cmdAction)
+        self.commandInvoker.addCommand(self.btnRot, self.cmdSetStrokeColor)
         self.commandInvoker.addCommand(self.btnGruen, self.cmdAction)
         self.commandInvoker.addCommand(self.btnBlau, self.cmdAction)
         self.commandInvoker.addCommand(self.btnGelb, self.cmdAction)

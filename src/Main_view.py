@@ -32,12 +32,13 @@ class MainView(QMainWindow):
     #undoEvent = pyqtSignal(QEvent)
 
 
-    def __init__(self):
+    def __init__(self, grafikView):
         super().__init__()
 
         
         self._ui = Ui_View()
         self._ui.setupUi(self)
+        self.grafikView = grafikView
         #connect redo/undo?
 
         

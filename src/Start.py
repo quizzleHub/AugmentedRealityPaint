@@ -22,9 +22,11 @@ class Start(QApplication):
 
 
         #initiate objects
-        self.main_view = MainView()
+        self.grafikView = GrafikView()
+        self.main_view = MainView(self.grafikView)
+        self.grafikView.setPanelGrafik(self.main_view.getGraphicsView())
 
-        self.grafikView = GrafikView(self.main_view.getGraphicsView())
+
         self.grafikModel = GrafikModel()
         
 

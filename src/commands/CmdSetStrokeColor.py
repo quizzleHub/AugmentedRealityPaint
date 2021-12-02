@@ -1,14 +1,15 @@
+from PyQt5.QtGui import QColor
 from CommandInterface import CommandInterface
 
 
-class CmdAction(CommandInterface):
+class CmdSetStrokeColor(CommandInterface):
 
     def __init__(self, view, model):
         self.view = view                
         self.model = model
-        self.isUndoableBool = False
+        self.isUndoableBool = True
     def execute(self):
-        print("Action executed")
+        self.view.grafikView.setStrokeColor(QColor(255,0,0))
     def redo(self):
         print("Action redone")
     def undo(self):
