@@ -20,6 +20,6 @@ class GrafikModel():
 
     # receive Point from CVModel, add new Figure and add Point to Figure
     def recPoint(self, point):
-        self.addFigure(self) # so wird jedesmal eine neue Figur erzeugt -> Falsch
-        self.addPoint(self, point)
+        self.addFigure() # so wird jedesmal eine neue Figur erzeugt -> Falsch
+        self.addPoint(point)
 
