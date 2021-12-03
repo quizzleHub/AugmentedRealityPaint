@@ -4,6 +4,7 @@ from Main_view import MainView
 
 from CommandInvoker import CommandInvoker
 from commands.CmdAction import CmdAction
+from commands.CmdCalibrateCVCol import CmdCalibrateCVCol
 from commands.CmdSetStrokeColor import CmdSetStrokeColor
 
 
@@ -39,7 +40,7 @@ class BtnController(QObject): #windowListener, ActionListener
         #all commands
         self.cmdAction = CmdAction(self.view, self.cvModel)
         self.cmdSetStrokeColor = CmdSetStrokeColor(self.view, self.cvModel)
-        self.cmdCalibrateCVCol = CmdSetStrokeColor(self.view, self.cvModel)
+        self.cmdCalibrateCVCol = CmdCalibrateCVCol(self.view, self.cvModel)
         #etc...
         
     def registerEvents(self):
