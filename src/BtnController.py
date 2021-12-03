@@ -1,8 +1,9 @@
-from Main_view import MainView
-from CommandInvoker import CommandInvoker
-from commands.CmdAction import CmdAction
 from PyQt5.QtCore import QObject, pyqtSlot
 
+from Main_view import MainView
+
+from CommandInvoker import CommandInvoker
+from commands.CmdAction import CmdAction
 from commands.CmdSetStrokeColor import CmdSetStrokeColor
 
 
@@ -38,8 +39,7 @@ class BtnController(QObject): #windowListener, ActionListener
         #all commands
         self.cmdAction = CmdAction(self.view, self.cvModel)
         self.cmdSetStrokeColor = CmdSetStrokeColor(self.view, self.cvModel)
-        #self.cmdRedo = CmdRedo()
-        #self.cmdUndo = CmdUndo()
+        self.cmdCalibrateCVCol = CmdSetStrokeColor(self.view, self.cvModel)
         #etc...
         
     def registerEvents(self):
@@ -86,7 +86,7 @@ class BtnController(QObject): #windowListener, ActionListener
         self.commandInvoker.addCommand(self.btnOeffnen, self.cmdAction)
         self.commandInvoker.addCommand(self.btnSpeichern, self.cmdAction)
         self.commandInvoker.addCommand(self.btnExportieren, self.cmdAction)
-        self.commandInvoker.addCommand(self.btnKallibrieren, self.cmdAction)
+        self.commandInvoker.addCommand(self.btnKallibrieren, self.cmdCalibrateCVCol)
         self.commandInvoker.addCommand(self.btnHilfe, self.cmdAction)
         self.commandInvoker.addCommand(self.btnZeichnen, self.cmdAction)
         self.commandInvoker.addCommand(self.btnRadieren, self.cmdAction)
