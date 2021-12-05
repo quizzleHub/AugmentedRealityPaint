@@ -17,12 +17,18 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from pathlib import Path
+from sys import platform
 
 class View(object):
     def setupUi(self, View):
         cwd = Path.cwd()
         rootdir = cwd.parent.absolute()
-        iconsdir = rootdir / "icons"
+
+        if platform == "linux" or platform == "win32":
+            iconsdir = rootdir / "icons_win"
+        else:
+            iconsdir = rootdir / "icons_mac"
+
         View.setObjectName("View")
         View.resize(1232, 768)
         self.centralwidget = QtWidgets.QWidget(View)
