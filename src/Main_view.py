@@ -28,8 +28,8 @@ class MainView(QMainWindow):
     windowResize = pyqtSignal(QEvent)
     windowHide = pyqtSignal(QEvent)
     #windowActivate = pyqtSignal(QEvent)
-    #redoEvent = pyqtSignal(QEvent)
-    #undoEvent = pyqtSignal(QEvent)
+    redoPress = pyqtSignal(QEvent)
+    undoPress = pyqtSignal(QEvent)
 
 
     def __init__(self, grafikView):
@@ -39,6 +39,9 @@ class MainView(QMainWindow):
         self._ui = Ui_View()
         self._ui.setupUi(self)
         self.grafikView = grafikView
+        #self.QPLabel.mousePressEvent = self.doSomething
+        self._ui.menuUndo.mousePressEvent = self.undoEvent
+        self._ui.menuRedo.mousePressEvent = self.redoEvent
         #connect redo/undo?
 
         
@@ -62,6 +65,13 @@ class MainView(QMainWindow):
     def hideEvent(self, event):
         super(MainView, self).hideEvent(event)
         self.windowHide.emit(event)
+
+    def undoEvent(self, event):
+        self.undoPress.emit(event)
+
+    def redoEvent(self, event):
+        self.redoPress.emit(event)
+
     
     """
     def changeEvent(self, event):

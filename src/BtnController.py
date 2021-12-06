@@ -42,12 +42,9 @@ class BtnController(QObject): #windowListener, ActionListener
         self.cmdSetStrokeColor = CmdSetStrokeColor(self.view, self.cvModel)
         self.cmdCalibrateCVCol = CmdCalibrateCVCol(self.view, self.cvModel)
         #etc...
+
         
     def registerEvents(self):
-
-
-
-
         #register event to actionPerformed for all buttons
         self.btnNeu.triggered.connect(self.actionPerformed)
         self.btnOeffnen.triggered.connect(self.actionPerformed) 
@@ -67,17 +64,15 @@ class BtnController(QObject): #windowListener, ActionListener
         self.btnMittel.triggered.connect(self.actionPerformed) 
         self.btnDuenn.triggered.connect(self.actionPerformed) 
 
-
         #custom events
         self.view.keyPressed.connect(self.keyPressEvent)
         self.view.quitApp.connect(self.quitApp)
         self.view.windowResize.connect(self.windowResize)
         self.view.windowHide.connect(self.windowHide)
+        self.view.undoPress.connect(self.undo)
+        self.view.redoPress.connect(self.redo)
         #self.view.windowActivate.connect(self.windowActivate)
-        self.btnUndo.triggered.connect(self.undo)
-        self.btnRedo.triggered.connect(self.redo)
     
-
         print("registered events in BtnController")
         
 

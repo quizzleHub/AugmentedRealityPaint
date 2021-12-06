@@ -67,7 +67,7 @@ class CVModel(Thread):
                 # Get the moments to calculate the center of the contour (in this case a circle)
                 M = cv2.moments(cnt)
                 center = (int(M['m10'] / M['m00']), int(M['m01'] / M['m00'])) #coordinates
-                print(center)
+                #print(center)
                 self.grafikModel.recPoint(center) #send point to grafikModel
 
                 
