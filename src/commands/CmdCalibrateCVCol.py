@@ -1,7 +1,7 @@
 from PyQt5.QtGui import QColor
-from PyQt5.QtWidgets import QApplication, QMessageBox
+from PyQt5.QtWidgets import QApplication, QMessageBox, QWidget
 from PyQt5.QtCore import QObject, pyqtSlot
-from PyQt5 import QtGui
+from PyQt5 import QtGui, QtWidgets
 from CommandInterface import CommandInterface
 import numpy as np
 
@@ -45,10 +45,6 @@ class CmdCalibrateCVCol(QObject, CommandInterface):
     def isUndoable(self):
         return self.isUndoableBool
 
-    def setMousePos(self, mousePosX, mousePosY):
-        #the mouse coords are relative to the canvas, not the whole view
-        self.mousePressPosX = mousePosX
-        self.mousePressPosY = mousePosY
 
     def alertUser(self):
         self.userPressedCanvas = False
@@ -80,7 +76,15 @@ class CmdCalibrateCVCol(QObject, CommandInterface):
     def canvasClick(self,event):
         self.userPressedCanvas = True
         #the position is relative to the whole view!
+        #You can call QWidget::mapFromGlobal() to translate it to widget coordinates.
         cursor = QtGui.QCursor()
-        print("canvas clicked at: " + str(cursor.pos()))
+
+        #self.mousePressPosX  = cursor.pos().x()
+        self.mousePressPosX = event.pos().x()
+        self.mousePressPosY = event.pos().y()
+        #self.mousePressPosY  = cursor.pos().y()
+        #print("canvas clicked at: " + str(cursor.pos()))
+        print(str(self.mousePressPosX) + " " + str(self.mousePressPosY))
+
 
 
