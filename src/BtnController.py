@@ -1,4 +1,5 @@
 from PyQt5.QtCore import QObject, pyqtSlot
+from PyQt5 import QtGui
 
 from Main_view import MainView
 
@@ -66,6 +67,7 @@ class BtnController(QObject): #windowListener, ActionListener
 
         #custom events
         self.view.keyPressed.connect(self.keyPressEvent)
+        #self.view.canvasPressed.connect(self.canvasClick)
         self.view.quitApp.connect(self.quitApp)
         self.view.windowResize.connect(self.windowResize)
         self.view.windowHide.connect(self.windowHide)
@@ -113,13 +115,21 @@ class BtnController(QObject): #windowListener, ActionListener
     def redo(self):
         self.commandInvoker.redoCommand()
 
-    def keyPressEvent(self):
-        print("keyPressEvent")
+    def keyPressEvent(self, event):
+        print("keyPressEvent->key : " + event.text())
+
+    """
+    def canvasClick(self, event):
+        #the position is relative to the whole view!
+        cursor = QtGui.QCursor()
+        print("canvas pressed at: " + str(cursor.pos()))
+    """
 
     def quitApp(self):
         #collect all threads
-        self.cvModel.stop()
-        print("Exit Clean Up")
+        self.cvModel.exit()
+        self.cvModel.join()
+        print("exit clean Up")
 
     def windowResize(self):
         print("window resized")
@@ -128,7 +138,7 @@ class BtnController(QObject): #windowListener, ActionListener
         print("window hide event")
     
     def windowActivate(self):
-        print("Window activate event")
+        print("window activate event")
 
 
 

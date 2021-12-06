@@ -9,6 +9,7 @@ The view class(es) should contain the minimal code required to connect to the si
 
 
 
+from threading import Event
 from PyQt5 import QtCore
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.QtCore import pyqtSlot, QEvent, pyqtSignal
@@ -24,12 +25,14 @@ class MainView(QMainWindow):
 
     ##pyqtSignals
     keyPressed = pyqtSignal(QEvent)
+    canvasPressed = pyqtSignal(QEvent)
     quitApp = pyqtSignal(QEvent)
     windowResize = pyqtSignal(QEvent)
     windowHide = pyqtSignal(QEvent)
     #windowActivate = pyqtSignal(QEvent)
     redoPress = pyqtSignal(QEvent)
     undoPress = pyqtSignal(QEvent)
+ 
 
 
     def __init__(self, grafikView):
@@ -39,10 +42,10 @@ class MainView(QMainWindow):
         self._ui = Ui_View()
         self._ui.setupUi(self)
         self.grafikView = grafikView
-        #self.QPLabel.mousePressEvent = self.doSomething
         self._ui.menuUndo.mousePressEvent = self.undoEvent
         self._ui.menuRedo.mousePressEvent = self.redoEvent
-        #connect redo/undo?
+        self._ui.GraphicsView.mousePressEvent = self.canvasPressedEvent
+
 
         
         
@@ -53,6 +56,10 @@ class MainView(QMainWindow):
     def keyPressEvent(self, event):
         super(MainView, self).keyPressEvent(event)
         self.keyPressed.emit(event)
+
+    def canvasPressedEvent(self, event):
+        self.canvasPressed.emit(event)
+        
 
     def closeEvent(self, event):
         super(MainView,self).closeEvent(event)
@@ -71,6 +78,7 @@ class MainView(QMainWindow):
 
     def redoEvent(self, event):
         self.redoPress.emit(event)
+
 
     
     """
