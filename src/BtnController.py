@@ -1,3 +1,4 @@
+from PyQt5 import QtCore
 from Main_view import MainView
 from CommandInvoker import CommandInvoker
 from commands.CmdAction import CmdAction
@@ -5,10 +6,11 @@ from PyQt5.QtCore import QObject, pyqtSlot
 
 class BtnController(QObject): #windowListener, ActionListener
     
-    def __init__(self, view, cvModel):
+    def __init__(self, view, cvModel, grafikModel):
         super().__init__()
         self.view = view
         self.cvModel = cvModel
+        self.grafikModel = grafikModel
         self.commandInvoker = CommandInvoker()
 
         #get buttons
@@ -107,9 +109,11 @@ class BtnController(QObject): #windowListener, ActionListener
         self.commandInvoker.redoCommand()
 
     def keyPressEvent(self, event):
-        #abfrage nach key
-        print("keyPressEvent")
-
+        if event.key() == QtCore.Qt.Key_Space:
+            print("keyPressEvent: Space")
+            self.grafikModel.addFigure()
+            self.cvModel.trackingFlag = True
+            
     def quitApp(self):
         #collect all threads
         self.cvModel.stop()
@@ -123,6 +127,4 @@ class BtnController(QObject): #windowListener, ActionListener
     
     def windowActivate(self):
         print("Window activate event")
-
-
 
