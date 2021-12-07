@@ -114,7 +114,8 @@ class BtnController(QObject): #windowListener, ActionListener
     def redo(self):
         self.commandInvoker.redoCommand()
 
-    def keyPressEvent(self):
+    def keyPressEvent(self, event):
+        #abfrage nach key
         print("keyPressEvent")
 
     def quitApp(self):
