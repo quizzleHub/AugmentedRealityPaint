@@ -18,6 +18,7 @@ class BtnController(QObject): #windowListener, ActionListener
         self.view = view
         self.cvModel = cvModel
         self.commandInvoker = CommandInvoker()
+        self.aspectRatio = cvModel.getAspectRatio()
 
         #get buttons
         self.btnNeu = self.view.getbtnNeu()
@@ -120,12 +121,6 @@ class BtnController(QObject): #windowListener, ActionListener
     def keyPressEvent(self, event):
         print("keyPressEvent->key : " + event.text())
 
-    """
-    def canvasClick(self, event):
-        #the position is relative to the whole view!
-        cursor = QtGui.QCursor()
-        print("canvas pressed at: " + str(cursor.pos()))
-    """
 
     def quitApp(self):
         #collect all threads
@@ -134,19 +129,19 @@ class BtnController(QObject): #windowListener, ActionListener
         print("exit clean Up")
 
     def windowResize(self):
-        #self.view.getGraphicsView().setSizePolicy(QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Maximum,QtWidgets.QSizePolicy.Maximum))
-        #canvasRect = QtCore.QRect(0,0,self.view.geometry().width(), self.view.geometry().height())
-        """
-        vw = self.view.width()# - canvasW #w
-        vh = self.view.height()# - canvasH #h
-        cw = self.view.getGraphicsView().sizeHint().width()
-        ch = self.view.getGraphicsView().sizeHint().height()
+        #get aspect ratio
+        #get width
+        #calc height
+        #cW = self.view.width()
+        #cH = self.view.height()
 
-        canvasRect = QtCore.QRect(0,0, vw, vh) #xywh
-        print("cw : " + str(cw) +" vw: " + str(vw) + " ch: " + str(ch)   + " vh: " + str(vh))
-        self.view.getGraphicsView().setGeometry(canvasRect)
-        #print("window resized")
-        """
+        #cH = self.view.height()-4
+        #cHAR = cW/self.aspectRatio
+        #cWAR = self.aspectRatio * cHAR
+        #cRect = QtCore.QRect(0,0,cWAR,cHAR)
+        #self.view.getGraphicsView().setGeometry(cRect)
+        #self.view.getGraphicsView().update()
+        pass
 
     def windowHide(self):
         print("window hide event")

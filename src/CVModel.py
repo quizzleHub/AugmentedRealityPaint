@@ -14,6 +14,7 @@ class CVModel(Thread):
         self.grafikModel = grafikModel
         self.paused = False
         self.grafikAdapter = grafikAdapter
+        self.aspectRatio = None
 
         self.pause_cond = threading.Condition(threading.Lock())
 
@@ -34,9 +35,13 @@ class CVModel(Thread):
         self.kernel = np.ones((self.kernelSize, self.kernelSize), np.uint8)
 
 
-        # Load the video
+        # Load the video and calc aspect ratio
         self.camera = cv2.VideoCapture(0)
+        (grabbed, frame) = self.camera.read()
+        h, w = frame.shape[:2]
+        self.aspectRatio = float(w) / float(h)
         print("Model initialized")
+
 
         Thread.__init__(self)
 
@@ -91,12 +96,13 @@ class CVModel(Thread):
         self.pause_cond.notify()
         self.pause_cond.release()
 
- 
 
     def exit(self):
         self.runningFlag = False
         self.camera.release()
 
+    def getAspectRatio(self):
+        return self.aspectRatio
 
 
         

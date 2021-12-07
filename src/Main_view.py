@@ -44,7 +44,7 @@ class MainView(QMainWindow):
         self.grafikView = grafikView
         self._ui.menuUndo.mousePressEvent = self.undoEvent
         self._ui.menuRedo.mousePressEvent = self.redoEvent
-        self._ui.GraphicsView.mousePressEvent = self.canvasPressedEvent
+        self._ui.graphicsView.mousePressEvent = self.canvasPressedEvent
 
 
         
@@ -103,7 +103,7 @@ class MainView(QMainWindow):
 
     #_____Getter______
     def getGraphicsView(self):
-        return self._ui.GraphicsView
+        return self._ui.graphicsView
 
 
     def getbtnOptionen(self):
