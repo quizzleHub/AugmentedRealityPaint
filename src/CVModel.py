@@ -71,8 +71,6 @@ class CVModel(Thread):
                 print(center)
                 self.grafikModel.recPoint(center) #send point to grafikModel
 
-<<<<<<< HEAD
-=======
                 # Grab the current paintWindow
                 (grabbed, frame) = self.camera.read()
                 self.grafikAdapter.recCamImg(frame) #send webCamFrame to grafikAdapter
@@ -103,7 +101,6 @@ class CVModel(Thread):
                     #print(center)
                     self.grafikModel.recPoint(center) #send point to grafikModel
                 
->>>>>>> CV
                 
 
 
