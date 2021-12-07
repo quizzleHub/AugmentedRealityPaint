@@ -136,7 +136,7 @@ class BtnController(QObject): #windowListener, ActionListener
     def windowResize(self):
         #self.view.getGraphicsView().setSizePolicy(QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Maximum,QtWidgets.QSizePolicy.Maximum))
         #canvasRect = QtCore.QRect(0,0,self.view.geometry().width(), self.view.geometry().height())
-        
+        """
         vw = self.view.width()# - canvasW #w
         vh = self.view.height()# - canvasH #h
         cw = self.view.getGraphicsView().sizeHint().width()
@@ -146,6 +146,7 @@ class BtnController(QObject): #windowListener, ActionListener
         print("cw : " + str(cw) +" vw: " + str(vw) + " ch: " + str(ch)   + " vh: " + str(vh))
         self.view.getGraphicsView().setGeometry(canvasRect)
         #print("window resized")
+        """
 
     def windowHide(self):
         print("window hide event")

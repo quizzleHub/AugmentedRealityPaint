@@ -103,7 +103,7 @@ class MainView(QMainWindow):
 
     #_____Getter______
     def getGraphicsView(self):
-        return self._ui.graphicsView
+        return self._ui.GraphicsView
 
 
     def getbtnOptionen(self):
