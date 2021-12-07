@@ -6,19 +6,11 @@ The .ui layout files are converted to .py layout files when processed with pyuic
 The view class(es) should contain the minimal code required to connect to the signals coming from the widgets in your layout. View events can call and pass basic information to a method in the view class and onto a method in a controller class, where any logic should be. 
 """
 
-
-
-
 from PyQt5 import QtCore
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.QtCore import pyqtSlot, QEvent, pyqtSignal
 from PyQt5.QtGui import QKeyEvent
 from View_ui_rcs import Ui_View
-
-
-
-
-
 
 class MainView(QMainWindow):
 
@@ -31,7 +23,6 @@ class MainView(QMainWindow):
     #redoEvent = pyqtSignal(QEvent)
     #undoEvent = pyqtSignal(QEvent)
 
-
     def __init__(self):
         super().__init__()
 
@@ -39,10 +30,6 @@ class MainView(QMainWindow):
         self._ui = Ui_View()
         self._ui.setupUi(self)
         #connect redo/undo?
-
-        
-        
-
 
     #_____emit events______
     # all possible events: https://doc.qt.io/qt-5/qevent.html
@@ -81,11 +68,9 @@ class MainView(QMainWindow):
             print("win foc")
     """
 
-
     #_____Getter______
     def getGraphicsView(self):
         return self._ui.GraphicsView
-
 
     def getbtnOptionen(self):
         return self._ui.menuOptionen

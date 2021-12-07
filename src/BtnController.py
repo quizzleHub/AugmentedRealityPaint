@@ -3,7 +3,6 @@ from CommandInvoker import CommandInvoker
 from commands.CmdAction import CmdAction
 from PyQt5.QtCore import QObject, pyqtSlot
 
-
 class BtnController(QObject): #windowListener, ActionListener
     
     def __init__(self, view, cvModel):
@@ -41,9 +40,6 @@ class BtnController(QObject): #windowListener, ActionListener
         
     def registerEvents(self):
 
-
-
-
         #register event to actionPerformed for all buttons
         self.btnNeu.triggered.connect(self.actionPerformed)
         self.btnOeffnen.triggered.connect(self.actionPerformed) 
@@ -63,7 +59,6 @@ class BtnController(QObject): #windowListener, ActionListener
         self.btnMittel.triggered.connect(self.actionPerformed) 
         self.btnDuenn.triggered.connect(self.actionPerformed) 
 
-
         #custom events
         self.view.keyPressed.connect(self.keyPressEvent)
         self.view.quitApp.connect(self.quitApp)
@@ -73,10 +68,8 @@ class BtnController(QObject): #windowListener, ActionListener
         self.btnUndo.triggered.connect(self.undo)
         self.btnRedo.triggered.connect(self.redo)
     
-
         print("registered events in BtnController")
         
-
     def registerCommands(self):
         #register buttons to commands
         self.commandInvoker.addCommand(self.btnNeu, self.cmdAction)
@@ -101,7 +94,6 @@ class BtnController(QObject): #windowListener, ActionListener
         #self.commandInvoker.addCommand(self.btnRedo, self.cmdRedo)
 
         print("registerd Commands in BtnController")
-
 
     def actionPerformed(self):
         eventSource = self.sender()
