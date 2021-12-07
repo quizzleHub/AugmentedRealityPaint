@@ -1,4 +1,3 @@
-
 from PyQt5 import QtCore, QtGui
 from PyQt5 import QtWidgets
 from PyQt5.QtGui import QPen, QPixmap, QImage, QTransform, QPainter, QColor, QFont
@@ -7,15 +6,16 @@ from PyQt5.QtWidgets import *
 #from PyQt5.QtGui import * 
 #from PyQt5.QtCore import *
 
-
 class GrafikView:
     
-    def __init__(self):
+    def __init__(self, grafikModel):
+
+        self.grafikModel = grafikModel
         self.panelGrafik = None
 
         self.pixmap = QPixmap()
         self.painter = QPainter(self.pixmap)
-
+        
 
         self.pen = QPen()
         #self.lineType = Qt.SolideLine
@@ -37,8 +37,6 @@ class GrafikView:
         
     def showImg(self, img):
         
-
-
         #-----------------------------------------------#
         # CONVERT NUMPY ARRAY FROM CV CAMERA TO PIXMAP  #
         #-----------------------------------------------#
@@ -47,15 +45,25 @@ class GrafikView:
         qImg = QImage(img.data, width, height, bytesPerLine, QImage.Format_BGR888)
         #qImg = QImage(img.data, width, height, bytesPerLine, QImage.Format_RGB888)
         tempPixmap = QtGui.QPixmap.fromImage(qImg)
-        self.pixmap = tempPixmap.transformed(QTransform().scale(-1, 1)) #mirror 
-
-        
-
+        self.pixmap = tempPixmap.transformed(QTransform().scale(-1, 1)) #mirror
 
         self.painter.begin(self.pixmap)
 
         self.painter.setPen(self.pen)
+
         #alle figuren zeichnen -> jede figur -> jeder punkt
+        #receive points
+        figures = self.grafikModel.getFigures()
+
+        for f in figures:
+            points = f.getPoints()
+            for i in range(1, len(points)):
+                p1 = points[i-1]
+                p2 = points[i]
+                #print(p1[0])
+                self.painter.drawLine(p1[0], p1[1], p2[0], p2[1])
+            
+
 
         #self.painter.drawLine(0,0,500,500)
         #self.painter.drawLine(100,000,500,500)
@@ -67,11 +75,6 @@ class GrafikView:
         self.panelGrafik.setPixmap(self.pixmap)
         self.panelGrafik.update()
 
-"""
-    def drawImage(self, pixmap):
-        self.panelGrafik.setPixmap(pixmap)
-        self.panelGrafik.update()
-"""
 
 
 

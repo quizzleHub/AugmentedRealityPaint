@@ -3,8 +3,8 @@ from Figure import Figure
 class GrafikModel():
     
     def __init__(self) -> None:
-        #self.figures = []
-        self.figures = [Figure]
+        self.figures = []
+        #self.figures = [Figure]
     
     def addFigure(self):
         #create a new Figure and append to Figures-List
@@ -22,5 +22,6 @@ class GrafikModel():
     # receive Point from CVModel, add new Figure and add Point to Figure
     def recPoint(self, point):
         #self.addFigure(self) # so wird jedesmal eine neue Figur erzeugt -> Falsch
+        print("received point")
         self.addPoint(point)
 

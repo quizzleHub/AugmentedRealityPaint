@@ -17,14 +17,14 @@ class Start(QApplication):
         super(Start, self).__init__(sys_argv)
 
         #initiate objects
-        self.grafikView = GrafikView()
+        self.grafikModel = GrafikModel()
+
+        self.grafikView = GrafikView(self.grafikModel)
         self.main_view = MainView(self.grafikView)
         self.grafikView.setPanelGrafik(self.main_view.getGraphicsView())
 
-
-        self.grafikModel = GrafikModel()
         self.grafikAdapter = GrafikAdapter(self.grafikView, self.grafikModel)
-        self.cvModel = CVModel(self.grafikModel, self.grafikAdapter)
+        self.cvModel = CVModel(self.grafikModel, self.grafikView)
         self.btnController = BtnController(self.main_view, self.cvModel, self.grafikModel)
 
         #register events

@@ -9,11 +9,11 @@ import time
 
 class CVModel(Thread):
     
-    def __init__(self, grafikModel, grafikAdapter):
+    def __init__(self, grafikModel, grafikView):
 
         self.grafikModel = grafikModel
         self.paused = False
-        self.grafikAdapter = grafikAdapter
+        self.grafikView = grafikView
         self.aspectRatio = None
         self.trackingFlag = False
 
@@ -55,7 +55,8 @@ class CVModel(Thread):
 
                 # Grab the current paintWindow
                 (grabbed, frame) = self.camera.read()
-                self.grafikAdapter.recCamImg(frame) #send webCamFrame to grafikAdapter
+                self.grafikView.showImg(frame)
+                #self.grafikAdapter.recCamImg(frame) #send webCamFrame to grafikAdapter
                 frame = cv2.flip(frame, 1)
                 hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
