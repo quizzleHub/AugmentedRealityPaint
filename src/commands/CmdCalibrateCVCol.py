@@ -52,13 +52,13 @@ class CmdCalibrateCVCol(QObject, CommandInterface):
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Information)
         msg.setText("Calibrate tracking")
-        msg.setInformativeText("To calibrate, please hold the object which should be tracked into the camera and press ok.")
+        msg.setInformativeText("Please hold the object which should be tracked into the camera and press ok.")
         msg.setWindowTitle("")
         msg.exec()
         self.model.pause()
 
         msg.setText("Calibrate tracking")
-        msg.setInformativeText("Please click on the object you would like to track!")
+        msg.setInformativeText("Please close this dialog and click on the object you would like to track!")
         msg.exec()
 
         #very bad!
@@ -75,16 +75,19 @@ class CmdCalibrateCVCol(QObject, CommandInterface):
 
     def canvasClick(self,event):
         self.userPressedCanvas = True
-        #the position is relative to the whole view!
-        #You can call QWidget::mapFromGlobal() to translate it to widget coordinates.
-        cursor = QtGui.QCursor()
 
-        #self.mousePressPosX  = cursor.pos().x()
-        self.mousePressPosX = event.pos().x()
-        self.mousePressPosY = event.pos().y()
-        #self.mousePressPosY  = cursor.pos().y()
-        #print("canvas clicked at: " + str(cursor.pos()))
+        cursor = QtGui.QCursor()
+        cursorPosX = event.pos().x()
+        cursorPosY = event.pos().y()
+        canvasFrame = self.canvas.geometry()
+
+        print("cursorPosX: " + str(cursorPosX) + " cursorPosY: " + str(cursorPosY) + "canvas: "+ str(canvasFrame))
+        self.mousePressPosX = cursorPosX + canvasFrame.x()
+        self.mousePressPosY = cursorPosX + canvasFrame.y()
+
+
         print(str(self.mousePressPosX) + " " + str(self.mousePressPosY))
+
 
 
 

@@ -61,9 +61,11 @@ class GrafikView:
         #self.painter.drawLine(100,000,500,500)
         self.painter.end()
 
-
+        #scale pixmap to qlabel canvas
+        self.pixmap = self.pixmap.scaled(self.panelGrafik.width(), self.panelGrafik.height(), QtCore.Qt.KeepAspectRatio)
         self.panelGrafik.setPixmap(self.pixmap)
         self.panelGrafik.update()
+
 """
     def drawImage(self, pixmap):
         self.panelGrafik.setPixmap(pixmap)

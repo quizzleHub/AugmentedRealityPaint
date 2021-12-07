@@ -1,5 +1,7 @@
+from PyQt5 import QtCore
 from PyQt5.QtCore import QObject, pyqtSlot
 from PyQt5 import QtGui
+from PyQt5 import QtWidgets
 
 from Main_view import MainView
 
@@ -132,7 +134,18 @@ class BtnController(QObject): #windowListener, ActionListener
         print("exit clean Up")
 
     def windowResize(self):
-        print("window resized")
+        #self.view.getGraphicsView().setSizePolicy(QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Maximum,QtWidgets.QSizePolicy.Maximum))
+        #canvasRect = QtCore.QRect(0,0,self.view.geometry().width(), self.view.geometry().height())
+        
+        vw = self.view.width()# - canvasW #w
+        vh = self.view.height()# - canvasH #h
+        cw = self.view.getGraphicsView().sizeHint().width()
+        ch = self.view.getGraphicsView().sizeHint().height()
+
+        canvasRect = QtCore.QRect(0,0, vw, vh) #xywh
+        print("cw : " + str(cw) +" vw: " + str(vw) + " ch: " + str(ch)   + " vh: " + str(vh))
+        self.view.getGraphicsView().setGeometry(canvasRect)
+        #print("window resized")
 
     def windowHide(self):
         print("window hide event")
