@@ -18,7 +18,6 @@ class GrafikModel():
         #get last figure and add Point
         self.figures[-1].addPoint(point)
         print("Added point to figure")
-        print(self.figures[-1].__name__)
 
     # receive Point from CVModel, add new Figure and add Point to Figure
     def recPoint(self, point):

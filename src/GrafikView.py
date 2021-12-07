@@ -63,7 +63,7 @@ class GrafikView:
 
         #scale pixmap to qlabel canvas
         # SEG FAULT HERE!!!!!
-        #self.pixmap = self.pixmap.scaled(self.panelGrafik.width(), self.panelGrafik.height(), QtCore.Qt.KeepAspectRatio)
+        self.pixmap = self.pixmap.scaled(self.panelGrafik.width(), self.panelGrafik.height(), QtCore.Qt.KeepAspectRatio)
         self.panelGrafik.setPixmap(self.pixmap)
         self.panelGrafik.update()
 

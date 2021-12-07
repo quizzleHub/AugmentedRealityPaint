@@ -70,6 +70,7 @@ class BtnController(QObject): #windowListener, ActionListener
 
         #custom events
         self.view.keyPressed.connect(self.keyPressEvent)
+        self.view.keyReleased.connect(self.keyReleaseEvent)
         #self.view.canvasPressed.connect(self.canvasClick)
         self.view.quitApp.connect(self.quitApp)
         self.view.windowResize.connect(self.windowResize)
@@ -117,10 +118,26 @@ class BtnController(QObject): #windowListener, ActionListener
         self.commandInvoker.redoCommand()
 
     def keyPressEvent(self, event):
+        if event.isAutoRepeat():
+            return
+
         if event.key() == QtCore.Qt.Key_Space:
             print("keyPressEvent: Space")
+
             self.grafikModel.addFigure()
+
+            self.cvModel.pause()
             self.cvModel.trackingFlag = True
+            self.cvModel.resume()
+
+    def keyReleaseEvent(self, event):
+        if event.key() == QtCore.Qt.Key_Space:
+            print("keyReleaseEvent: Space")
+
+            self.cvModel.pause()
+            self.cvModel.trackingFlag = False
+            self.cvModel.resume()
+
             
     def quitApp(self):
         #collect all threads

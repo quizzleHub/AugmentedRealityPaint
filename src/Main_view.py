@@ -20,6 +20,7 @@ class MainView(QMainWindow):
 
     ##pyqtSignals
     keyPressed = pyqtSignal(QEvent)
+    keyReleased = pyqtSignal(QEvent)
     canvasPressed = pyqtSignal(QEvent)
     quitApp = pyqtSignal(QEvent)
     windowResize = pyqtSignal(QEvent)
@@ -47,6 +48,10 @@ class MainView(QMainWindow):
     def keyPressEvent(self, event):
         super(MainView, self).keyPressEvent(event)
         self.keyPressed.emit(event)
+
+    def keyReleaseEvent(self, event):
+        super(MainView, self).keyReleaseEvent(event)
+        self.keyReleased.emit(event)
 
     def canvasPressedEvent(self, event):
         self.canvasPressed.emit(event)
