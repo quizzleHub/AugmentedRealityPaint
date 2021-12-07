@@ -6,6 +6,10 @@ The .ui layout files are converted to .py layout files when processed with pyuic
 The view class(es) should contain the minimal code required to connect to the signals coming from the widgets in your layout. View events can call and pass basic information to a method in the view class and onto a method in a controller class, where any logic should be. 
 """
 
+
+
+
+from threading import Event
 from PyQt5 import QtCore
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.QtCore import pyqtSlot, QEvent, pyqtSignal
@@ -16,26 +20,37 @@ class MainView(QMainWindow):
 
     ##pyqtSignals
     keyPressed = pyqtSignal(QEvent)
+    canvasPressed = pyqtSignal(QEvent)
     quitApp = pyqtSignal(QEvent)
     windowResize = pyqtSignal(QEvent)
     windowHide = pyqtSignal(QEvent)
     #windowActivate = pyqtSignal(QEvent)
-    #redoEvent = pyqtSignal(QEvent)
-    #undoEvent = pyqtSignal(QEvent)
+    redoPress = pyqtSignal(QEvent)
+    undoPress = pyqtSignal(QEvent)
+ 
 
-    def __init__(self):
+
+    def __init__(self, grafikView):
         super().__init__()
 
         
         self._ui = Ui_View()
         self._ui.setupUi(self)
-        #connect redo/undo?
+        self.grafikView = grafikView
+        self._ui.menuUndo.mousePressEvent = self.undoEvent
+        self._ui.menuRedo.mousePressEvent = self.redoEvent
+        self._ui.graphicsView.mousePressEvent = self.canvasPressedEvent
+
 
     #_____emit events______
     # all possible events: https://doc.qt.io/qt-5/qevent.html
     def keyPressEvent(self, event):
         super(MainView, self).keyPressEvent(event)
         self.keyPressed.emit(event)
+
+    def canvasPressedEvent(self, event):
+        self.canvasPressed.emit(event)
+        
 
     def closeEvent(self, event):
         super(MainView,self).closeEvent(event)
@@ -48,6 +63,14 @@ class MainView(QMainWindow):
     def hideEvent(self, event):
         super(MainView, self).hideEvent(event)
         self.windowHide.emit(event)
+
+    def undoEvent(self, event):
+        self.undoPress.emit(event)
+
+    def redoEvent(self, event):
+        self.redoPress.emit(event)
+
+
     
     """
     def changeEvent(self, event):
@@ -70,7 +93,7 @@ class MainView(QMainWindow):
 
     #_____Getter______
     def getGraphicsView(self):
-        return self._ui.GraphicsView
+        return self._ui.graphicsView
 
     def getbtnOptionen(self):
         return self._ui.menuOptionen

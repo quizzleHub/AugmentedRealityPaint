@@ -1,36 +1,44 @@
 
-from PyQt5 import QtGui
-from PyQt5.QtGui import QPixmap, QImage, QTransform, QPainter, QColor, QFont
+from PyQt5 import QtCore, QtGui
+from PyQt5 import QtWidgets
+from PyQt5.QtGui import QPen, QPixmap, QImage, QTransform, QPainter, QColor, QFont
 from PyQt5.QtWidgets import QGraphicsScene
+from PyQt5.QtWidgets import * 
+#from PyQt5.QtGui import * 
+#from PyQt5.QtCore import *
 
 
 class GrafikView:
     
-    def __init__(self, qtGrafikView):
-        self.qtGrafikView = qtGrafikView
+    def __init__(self):
+        self.panelGrafik = None
 
         self.pixmap = QPixmap()
-        #self.painter = QPainter(self.pixmap)
+        self.painter = QPainter(self.pixmap)
+
+
+        self.pen = QPen()
+        #self.lineType = Qt.SolideLine
+        #self.pen.setStyle()
+        #self.pen.setBrush(QtGui.QColor
+        self.pen.setColor(QColor(0, 0, 0))
+        self.pen.setWidthF(3.2)
+
+    def setPanelGrafik(self, panelGrafik):
+        self.panelGrafik = panelGrafik
+
+    def setStrokeColor(self, qcolor):
+        self.pen.setColor(qcolor)
+        self.painter.setPen(self.pen)
+
+    def setStrokeWidth(self, floatWidth):
+        self.pen.setWidthF(floatWidth)
+        self.painter.setPen(self.pen)
         
-
-        """    def setPaintColor(self, qcolor):
-        self.painter.setPen(qcolor)
-
-    def paintEvent(self, event):
-        self.painter.begin(self.app)
-        self.painter.drawRect(event, self.painter)
-        self.painter.end()
- 
-    
-    def drawRect(self, event, qp):
-        qp.setPen(QColor(255, 255, 255))
-        qp.drawRect(0,0,100,100) """
-
-        
-
-
     def showImg(self, img):
         
+
+
         #-----------------------------------------------#
         # CONVERT NUMPY ARRAY FROM CV CAMERA TO PIXMAP  #
         #-----------------------------------------------#
@@ -41,14 +49,29 @@ class GrafikView:
         tempPixmap = QtGui.QPixmap.fromImage(qImg)
         self.pixmap = tempPixmap.transformed(QTransform().scale(-1, 1)) #mirror 
 
+        
 
-        self.qtGrafikView.setPixmap(self.pixmap)
-        self.qtGrafikView.update()
 
+        self.painter.begin(self.pixmap)
+
+        self.painter.setPen(self.pen)
+        #alle figuren zeichnen -> jede figur -> jeder punkt
+
+        #self.painter.drawLine(0,0,500,500)
+        #self.painter.drawLine(100,000,500,500)
+        self.painter.end()
+
+        #scale pixmap to qlabel canvas
+        # SEG FAULT HERE!!!!!
+        #self.pixmap = self.pixmap.scaled(self.panelGrafik.width(), self.panelGrafik.height(), QtCore.Qt.KeepAspectRatio)
+        self.panelGrafik.setPixmap(self.pixmap)
+        self.panelGrafik.update()
+
+"""
     def drawImage(self, pixmap):
-        self.qtGrafikView.setPixmap(pixmap)
-        self.qtGrafikView.update()
-
+        self.panelGrafik.setPixmap(pixmap)
+        self.panelGrafik.update()
+"""
 
 
 

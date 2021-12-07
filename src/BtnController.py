@@ -1,8 +1,14 @@
 from PyQt5 import QtCore
+from PyQt5.QtCore import QObject, pyqtSlot
+from PyQt5 import QtGui
+from PyQt5 import QtWidgets
+
 from Main_view import MainView
+
 from CommandInvoker import CommandInvoker
 from commands.CmdAction import CmdAction
-from PyQt5.QtCore import QObject, pyqtSlot
+from commands.CmdCalibrateCVCol import CmdCalibrateCVCol
+from commands.CmdSetStrokeColor import CmdSetStrokeColor
 
 class BtnController(QObject): #windowListener, ActionListener
     
@@ -12,6 +18,7 @@ class BtnController(QObject): #windowListener, ActionListener
         self.cvModel = cvModel
         self.grafikModel = grafikModel
         self.commandInvoker = CommandInvoker()
+        self.aspectRatio = cvModel.getAspectRatio()
 
         #get buttons
         self.btnNeu = self.view.getbtnNeu()
@@ -35,13 +42,13 @@ class BtnController(QObject): #windowListener, ActionListener
         self.btnRedo = self.view.getbtnRedo()
         
         #all commands
-        self.cmdAction = CmdAction()
-        #self.cmdRedo = CmdRedo()
-        #self.cmdUndo = CmdUndo()
+        self.cmdAction = CmdAction(self.view, self.cvModel)
+        self.cmdSetStrokeColor = CmdSetStrokeColor(self.view, self.cvModel)
+        self.cmdCalibrateCVCol = CmdCalibrateCVCol(self.view, self.cvModel)
         #etc...
+
         
     def registerEvents(self):
-
         #register event to actionPerformed for all buttons
         self.btnNeu.triggered.connect(self.actionPerformed)
         self.btnOeffnen.triggered.connect(self.actionPerformed) 
@@ -63,12 +70,13 @@ class BtnController(QObject): #windowListener, ActionListener
 
         #custom events
         self.view.keyPressed.connect(self.keyPressEvent)
+        #self.view.canvasPressed.connect(self.canvasClick)
         self.view.quitApp.connect(self.quitApp)
         self.view.windowResize.connect(self.windowResize)
         self.view.windowHide.connect(self.windowHide)
+        self.view.undoPress.connect(self.undo)
+        self.view.redoPress.connect(self.redo)
         #self.view.windowActivate.connect(self.windowActivate)
-        self.btnUndo.triggered.connect(self.undo)
-        self.btnRedo.triggered.connect(self.redo)
     
         print("registered events in BtnController")
         
@@ -78,11 +86,11 @@ class BtnController(QObject): #windowListener, ActionListener
         self.commandInvoker.addCommand(self.btnOeffnen, self.cmdAction)
         self.commandInvoker.addCommand(self.btnSpeichern, self.cmdAction)
         self.commandInvoker.addCommand(self.btnExportieren, self.cmdAction)
-        self.commandInvoker.addCommand(self.btnKallibrieren, self.cmdAction)
+        self.commandInvoker.addCommand(self.btnKallibrieren, self.cmdCalibrateCVCol)
         self.commandInvoker.addCommand(self.btnHilfe, self.cmdAction)
         self.commandInvoker.addCommand(self.btnZeichnen, self.cmdAction)
         self.commandInvoker.addCommand(self.btnRadieren, self.cmdAction)
-        self.commandInvoker.addCommand(self.btnRot, self.cmdAction)
+        self.commandInvoker.addCommand(self.btnRot, self.cmdSetStrokeColor)
         self.commandInvoker.addCommand(self.btnGruen, self.cmdAction)
         self.commandInvoker.addCommand(self.btnBlau, self.cmdAction)
         self.commandInvoker.addCommand(self.btnGelb, self.cmdAction)
@@ -116,15 +124,28 @@ class BtnController(QObject): #windowListener, ActionListener
             
     def quitApp(self):
         #collect all threads
-        self.cvModel.stop()
-        print("Exit Clean Up")
+        self.cvModel.exit()
+        self.cvModel.join()
+        print("exit clean Up")
 
     def windowResize(self):
-        print("window resized")
+        #get aspect ratio
+        #get width
+        #calc height
+        #cW = self.view.width()
+        #cH = self.view.height()
+
+        #cH = self.view.height()-4
+        #cHAR = cW/self.aspectRatio
+        #cWAR = self.aspectRatio * cHAR
+        #cRect = QtCore.QRect(0,0,cWAR,cHAR)
+        #self.view.getGraphicsView().setGeometry(cRect)
+        #self.view.getGraphicsView().update()
+        pass
 
     def windowHide(self):
         print("window hide event")
     
     def windowActivate(self):
-        print("Window activate event")
+        print("window activate event")
 

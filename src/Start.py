@@ -17,8 +17,11 @@ class Start(QApplication):
         super(Start, self).__init__(sys_argv)
 
         #initiate objects
-        self.main_view = MainView()
-        self.grafikView = GrafikView(self.main_view.getGraphicsView())
+        self.grafikView = GrafikView()
+        self.main_view = MainView(self.grafikView)
+        self.grafikView.setPanelGrafik(self.main_view.getGraphicsView())
+
+
         self.grafikModel = GrafikModel()
         self.grafikAdapter = GrafikAdapter(self.grafikView, self.grafikModel)
         self.cvModel = CVModel(self.grafikModel, self.grafikAdapter)

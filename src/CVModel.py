@@ -58,7 +58,7 @@ class CVModel(Thread):
             (cnts, _) = cv2.findContours(colMask.copy(), cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
 
             # Check to see if any contours were found
-            if len(cnts) > 0 and self.trackingFlag == True:
+            if len(cnts) > 0:
                 # Sort the contours and find the largest one -- we assume this contour correspondes to the area of the bottle cap
                 cnt = sorted(cnts, key = cv2.contourArea, reverse = True)[0]
                 # Get the radius of the enclosing circle around the found contour

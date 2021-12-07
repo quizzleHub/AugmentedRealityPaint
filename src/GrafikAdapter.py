@@ -13,6 +13,8 @@ class GrafikAdapter:
  
  
 
+    #holt sich figuren aus GrafikModel und gibt sie an grafikView
+    #grafikmodel pubsliher , grafikAdapter subscriber
 
     def recCamImg(self,camImg):
         self.grafikView.showImg(camImg)

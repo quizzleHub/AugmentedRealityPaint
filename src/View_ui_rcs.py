@@ -17,19 +17,37 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from pathlib import Path
+from sys import platform
 
 
 class Ui_View(object):
     def setupUi(self, View):
-        iconsdir = Path.cwd().parent.absolute() / "icons"
+        cwd = Path.cwd()
+        rootdir = cwd.parent.absolute()
+
+        if platform == "linux" or platform == "win32":
+            iconsdir = rootdir / "icons_win"
+        else:
+            iconsdir = rootdir / "icons_mac"
+
         View.setObjectName("View")
         View.resize(1232, 768)
         self.centralwidget = QtWidgets.QWidget(View)
         self.centralwidget.setObjectName("centralwidget")
-        self.GraphicsView = QtWidgets.QLabel(self.centralwidget)
-        self.GraphicsView.setGeometry(QtCore.QRect(-1, -52, 1231, 771))
-        self.GraphicsView.setText("")
-        self.GraphicsView.setObjectName("GraphicsView")
+        self.graphicsView = QtWidgets.QLabel(self.centralwidget)
+        self.graphicsView.setGeometry(QtCore.QRect(0, 0, 1231, 771))
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Maximum)
+        #sizePolicy.setHorizontalStretch(0)
+        #sizePolicy.setVerticalStretch(0)
+        #sizePolicy.setHeightForWidth(self.graphicsView.sizePolicy().hasHeightForWidth())
+        self.graphicsView.setSizePolicy(sizePolicy)
+        self.graphicsView.setLayoutDirection(QtCore.Qt.RightToLeft)
+        self.graphicsView.setLineWidth(0)
+        self.graphicsView.setText("")
+        self.graphicsView.setScaledContents(True)
+        self.graphicsView.setAlignment(QtCore.Qt.AlignLeading | QtCore.Qt.AlignLeft | QtCore.Qt.AlignTop)
+        self.graphicsView.setIndent(0)
+        self.graphicsView.setObjectName("graphicsView")
         View.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(View)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1232, 22))
@@ -158,18 +176,30 @@ class Ui_View(object):
         _translate = QtCore.QCoreApplication.translate
         View.setWindowTitle(_translate("View", "View"))
         self.menuOptionen.setTitle(_translate("View", "Optionen"))
+        self.menuZeichnen.setToolTip(_translate("View", "Zeichnen"))
         self.menuZeichnen.setTitle(_translate("View", "Zeichnen"))
+        self.menuRadieren.setToolTip(_translate("View", "Entferne bereits gemalte Striche"))
         self.menuRadieren.setTitle(_translate("View", "Radieren"))
+        self.menuFarbe.setToolTip(_translate("View", "Wähle eine Zeichenfarbe"))
         self.menuFarbe.setTitle(_translate("View", "Farbe"))
+        self.menuStrichdicke.setToolTip(_translate("View", "Wähle eine Strichdicke aus"))
         self.menuStrichdicke.setTitle(_translate("View", "Strichdicke"))
+        self.menuUndo.setToolTip(_translate("View", "Mache den letzten Schritt rückgängig"))
         self.menuUndo.setTitle(_translate("View", "Undo"))
+        self.menuRedo.setToolTip(_translate("View", "Wiederhole den letzten Schritt"))
         self.menuRedo.setTitle(_translate("View", "Redo"))
         self.actionNeu.setText(_translate("View", "Neu"))
+        self.actionNeu.setToolTip(_translate("View", "Erstelle ein neues Bild"))
         self.actionOeffnen.setText(_translate("View", "Öffnen"))
+        self.actionOeffnen.setToolTip(_translate("View", "Öffne ein bereits vorhandenes Bild"))
         self.actionSpeichern.setText(_translate("View", "Speichern"))
+        self.actionSpeichern.setToolTip(_translate("View", "Speichere ein Bild ab "))
         self.actionExportieren.setText(_translate("View", "Exportieren"))
+        self.actionExportieren.setToolTip(_translate("View", "Exportiere ein Bild"))
         self.actionKalibrieren.setText(_translate("View", "Kalibrieren"))
+        self.actionKalibrieren.setToolTip(_translate("View", "Kalibriere die Anwendung"))
         self.actionHilfe.setText(_translate("View", "Hilfe"))
+        self.actionHilfe.setToolTip(_translate("View", "Hilfe zur Anwendung"))
         self.actionrot.setText(_translate("View", "rot"))
         self.actiongruen.setText(_translate("View", "grün"))
         self.actiongruen.setToolTip(_translate("View", "grün"))
@@ -180,5 +210,4 @@ class Ui_View(object):
         self.actionMittel.setText(_translate("View", "Mittel"))
         self.actionDick.setText(_translate("View", "Dick"))
         self.actionschwarz.setText(_translate("View", "schwarz"))
-
 
