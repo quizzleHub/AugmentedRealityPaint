@@ -17,14 +17,35 @@
    <widget class="QLabel" name="GraphicsView">
     <property name="geometry">
      <rect>
-      <x>-1</x>
-      <y>-52</y>
+      <x>0</x>
+      <y>0</y>
       <width>1231</width>
       <height>771</height>
      </rect>
     </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::RightToLeft</enum>
+    </property>
+    <property name="lineWidth">
+     <number>0</number>
+    </property>
     <property name="text">
      <string/>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+    </property>
+    <property name="indent">
+     <number>0</number>
     </property>
    </widget>
   </widget>
