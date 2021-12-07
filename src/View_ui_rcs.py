@@ -17,19 +17,26 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from pathlib import Path
+from sys import platform
 
 
 class Ui_View(object):
     def setupUi(self, View):
-        iconsdir = Path.cwd().parent.absolute() / "icons"
+        cwd = Path.cwd()
+        rootdir = cwd.parent.absolute()
+
+        if platform == "linux" or platform == "win32":
+            iconsdir = rootdir / "icons_win"
+        else:
+            iconsdir = rootdir / "icons_mac"
+
         View.setObjectName("View")
         View.resize(1232, 768)
         self.centralwidget = QtWidgets.QWidget(View)
         self.centralwidget.setObjectName("centralwidget")
-        self.GraphicsView = QtWidgets.QLabel(self.centralwidget)
-        self.GraphicsView.setGeometry(QtCore.QRect(-1, -52, 1231, 771))
-        self.GraphicsView.setText("")
-        self.GraphicsView.setObjectName("GraphicsView")
+        self.graphicsView = QtWidgets.QLabel(self.centralwidget)
+        self.graphicsView.setGeometry(QtCore.QRect(0, 0, 1231, 721))
+        self.graphicsView.setObjectName("graphicsView")
         View.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(View)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1232, 22))
