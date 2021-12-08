@@ -8,6 +8,7 @@ from Main_view import MainView
 from CommandInvoker import CommandInvoker
 from commands.CmdAction import CmdAction
 from commands.CmdCalibrateCVCol import CmdCalibrateCVCol
+from commands.CmdSafeFigures import CmdSafeFigures
 from commands.CmdSetStrokeColor import CmdSetStrokeColor
 
 class BtnController(QObject): #windowListener, ActionListener
@@ -45,6 +46,8 @@ class BtnController(QObject): #windowListener, ActionListener
         self.cmdAction = CmdAction(self.view, self.cvModel)
         self.cmdSetStrokeColor = CmdSetStrokeColor(self.view, self.cvModel)
         self.cmdCalibrateCVCol = CmdCalibrateCVCol(self.view, self.cvModel)
+
+        self.cmdSafeFigures = CmdSafeFigures(self.view, self.grafikModel)
         #etc...
 
         
@@ -85,7 +88,7 @@ class BtnController(QObject): #windowListener, ActionListener
         #register buttons to commands
         self.commandInvoker.addCommand(self.btnNeu, self.cmdAction)
         self.commandInvoker.addCommand(self.btnOeffnen, self.cmdAction)
-        self.commandInvoker.addCommand(self.btnSpeichern, self.cmdAction)
+        self.commandInvoker.addCommand(self.btnSpeichern, self.cmdSafeFigures)
         self.commandInvoker.addCommand(self.btnExportieren, self.cmdAction)
         self.commandInvoker.addCommand(self.btnKallibrieren, self.cmdCalibrateCVCol)
         self.commandInvoker.addCommand(self.btnHilfe, self.cmdAction)
