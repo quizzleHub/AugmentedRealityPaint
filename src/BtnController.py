@@ -18,7 +18,7 @@ class BtnController(QObject): #windowListener, ActionListener
         self.cvModel = cvModel
         self.grafikModel = grafikModel
         self.commandInvoker = CommandInvoker()
-        self.aspectRatio = cvModel.getAspectRatio()
+        #self.aspectRatio = cvModel.getAspectRatio()
 
         #get buttons
         self.btnNeu = self.view.getbtnNeu()
@@ -122,27 +122,23 @@ class BtnController(QObject): #windowListener, ActionListener
             return
 
         if event.key() == QtCore.Qt.Key_Space:
-            print("keyPressEvent: Space")
-
             self.grafikModel.addFigure()
-
-            self.cvModel.pause()
+            #self.cvModel.pause()
             self.cvModel.trackingFlag = True
-            self.cvModel.resume()
+            #self.cvModel.resume()
 
     def keyReleaseEvent(self, event):
         if event.key() == QtCore.Qt.Key_Space:
-            print("keyReleaseEvent: Space")
-
-            self.cvModel.pause()
+            #self.cvModel.pause()
             self.cvModel.trackingFlag = False
-            self.cvModel.resume()
+            #self.cvModel.resume()
 
             
     def quitApp(self):
         #collect all threads
-        self.cvModel.exit()
-        self.cvModel.join()
+        self.cvModel.runningFlag = False
+        #self.cvModel.exit()
+        #self.cvModel.join()
         print("exit clean Up")
 
     def windowResize(self):

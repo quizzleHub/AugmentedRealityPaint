@@ -10,10 +10,14 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication
 import sys
 
+
+#debug
+import faulthandler
 #https://stackoverflow.com/questions/26698628/mvc-design-with-qt-designer-and-pyqt-pyside
 class Start(QApplication):
 
     def __init__(self, sys_argv):
+        faulthandler.enable()
         super(Start, self).__init__(sys_argv)
 
         #initiate objects
@@ -24,7 +28,14 @@ class Start(QApplication):
         self.grafikView.setPanelGrafik(self.main_view.getGraphicsView())
 
         self.grafikAdapter = GrafikAdapter(self.grafikView, self.grafikModel)
+
+        #self.cvModelThread = QtCore.QThread()
+        self.threadPool = QtCore.QThreadPool()
+        self.threadPool.setMaxThreadCount(2)
+
         self.cvModel = CVModel(self.grafikModel, self.grafikView)
+        #self.cvModel.moveToThread(self.cvModelThread)
+
         self.btnController = BtnController(self.main_view, self.cvModel, self.grafikModel)
 
         #register events
@@ -33,8 +44,9 @@ class Start(QApplication):
         #register commands
         self.btnController.registerCommands()
 
+        self.threadPool.start(self.cvModel)
         self.main_view.show()
-        self.cvModel.start()
+        
 
 if __name__ == '__main__':
     app = Start(sys.argv)

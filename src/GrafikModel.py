@@ -9,7 +9,6 @@ class GrafikModel():
     def addFigure(self):
         #create a new Figure and append to Figures-List
         self.figures.append(Figure())   
-        print("New figure created")
 
     def getFigures(self):
         return self.figures
@@ -17,11 +16,8 @@ class GrafikModel():
     def addPoint(self, point):
         #get last figure and add Point
         self.figures[-1].addPoint(point)
-        print("Added point to figure")
 
     # receive Point from CVModel, add new Figure and add Point to Figure
     def recPoint(self, point):
-        #self.addFigure(self) # so wird jedesmal eine neue Figur erzeugt -> Falsch
-        print("received point")
         self.addPoint(point)
 

@@ -21,7 +21,7 @@ class GrafikView:
         #self.lineType = Qt.SolideLine
         #self.pen.setStyle()
         #self.pen.setBrush(QtGui.QColor
-        self.pen.setColor(QColor(0, 0, 0))
+        self.pen.setColor(QColor(255, 0, 0))
         self.pen.setWidthF(3.2)
 
     def setPanelGrafik(self, panelGrafik):
