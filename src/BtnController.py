@@ -117,6 +117,9 @@ class BtnController(QObject): #windowListener, ActionListener
     def redo(self):
         self.commandInvoker.redoCommand()
 
+    #Key-Source:
+    #https://doc.qt.io/archives/qtjambi-4.5.2_01/com/trolltech/qt/core/Qt.Key.html#Key_Q
+
     def keyPressEvent(self, event):
         if event.isAutoRepeat():
             return
