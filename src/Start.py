@@ -36,15 +36,10 @@ class Start(QApplication):
         self.cvModel = CVModel(self.grafikModel, self.grafikView)
         self.cvModel.moveToThread(self.cvModelThread)
 
-        #move connects to btnController????
-        self.cvModelThread.started.connect(self.cvModel.run)
-        self.cvModel.newCamFrame.connect(self.grafikView.updateCanvas)
-        self.cvModel.newTrackedCoords.connect(self.grafikModel.addPoint)
-        self.cvModel.exitSig.connect(self.cvModelThread.quit)
-
-        self.btnController = BtnController(self.main_view, self.cvModel, self.grafikModel)
+        self.btnController = BtnController(self.main_view, self.cvModelThread, self.cvModel, self.grafikModel)
         self.btnController.registerEvents()
         self.btnController.registerCommands()
+        self.btnController.connectSignals()
 
         self.cvModelThread.start()
 
