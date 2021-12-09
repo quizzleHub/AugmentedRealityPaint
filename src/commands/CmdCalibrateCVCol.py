@@ -14,7 +14,7 @@ class CmdCalibrateCVCol(QObject, CommandInterface):
         self.view = view                
         self.model = CVModel
         self.isUndoableBool = False
-        self.canvas = self.view.grafikView.panelGrafik #canvas
+        self.canvas = self.view.grafikView.canvas
         self.mousePressPosX = 50
         self.mousePressPosY = 50
         self.colRangeDiff = 10

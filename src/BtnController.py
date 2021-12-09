@@ -14,13 +14,14 @@ from commands.CmdSetStrokeColor import CmdSetStrokeColor
 
 class BtnController(QObject): #windowListener, ActionListener
     
-    def __init__(self, view, cvModel, grafikModel):
+    def __init__(self, view, cvModelThread, cvModel, grafikModel):
         super().__init__()
         self.view = view
+        self.cvModelThread = cvModelThread
         self.cvModel = cvModel
         self.grafikModel = grafikModel
         self.commandInvoker = CommandInvoker()
-        self.aspectRatio = cvModel.getAspectRatio()
+        #self.aspectRatio = cvModel.getAspectRatio()
 
         #get buttons
         self.btnNeu = self.view.getbtnNeu()
@@ -72,17 +73,6 @@ class BtnController(QObject): #windowListener, ActionListener
         self.btnDick.triggered.connect(self.actionPerformed) 
         self.btnMittel.triggered.connect(self.actionPerformed) 
         self.btnDuenn.triggered.connect(self.actionPerformed) 
-
-        #custom events
-        self.view.keyPressed.connect(self.keyPressEvent)
-        self.view.keyReleased.connect(self.keyReleaseEvent)
-        #self.view.canvasPressed.connect(self.canvasClick)
-        self.view.quitApp.connect(self.quitApp)
-        self.view.windowResize.connect(self.windowResize)
-        self.view.windowHide.connect(self.windowHide)
-        self.view.undoPress.connect(self.undo)
-        self.view.redoPress.connect(self.redo)
-        #self.view.windowActivate.connect(self.windowActivate)
     
         print("registered events in BtnController")
         
@@ -106,10 +96,23 @@ class BtnController(QObject): #windowListener, ActionListener
         self.commandInvoker.addCommand(self.btnMittel, self.cmdAction)
         self.commandInvoker.addCommand(self.btnDuenn, self.cmdAction)
 
-        #self.commandInvoker.addCommand(self.btnUndo, self.cmdUndo)    
-        #self.commandInvoker.addCommand(self.btnRedo, self.cmdRedo)
-
         print("registerd Commands in BtnController")
+
+    def connectSignals(self):
+        self.cvModelThread.started.connect(self.cvModel.run)
+        self.cvModel.newCamFrame.connect(self.view.grafikView.updateCanvas)
+        self.cvModel.newTrackedCoords.connect(self.grafikModel.addPoint)
+        self.cvModel.exitSig.connect(self.cvModelThread.quit)
+
+        self.view.keyPressed.connect(self.keyPressEvent)
+        self.view.keyReleased.connect(self.keyReleaseEvent)
+        #self.view.canvasPressed.connect(self.canvasClick)
+        self.view.quitApp.connect(self.quitApp)
+        self.view.windowResize.connect(self.windowResize)
+        self.view.windowHide.connect(self.windowHide)
+        self.view.undoPress.connect(self.undo)
+        self.view.redoPress.connect(self.redo)
+        #self.view.windowActivate.connect(self.windowActivate)
 
     def actionPerformed(self):
         eventSource = self.sender()
@@ -130,27 +133,20 @@ class BtnController(QObject): #windowListener, ActionListener
             return
 
         if event.key() == QtCore.Qt.Key_Space:
-            print("keyPressEvent: Space")
-
+            print("new figure")
             self.grafikModel.addFigure()
-
-            self.cvModel.pause()
             self.cvModel.trackingFlag = True
-            self.cvModel.resume()
 
     def keyReleaseEvent(self, event):
         if event.key() == QtCore.Qt.Key_Space:
-            print("keyReleaseEvent: Space")
-
-            self.cvModel.pause()
             self.cvModel.trackingFlag = False
-            self.cvModel.resume()
 
             
     def quitApp(self):
         #collect all threads
-        self.cvModel.exit()
-        self.cvModel.join()
+        self.cvModel.runningFlag = False
+        #self.cvModel.exit()
+        #self.cvModel.join()
         print("exit clean Up")
 
     def windowResize(self):
