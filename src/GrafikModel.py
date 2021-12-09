@@ -1,5 +1,5 @@
 from Figure import Figure
-import tkinter.filedialog
+from PyQt5.QtWidgets import QFileDialog
 
 class GrafikModel():
     
@@ -27,16 +27,22 @@ class GrafikModel():
         self.addPoint(point)
 
     def safeFigures(self):
-        filename = tkinter.filedialog.askopenfilename()
-        file = open(filename, "w")
+        dialog = QFileDialog()
+        #dialog.setWindowTitle('Choose file to save your Figures')
+        #dialog.setNameFilter('(*.txt)')
+        #dialog.setDirectory(eeg_cap_dir)
+        #dialog.setFileMode(QFileDialog.ExistingFile)
 
-        for f in self.figures:
-            file.write("Figure: " + f + "\n")
-            points = f.getPoints()
-            for p in points:
-                file.write(p + "\n")
-            file.write("\n")
-        file.close()
+        if dialog.exec_() == QFileDialog.Accepted:
+            file = open(str(dialog.selectedFiles()), "w")
+
+            for f in self.figures:
+                file.write("Figure: " + str(f) + "\n")
+                points = f.getPoints()
+                for p in points:
+                    file.write(str(p) + "\n")
+                file.write("\n")
+            file.close()
 
 
         
