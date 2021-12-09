@@ -64,7 +64,6 @@ class GrafikView:
                 self.painter.drawLine(p1[0], p1[1], p2[0], p2[1])
             
 
-
         #self.painter.drawLine(0,0,500,500)
         #self.painter.drawLine(100,000,500,500)
         self.painter.end()

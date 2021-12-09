@@ -20,21 +20,16 @@ class GrafikModel():
         self.figures[-1].addPoint(point)
         print("Added point to figure")
 
-    # receive Point from CVModel, add new Figure and add Point to Figure
     def recPoint(self, point):
-        #self.addFigure(self) # so wird jedesmal eine neue Figur erzeugt -> Falsch
         print("received point")
         self.addPoint(point)
 
     def safeFigures(self):
         dialog = QFileDialog()
-        #dialog.setWindowTitle('Choose file to save your Figures')
-        #dialog.setNameFilter('(*.txt)')
-        #dialog.setDirectory(eeg_cap_dir)
-        #dialog.setFileMode(QFileDialog.ExistingFile)
 
         if dialog.exec_() == QFileDialog.Accepted:
-            file = open(str(dialog.selectedFiles()), "w")
+            selectedfile = dialog.selectedFiles()
+            file = open(str(selectedfile[0]), "w")
 
             for f in self.figures:
                 file.write("Figure: " + str(f) + "\n")
@@ -44,6 +39,16 @@ class GrafikModel():
                 file.write("\n")
             file.close()
 
+    def openFigures(self):
+
+        dialog = QFileDialog()
+
+        if dialog.exec_() == QFileDialog.Accepted:
+            file = open(str(dialog.selectedFiles()), "r")
+
+            # read file
+            
+            file.close()
 
         
 
