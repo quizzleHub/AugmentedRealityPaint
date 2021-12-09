@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+
+
 from Main_view import MainView
 from GrafikView import GrafikView
 from GrafikModel import GrafikModel
@@ -9,15 +11,16 @@ from BtnController import BtnController
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication
 import sys
+from PyQt5.QtCore import QThread, Qt, pyqtSignal, pyqtSlot
 
 
-#debug
-import faulthandler
+
+import faulthandler #debug
 #https://stackoverflow.com/questions/26698628/mvc-design-with-qt-designer-and-pyqt-pyside
 class Start(QApplication):
 
     def __init__(self, sys_argv):
-        faulthandler.enable()
+        faulthandler.enable() #debug
         super(Start, self).__init__(sys_argv)
 
         #initiate objects
@@ -25,26 +28,26 @@ class Start(QApplication):
 
         self.grafikView = GrafikView(self.grafikModel)
         self.main_view = MainView(self.grafikView)
-        self.grafikView.setPanelGrafik(self.main_view.getGraphicsView())
+        self.grafikView.setCanvas(self.main_view.getGraphicsView())
 
         self.grafikAdapter = GrafikAdapter(self.grafikView, self.grafikModel)
 
-        #self.cvModelThread = QtCore.QThread()
-        self.threadPool = QtCore.QThreadPool()
-        self.threadPool.setMaxThreadCount(2)
-
+        self.cvModelThread = QtCore.QThread()
         self.cvModel = CVModel(self.grafikModel, self.grafikView)
-        #self.cvModel.moveToThread(self.cvModelThread)
+        self.cvModel.moveToThread(self.cvModelThread)
+
+        #move connects to btnController????
+        self.cvModelThread.started.connect(self.cvModel.run)
+        self.cvModel.newCamFrame.connect(self.grafikView.updateCanvas)
+        self.cvModel.newTrackedCoords.connect(self.grafikModel.addPoint)
+        self.cvModel.exitSig.connect(self.cvModelThread.quit)
 
         self.btnController = BtnController(self.main_view, self.cvModel, self.grafikModel)
-
-        #register events
         self.btnController.registerEvents()
-
-        #register commands
         self.btnController.registerCommands()
 
-        self.threadPool.start(self.cvModel)
+        self.cvModelThread.start()
+
         self.main_view.show()
         
 

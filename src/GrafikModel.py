@@ -14,10 +14,9 @@ class GrafikModel():
         return self.figures
 
     def addPoint(self, point):
+        """addPoints gets called by CVModel when a new tracking coordinate is available"""
         #get last figure and add Point
         self.figures[-1].addPoint(point)
 
-    # receive Point from CVModel, add new Figure and add Point to Figure
-    def recPoint(self, point):
-        self.addPoint(point)
+
 

@@ -122,16 +122,13 @@ class BtnController(QObject): #windowListener, ActionListener
             return
 
         if event.key() == QtCore.Qt.Key_Space:
+            print("new figure")
             self.grafikModel.addFigure()
-            #self.cvModel.pause()
             self.cvModel.trackingFlag = True
-            #self.cvModel.resume()
 
     def keyReleaseEvent(self, event):
         if event.key() == QtCore.Qt.Key_Space:
-            #self.cvModel.pause()
             self.cvModel.trackingFlag = False
-            #self.cvModel.resume()
 
             
     def quitApp(self):
