@@ -18,7 +18,7 @@ class CVModel(QObject):
         self.runningFlag = True
         self.trackingFlag = False
         #color boundaries default light blue
-        self.colLower = np.array([80, 100, 100])
+        self.colLower = np.array([80, 50, 50])
         self.colUpper = np.array([120, 255, 255])
         # 5x5 kernel for erosion and dilation
         self.kernelSize = 5
