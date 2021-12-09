@@ -37,10 +37,9 @@ class GrafikView:
 
 
     def updateCanvas(self, image):
+
         transformedImage = image.transformed(QTransform().scale(-1, 1)) #mirror
-        scaledImage = transformedImage.scaled(self.canvas.width(), self.canvas.height(), QtCore.Qt.KeepAspectRatio)
-        
-        self.painter.begin(scaledImage)
+        self.painter.begin(transformedImage)
         self.painter.setPen(self.pen)
 
         #alle figuren zeichnen -> jede figur -> jeder punkt
@@ -57,6 +56,7 @@ class GrafikView:
         self.painter.end()
 
         
+        scaledImage = transformedImage.scaled(self.canvas.width(), self.canvas.height(), QtCore.Qt.KeepAspectRatio)
         self.canvas.setPixmap(QPixmap.fromImage(scaledImage))
 
 
