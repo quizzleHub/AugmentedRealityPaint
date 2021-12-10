@@ -1,5 +1,5 @@
 from PyQt5 import QtCore
-from PyQt5.QtCore import QObject, pyqtSlot
+from PyQt5.QtCore import QObject, QSize, pyqtSlot
 from PyQt5 import QtGui
 from PyQt5 import QtWidgets
 
@@ -48,7 +48,9 @@ class BtnController(QObject): #windowListener, ActionListener
         self.cmdCalibrateCVCol = CmdCalibrateCVCol(self.view, self.cvModel)
         #etc...
 
+        #set correct window aspectratio for camera
         self.aspectRatio = self.cvModel.aspectRatio
+        self.view.resize(self.view.width(), self.view.width()/self.aspectRatio)
 
         
     def registerEvents(self):
@@ -141,16 +143,23 @@ class BtnController(QObject): #windowListener, ActionListener
         self.cvModel.runningFlag = False
         print("exit clean Up")
 
-    def windowResize(self):
-
+    def windowResize(self, event):
         #force camera aspectratio to mainwindow
+        oldSize = event.oldSize()
+        size = event.size()
         vW = self.view.width()
-        vH = vW/self.aspectRatio
+        vH = self.view.height()
+        if (oldSize == QSize(-1,-1)): #ignore init size
+            pass
+        elif(size.width() != oldSize.width()): # width changed
+            #width changed
+            vH = vW/self.aspectRatio
+        else: #height changed
+            vW = vH * self.aspectRatio
+            
         self.view.resize(vW, vH)
         cRect = QtCore.QRect(0,0,vW,vH)
         self.view.getGraphicsView().setGeometry(cRect)
-        #self.view.getGraphicsView().update()
-        pass
 
     def windowHide(self):
         print("window hide event")
