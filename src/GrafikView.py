@@ -13,7 +13,6 @@ class GrafikView:
         self.grafikModel = grafikModel
         self.canvas = None
 
-        #self.pixmap = QPixmap()
         self.painter = QPainter()
         self.pen = QPen()
 
