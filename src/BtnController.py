@@ -160,7 +160,6 @@ class BtnController(QObject): #windowListener, ActionListener
         if (oldSize == QSize(-1,-1)): #ignore init size
             pass
         elif(size.width() != oldSize.width()): # width changed
-            #width changed
             vH = vW/self.aspectRatio
         else: #height changed
             vW = vH * self.aspectRatio
