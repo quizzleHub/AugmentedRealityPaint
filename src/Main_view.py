@@ -91,8 +91,8 @@ class MainView(QMainWindow):
     def getbtnOptionen(self):
         return self._ui.menuOptionen
 
-    def getbtnNeu(self):
-        return self._ui.actionNeu
+    def getbtnClearAll(self):
+        return self._ui.actionClearAll
 
     def getbtnOeffnen(self):
         return self._ui.actionOeffnen

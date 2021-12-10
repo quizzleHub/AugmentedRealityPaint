@@ -15,7 +15,7 @@ class BtnController(QObject): #windowListener, ActionListener
         self.commandInvoker = CommandInvoker()
 
         #get buttons
-        self.btnNeu = self.view.getbtnNeu()
+        self.btnClearAll = self.view.getbtnClearAll()
         self.btnOeffnen = self.view.getbtnOeffnen()
         self.btnSpeichern = self.view.getbtnSpeichern()
         self.btnExportieren = self.view.getbtnExportieren()
@@ -48,7 +48,7 @@ class BtnController(QObject): #windowListener, ActionListener
 
 
         #register event to actionPerformed for all buttons
-        self.btnNeu.triggered.connect(self.actionPerformed)
+        self.btnClearAll.triggered.connect(self.actionPerformed)
         self.btnOeffnen.triggered.connect(self.actionPerformed) 
         self.btnSpeichern.triggered.connect(self.actionPerformed) 
         self.btnExportieren.triggered.connect(self.actionPerformed) 
@@ -82,7 +82,7 @@ class BtnController(QObject): #windowListener, ActionListener
 
     def registerCommands(self):
         #register buttons to commands
-        self.commandInvoker.addCommand(self.btnNeu, self.cmdAction)
+        self.commandInvoker.addCommand(self.btnClearAll, self.cmdAction)
         self.commandInvoker.addCommand(self.btnOeffnen, self.cmdAction)
         self.commandInvoker.addCommand(self.btnSpeichern, self.cmdAction)
         self.commandInvoker.addCommand(self.btnExportieren, self.cmdAction)
