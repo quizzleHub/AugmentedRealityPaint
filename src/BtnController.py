@@ -48,6 +48,8 @@ class BtnController(QObject): #windowListener, ActionListener
         self.cmdCalibrateCVCol = CmdCalibrateCVCol(self.view, self.cvModel)
         #etc...
 
+        self.aspectRatio = self.cvModel.aspectRatio
+
         
     def registerEvents(self):
         #register event to actionPerformed for all buttons
@@ -140,17 +142,13 @@ class BtnController(QObject): #windowListener, ActionListener
         print("exit clean Up")
 
     def windowResize(self):
-        #get aspect ratio
-        #get width
-        #calc height
-        #cW = self.view.width()
-        #cH = self.view.height()
 
-        #cH = self.view.height()-4
-        #cHAR = cW/self.aspectRatio
-        #cWAR = self.aspectRatio * cHAR
-        #cRect = QtCore.QRect(0,0,cWAR,cHAR)
-        #self.view.getGraphicsView().setGeometry(cRect)
+        #force camera aspectratio to mainwindow
+        vW = self.view.width()
+        vH = vW/self.aspectRatio
+        self.view.resize(vW, vH)
+        cRect = QtCore.QRect(0,0,vW,vH)
+        self.view.getGraphicsView().setGeometry(cRect)
         #self.view.getGraphicsView().update()
         pass
 

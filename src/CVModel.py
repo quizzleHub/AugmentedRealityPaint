@@ -25,6 +25,9 @@ class CVModel(QObject):
         self.kernel = np.ones((self.kernelSize, self.kernelSize), np.uint8)
         #init webcam
         self.camera = cv2.VideoCapture(0)
+        (grabbed, frame) = self.camera.read() 
+        self.h, self.w, self.ch = frame.shape
+        self.aspectRatio = float(self.w) / float(self.h)
 
 
     def run(self):
@@ -36,11 +39,9 @@ class CVModel(QObject):
 
             #convert cv2 frame to pyqt
             rgbImage = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-            h, w, ch = rgbImage.shape
-            bytesPerLine = ch * w
-            convertToQtFormat = QImage(rgbImage.data, w, h, bytesPerLine, QImage.Format_RGB888)
+            bytesPerLine = self.ch * self.w
+            convertToQtFormat = QImage(rgbImage.data, self.w, self.h, bytesPerLine, QImage.Format_RGB888)
             self.newCamFrame.emit(convertToQtFormat)
-            #self.grafikView.showImg(frame)
             
             if self.trackingFlag:
                 #CV MAGIC
