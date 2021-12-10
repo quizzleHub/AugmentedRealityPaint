@@ -23,7 +23,6 @@ class Start(QApplication):
         faulthandler.enable() #debug
         super(Start, self).__init__(sys_argv)
 
-        #initiate objects
         self.grafikModel = GrafikModel()
 
         self.grafikView = GrafikView(self.grafikModel)

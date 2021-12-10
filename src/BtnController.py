@@ -137,8 +137,6 @@ class BtnController(QObject): #windowListener, ActionListener
     def quitApp(self):
         #collect all threads
         self.cvModel.runningFlag = False
-        #self.cvModel.exit()
-        #self.cvModel.join()
         print("exit clean Up")
 
     def windowResize(self):

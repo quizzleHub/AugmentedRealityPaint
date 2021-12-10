@@ -64,6 +64,7 @@ class CVModel(QObject):
                     #self.grafikModel.recPoint(center) #send point to grafikModel
                     self.newTrackedCoords.emit(center)
             if not self.runningFlag:
+                self.exitSig.emit()
                 break
 
 
