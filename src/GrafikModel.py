@@ -1,5 +1,6 @@
 from Figure import Figure
 from PyQt5.QtWidgets import QFileDialog
+import pickle
 
 class GrafikModel():
     
@@ -22,29 +23,16 @@ class GrafikModel():
 
     def safeFigures(self):
         dialog = QFileDialog()
-
-        if dialog.exec_() == QFileDialog.Accepted:
-            selectedfile = dialog.selectedFiles()
-            file = open(str(selectedfile[0]), "w")
-
-            for f in self.figures:
-                file.write("Figure: " + str(f) + "\n")
-                points = f.getPoints()
-                for p in points:
-                    file.write(str(p) + "\n")
-                file.write("\n")
-            file.close()
-
+        filename, _ = dialog.getSaveFileName()
+        file = open(filename, "wb")
+        pickle.dump(self.figures, file)
+ 
     def openFigures(self):
+        filename, _ = QFileDialog().getOpenFileName()
+        file = open(filename, "rb")
+        self.figures = pickle.load(file)
+        file.close()
 
-        dialog = QFileDialog()
-
-        if dialog.exec_() == QFileDialog.Accepted:
-            file = open(str(dialog.selectedFiles()), "r")
-
-            # read file
-            
-            file.close()
 
         
 
