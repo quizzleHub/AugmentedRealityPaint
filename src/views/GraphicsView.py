@@ -1,12 +1,8 @@
-from PyQt5 import QtCore, QtGui
-from PyQt5 import QtWidgets
-from PyQt5.QtGui import QPen, QPixmap, QImage, QTransform, QPainter, QColor, QFont
-from PyQt5.QtWidgets import QGraphicsScene
-from PyQt5.QtWidgets import * 
-#from PyQt5.QtGui import * 
-#from PyQt5.QtCore import *
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QPen, QPixmap, QTransform, QPainter, QColor
 
-class GrafikView:
+
+class GraphicsView:
     
     def __init__(self, grafikModel):
 
@@ -41,8 +37,6 @@ class GrafikView:
         self.painter.begin(transformedImage)
         self.painter.setPen(self.pen)
 
-        #alle figuren zeichnen -> jede figur -> jeder punkt
-        #receive points
         figures = self.grafikModel.getFigures()
 
         for f in figures:
@@ -53,9 +47,8 @@ class GrafikView:
                 self.painter.drawLine(p1[0], p1[1], p2[0], p2[1])
 
         self.painter.end()
-
         
-        scaledImage = transformedImage.scaled(self.canvas.width(), self.canvas.height(), QtCore.Qt.KeepAspectRatio)
+        scaledImage = transformedImage.scaled(self.canvas.width(), self.canvas.height(), Qt.KeepAspectRatio)
         self.canvas.setPixmap(QPixmap.fromImage(scaledImage))
 
 

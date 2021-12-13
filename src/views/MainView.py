@@ -1,20 +1,6 @@
-"""
-Use Qt designer to create the .ui layout files to the extent that you assign variables names to widgets and adjust their basic properties. Don't bother adding signals or slots as it's generally easier just to connect them to functions from within the view class.
-
-The .ui layout files are converted to .py layout files when processed with pyuic or pyside-uic. The .py view files can then import the relevant auto-generated classes from the .py layout files.
-
-The view class(es) should contain the minimal code required to connect to the signals coming from the widgets in your layout. View events can call and pass basic information to a method in the view class and onto a method in a controller class, where any logic should be. 
-"""
-
-
-
-
-from threading import Event
-from PyQt5 import QtCore
 from PyQt5.QtWidgets import QMainWindow
-from PyQt5.QtCore import pyqtSlot, QEvent, pyqtSignal
-from PyQt5.QtGui import QKeyEvent
-from View_ui_rcs import Ui_View
+from PyQt5.QtCore import QEvent, pyqtSignal
+from views.View_ui_rcs import Ui_View
 
 class MainView(QMainWindow):
 
@@ -25,7 +11,6 @@ class MainView(QMainWindow):
     quitApp = pyqtSignal(QEvent)
     windowResize = pyqtSignal(QEvent)
     windowHide = pyqtSignal(QEvent)
-    #windowActivate = pyqtSignal(QEvent)
     redoPress = pyqtSignal(QEvent)
     undoPress = pyqtSignal(QEvent)
  
@@ -76,25 +61,6 @@ class MainView(QMainWindow):
         self.redoPress.emit(event)
 
 
-    
-    """
-    def changeEvent(self, event):
-        #______FUNZT nicht________!
-        # hex codes for events
-        #https://doc.qt.io/qt-5/qt.html#WindowState-enum
-        #if event.type() == QEvent.ActivationChange:  #changed state of window
-        #print(event.type())
-
-
-        if (self.windowState() == 0x00000001):      #window minimzed
-            print("window min")
-        elif(self.windowState() == 0x00000002):     #window maximized
-            print("win max")
-        elif(self.windowState() == 0x00000004):     #window fullscreen
-            print("win fullscr")
-        elif(self.windowState() == 0x00000008):     #window activated (focused)
-            print("win foc")
-    """
 
     #_____Getter______
     def getGraphicsView(self):

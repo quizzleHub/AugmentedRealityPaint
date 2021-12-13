@@ -1,41 +1,33 @@
 #!/usr/bin/env python3
 
+from views.MainView import MainView
+from views.GraphicsView import GraphicsView
+from models.GraphicsModel import GraphicsModel
+from models.CVModel import CVModel
+from MainController import MainController
 
-from Main_view import MainView
-from GrafikView import GrafikView
-from GrafikModel import GrafikModel
-from GrafikAdapter import GrafikAdapter
-from CVModel import CVModel
-from BtnController import BtnController
-
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtCore
 from PyQt5.QtWidgets import QApplication
+
 import sys
-from PyQt5.QtCore import QThread, Qt, pyqtSignal, pyqtSlot
 
 
-
-import faulthandler #debug
-#https://stackoverflow.com/questions/26698628/mvc-design-with-qt-designer-and-pyqt-pyside
 class Start(QApplication):
 
     def __init__(self, sys_argv):
-        faulthandler.enable() #debug
         super(Start, self).__init__(sys_argv)
 
-        self.grafikModel = GrafikModel()
+        self.grafikModel = GraphicsModel()
 
-        self.grafikView = GrafikView(self.grafikModel)
+        self.grafikView = GraphicsView(self.grafikModel)
         self.main_view = MainView(self.grafikView)
         self.grafikView.setCanvas(self.main_view.getGraphicsView())
-
-        self.grafikAdapter = GrafikAdapter(self.grafikView, self.grafikModel)
 
         self.cvModelThread = QtCore.QThread()
         self.cvModel = CVModel(self.grafikModel, self.grafikView)
         self.cvModel.moveToThread(self.cvModelThread)
 
-        self.btnController = BtnController(self.main_view, self.cvModelThread, self.cvModel, self.grafikModel)
+        self.btnController = MainController(self.main_view, self.cvModelThread, self.cvModel, self.grafikModel)
         self.btnController.registerEvents()
         self.btnController.registerCommands()
         self.btnController.connectSignals()

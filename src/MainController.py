@@ -1,18 +1,13 @@
 from PyQt5 import QtCore
-from PyQt5.QtCore import QObject, QSize, pyqtSlot
-from PyQt5 import QtGui
-from PyQt5 import QtWidgets
+from PyQt5.QtCore import QObject, QSize
 
-from Main_view import MainView
-
-from CommandInvoker import CommandInvoker
-from commands.CmdAction import CmdAction
+from commands.CommandInvoker import CommandInvoker
 from commands.CmdCalibrateCVCol import CmdCalibrateCVCol
 from commands.CmdSafeFigures import CmdSafeFigures
 from commands.CmdOpenFigures import CmdOpenFigures
 from commands.CmdSetStrokeColor import CmdSetStrokeColor
 
-class BtnController(QObject): #windowListener, ActionListener
+class MainController(QObject): #windowListener, ActionListener
     
     def __init__(self, view, cvModelThread, cvModel, grafikModel):
         super().__init__()
@@ -45,10 +40,8 @@ class BtnController(QObject): #windowListener, ActionListener
         self.btnRedo = self.view.getbtnRedo()
         
         #all commands
-        self.cmdAction = CmdAction(self.view, self.cvModel)
         self.cmdSetStrokeColor = CmdSetStrokeColor(self.view, self.cvModel)
         self.cmdCalibrateCVCol = CmdCalibrateCVCol(self.view, self.cvModel)
-
         self.cmdSafeFigures = CmdSafeFigures(self.view, self.grafikModel)
         self.cmdOpenFigures = CmdOpenFigures(self.view, self.grafikModel)
         #etc...
@@ -82,23 +75,23 @@ class BtnController(QObject): #windowListener, ActionListener
         
     def registerCommands(self):
         #register buttons to commands
-        self.commandInvoker.addCommand(self.btnNeu, self.cmdAction)
+        #self.commandInvoker.addCommand(self.btnNeu, self.cmdAction)
         self.commandInvoker.addCommand(self.btnOeffnen, self.cmdOpenFigures)
         self.commandInvoker.addCommand(self.btnSpeichern, self.cmdSafeFigures)
-        self.commandInvoker.addCommand(self.btnExportieren, self.cmdAction)
+        #self.commandInvoker.addCommand(self.btnExportieren, self.cmdAction)
         self.commandInvoker.addCommand(self.btnKallibrieren, self.cmdCalibrateCVCol)
-        self.commandInvoker.addCommand(self.btnHilfe, self.cmdAction)
-        self.commandInvoker.addCommand(self.btnZeichnen, self.cmdAction)
-        self.commandInvoker.addCommand(self.btnRadieren, self.cmdAction)
-        self.commandInvoker.addCommand(self.btnRot, self.cmdSetStrokeColor)
-        self.commandInvoker.addCommand(self.btnGruen, self.cmdAction)
-        self.commandInvoker.addCommand(self.btnBlau, self.cmdAction)
-        self.commandInvoker.addCommand(self.btnGelb, self.cmdAction)
-        self.commandInvoker.addCommand(self.btnWeiss, self.cmdAction)
-        self.commandInvoker.addCommand(self.btnSchwarz, self.cmdAction)
-        self.commandInvoker.addCommand(self.btnDick, self.cmdAction)
-        self.commandInvoker.addCommand(self.btnMittel, self.cmdAction)
-        self.commandInvoker.addCommand(self.btnDuenn, self.cmdAction)
+        #self.commandInvoker.addCommand(self.btnHilfe, self.cmdAction)
+        #self.commandInvoker.addCommand(self.btnZeichnen, self.cmdAction)
+        #self.commandInvoker.addCommand(self.btnRadieren, self.cmdAction)
+        #self.commandInvoker.addCommand(self.btnRot, self.cmdSetStrokeColor)
+        #self.commandInvoker.addCommand(self.btnGruen, self.cmdAction)
+        #self.commandInvoker.addCommand(self.btnBlau, self.cmdAction)
+        #self.commandInvoker.addCommand(self.btnGelb, self.cmdAction)
+        #self.commandInvoker.addCommand(self.btnWeiss, self.cmdAction)
+        #self.commandInvoker.addCommand(self.btnSchwarz, self.cmdAction)
+        #self.commandInvoker.addCommand(self.btnDick, self.cmdAction)
+        #self.commandInvoker.addCommand(self.btnMittel, self.cmdAction)
+        #self.commandInvoker.addCommand(self.btnDuenn, self.cmdAction)
 
         print("registerd Commands in BtnController")
 
