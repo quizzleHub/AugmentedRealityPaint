@@ -8,6 +8,8 @@ from Main_view import MainView
 from CommandInvoker import CommandInvoker
 from commands.CmdAction import CmdAction
 from commands.CmdCalibrateCVCol import CmdCalibrateCVCol
+from commands.CmdSafeFigures import CmdSafeFigures
+from commands.CmdOpenFigures import CmdOpenFigures
 from commands.CmdSetStrokeColor import CmdSetStrokeColor
 
 class BtnController(QObject): #windowListener, ActionListener
@@ -46,6 +48,9 @@ class BtnController(QObject): #windowListener, ActionListener
         self.cmdAction = CmdAction(self.view, self.cvModel)
         self.cmdSetStrokeColor = CmdSetStrokeColor(self.view, self.cvModel)
         self.cmdCalibrateCVCol = CmdCalibrateCVCol(self.view, self.cvModel)
+
+        self.cmdSafeFigures = CmdSafeFigures(self.view, self.grafikModel)
+        self.cmdOpenFigures = CmdOpenFigures(self.view, self.grafikModel)
         #etc...
 
         #set correct window aspectratio for camera
@@ -78,8 +83,8 @@ class BtnController(QObject): #windowListener, ActionListener
     def registerCommands(self):
         #register buttons to commands
         self.commandInvoker.addCommand(self.btnNeu, self.cmdAction)
-        self.commandInvoker.addCommand(self.btnOeffnen, self.cmdAction)
-        self.commandInvoker.addCommand(self.btnSpeichern, self.cmdAction)
+        self.commandInvoker.addCommand(self.btnOeffnen, self.cmdOpenFigures)
+        self.commandInvoker.addCommand(self.btnSpeichern, self.cmdSafeFigures)
         self.commandInvoker.addCommand(self.btnExportieren, self.cmdAction)
         self.commandInvoker.addCommand(self.btnKallibrieren, self.cmdCalibrateCVCol)
         self.commandInvoker.addCommand(self.btnHilfe, self.cmdAction)
@@ -123,6 +128,9 @@ class BtnController(QObject): #windowListener, ActionListener
 
     def redo(self):
         self.commandInvoker.redoCommand()
+
+    #Key-Source:
+    #https://doc.qt.io/archives/qtjambi-4.5.2_01/com/trolltech/qt/core/Qt.Key.html#Key_Q
 
     def keyPressEvent(self, event):
         if event.isAutoRepeat():

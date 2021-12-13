@@ -123,7 +123,7 @@ class CVModel(Thread):
                 while self.paused:
                     self.pause_cond.wait()
                 
-
+                
                 # Grab the current paintWindow
                 (grabbed, frame) = self.camera.read()
                 if not grabbed:
@@ -157,9 +157,14 @@ class CVModel(Thread):
                         center = (int(M['m10'] / M['m00']), int(M['m01'] / M['m00'])) #coordinates
                         #print(center)
                         self.grafikModel.recPoint(center) #send point to grafikModel
+<<<<<<< HEAD
+                        
+            time.sleep(0.01)
+=======
                 
                 
             #time.sleep(0.01)
+>>>>>>> CV
             #if not self.runningFlag:
             #        break
                 
