@@ -1,5 +1,6 @@
 from PyQt5 import QtCore
 from PyQt5.QtCore import QObject, QSize
+from commands.CmdHelp import CmdHelp
 
 from commands.CommandInvoker import CommandInvoker
 from commands.CmdCalibrateCVCol import CmdCalibrateCVCol
@@ -44,6 +45,7 @@ class MainController(QObject): #windowListener, ActionListener
         self.cmdCalibrateCVCol = CmdCalibrateCVCol(self.view, self.cvModel)
         self.cmdSafeFigures = CmdSafeFigures(self.view, self.grafikModel)
         self.cmdOpenFigures = CmdOpenFigures(self.view, self.grafikModel)
+        self.cmdHelp = CmdHelp(self.view, self.cvModel)
         #etc...
 
         #set correct window aspectratio for camera
@@ -80,7 +82,7 @@ class MainController(QObject): #windowListener, ActionListener
         self.commandInvoker.addCommand(self.btnSpeichern, self.cmdSafeFigures)
         #self.commandInvoker.addCommand(self.btnExportieren, self.cmdAction)
         self.commandInvoker.addCommand(self.btnKallibrieren, self.cmdCalibrateCVCol)
-        #self.commandInvoker.addCommand(self.btnHilfe, self.cmdAction)
+        self.commandInvoker.addCommand(self.btnHilfe, self.cmdHelp)
         #self.commandInvoker.addCommand(self.btnZeichnen, self.cmdAction)
         #self.commandInvoker.addCommand(self.btnRadieren, self.cmdAction)
         #self.commandInvoker.addCommand(self.btnRot, self.cmdSetStrokeColor)
@@ -103,13 +105,11 @@ class MainController(QObject): #windowListener, ActionListener
 
         self.view.keyPressed.connect(self.keyPressEvent)
         self.view.keyReleased.connect(self.keyReleaseEvent)
-        #self.view.canvasPressed.connect(self.canvasClick)
         self.view.quitApp.connect(self.quitApp)
         self.view.windowResize.connect(self.windowResize)
         self.view.windowHide.connect(self.windowHide)
         self.view.undoPress.connect(self.undo)
         self.view.redoPress.connect(self.redo)
-        #self.view.windowActivate.connect(self.windowActivate)
 
     def actionPerformed(self):
         eventSource = self.sender()
@@ -161,9 +161,9 @@ class MainController(QObject): #windowListener, ActionListener
         cRect = QtCore.QRect(0,0,vW,vH)
         self.view.getGraphicsView().setGeometry(cRect)
 
-    def windowHide(self):
+    def windowHide(self, event):
         print("window hide event")
     
-    def windowActivate(self):
+    def windowActivate(self, event):
         print("window activate event")
 
