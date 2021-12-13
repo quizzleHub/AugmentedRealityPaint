@@ -26,6 +26,7 @@ class GrafikModel():
         filename, _ = dialog.getSaveFileName()
         file = open(filename, "wb")
         pickle.dump(self.figures, file)
+        file.close()
  
     def openFigures(self):
         filename, _ = QFileDialog().getOpenFileName()
