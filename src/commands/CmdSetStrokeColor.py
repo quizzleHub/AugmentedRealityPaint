@@ -1,5 +1,5 @@
 from PyQt5.QtGui import QColor
-from CommandInterface import CommandInterface
+from commands.CommandInterface import CommandInterface
 
 
 class CmdSetStrokeColor(CommandInterface):

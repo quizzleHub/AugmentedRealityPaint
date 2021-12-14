@@ -1,14 +1,15 @@
-from CommandInterface import CommandInterface
+from commands.CommandInterface import CommandInterface
 
 
-class CmdAction(CommandInterface):
+class CmdSafeFigures(CommandInterface):
 
     def __init__(self, view, model):
         self.view = view                
         self.model = model
-        self.isUndoableBool = True
+        self.isUndoableBool = False
     def execute(self):
-        print("Action executed")
+        print("SafeFigures executed")
+        self.model.safeFigures()
     def redo(self):
         print("Action redone")
     def undo(self):
