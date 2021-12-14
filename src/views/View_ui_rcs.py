@@ -61,6 +61,7 @@ class Ui_View(object):
         self.toolBar = QtWidgets.QToolBar(View)
         self.toolBar.setObjectName("toolBar")
         View.addToolBar(QtCore.Qt.TopToolBarArea, self.toolBar)
+        self.toolBar.setMaximumSize(1232, 25)
         self.actionPaint = QtWidgets.QAction(View)
         self.actionPaint.setCheckable(True)
         icon9 = QtGui.QIcon()
