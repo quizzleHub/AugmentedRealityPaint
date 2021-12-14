@@ -132,6 +132,13 @@ class MainController(QObject):  # windowListener, ActionListener
         if event.key() == QtCore.Qt.Key_Space:
             self.cvModel.trackingFlag = False
 
+            #check if last figure is empty and delete it
+            figure = self.grafikModel.getLastFigure()
+            points = figure.getPoints()
+            if not points:
+                self.grafikModel.deleteLastFigure()
+                print("last figure deleted")
+
     def quitApp(self):
         # collect all threads
         self.cvModel.runningFlag = False

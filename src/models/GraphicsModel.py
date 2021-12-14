@@ -13,6 +13,12 @@ class GraphicsModel():
     def getFigures(self):
         return self.figures
 
+    def getLastFigure(self):
+        return self.figures[-1]
+
+    def deleteLastFigure(self):
+        del self.figures[-1]
+    
     def clearFigures(self):
         self.figures.clear()
 
