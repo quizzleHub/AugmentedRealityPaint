@@ -27,6 +27,7 @@ class Colorpicker(QMainWindow):
     def UiComponents(self):
         # opening color dialog
         color = QColorDialog.getColor()
+        #print(type(color))
 
         # creating label to display the color
         label = QLabel(self)
