@@ -153,7 +153,7 @@
   <action name="actionrot">
    <property name="icon">
     <iconset>
-     <normaloff>rot.PNG</normaloff>rot.PNG</iconset>
+     <normaloff>../.designer/backup/rot.PNG</normaloff>../.designer/backup/rot.PNG</iconset>
    </property>
    <property name="text">
     <string>rot</string>
@@ -162,7 +162,7 @@
   <action name="actiongruen">
    <property name="icon">
     <iconset>
-     <normaloff>gruen.PNG</normaloff>gruen.PNG</iconset>
+     <normaloff>../.designer/backup/gruen.PNG</normaloff>../.designer/backup/gruen.PNG</iconset>
    </property>
    <property name="text">
     <string>grün</string>
@@ -174,7 +174,7 @@
   <action name="actionblau">
    <property name="icon">
     <iconset>
-     <normaloff>blau.PNG</normaloff>blau.PNG</iconset>
+     <normaloff>../.designer/backup/blau.PNG</normaloff>../.designer/backup/blau.PNG</iconset>
    </property>
    <property name="text">
     <string>blau</string>
@@ -183,7 +183,7 @@
   <action name="actiongelb">
    <property name="icon">
     <iconset>
-     <normaloff>gelb.PNG</normaloff>gelb.PNG</iconset>
+     <normaloff>../.designer/backup/gelb.PNG</normaloff>../.designer/backup/gelb.PNG</iconset>
    </property>
    <property name="text">
     <string>gelb</string>
@@ -192,7 +192,7 @@
   <action name="actionweiss">
    <property name="icon">
     <iconset>
-     <normaloff>weiss.PNG</normaloff>weiss.PNG</iconset>
+     <normaloff>../.designer/backup/weiss.PNG</normaloff>../.designer/backup/weiss.PNG</iconset>
    </property>
    <property name="text">
     <string>weiß</string>
@@ -201,7 +201,7 @@
   <action name="actionDuenn">
    <property name="icon">
     <iconset>
-     <normaloff>icons/duenn.PNG</normaloff>icons/duenn.PNG</iconset>
+     <normaloff>../.designer/backup/icons/duenn.PNG</normaloff>../.designer/backup/icons/duenn.PNG</iconset>
    </property>
    <property name="text">
     <string>Dünn</string>
@@ -210,7 +210,7 @@
   <action name="actionMittel">
    <property name="icon">
     <iconset>
-     <normaloff>icons/mittel.PNG</normaloff>icons/mittel.PNG</iconset>
+     <normaloff>../.designer/backup/icons/mittel.PNG</normaloff>../.designer/backup/icons/mittel.PNG</iconset>
    </property>
    <property name="text">
     <string>Mittel</string>
@@ -219,7 +219,7 @@
   <action name="actionDick">
    <property name="icon">
     <iconset>
-     <normaloff>icons/dick.PNG</normaloff>icons/dick.PNG</iconset>
+     <normaloff>../.designer/backup/icons/dick.PNG</normaloff>../.designer/backup/icons/dick.PNG</iconset>
    </property>
    <property name="text">
     <string>Dick</string>
@@ -228,7 +228,7 @@
   <action name="actionschwarz">
    <property name="icon">
     <iconset>
-     <normaloff>schwarz.PNG</normaloff>schwarz.PNG</iconset>
+     <normaloff>../.designer/backup/schwarz.PNG</normaloff>../.designer/backup/schwarz.PNG</iconset>
    </property>
    <property name="text">
     <string>schwarz</string>
@@ -240,7 +240,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>icons_win/zeichnen.PNG</normaloff>icons_win/zeichnen.PNG</iconset>
+     <normaloff>../.designer/backup/icons_win/zeichnen.PNG</normaloff>../.designer/backup/icons_win/zeichnen.PNG</iconset>
    </property>
    <property name="text">
     <string>Paint</string>
@@ -252,7 +252,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>icons_win/radierer.PNG</normaloff>icons_win/radierer.PNG</iconset>
+     <normaloff>../.designer/backup/icons_win/radierer.PNG</normaloff>../.designer/backup/icons_win/radierer.PNG</iconset>
    </property>
    <property name="text">
     <string>Erase</string>
@@ -264,7 +264,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>icons_win/dick.PNG</normaloff>icons_win/dick.PNG</iconset>
+     <normaloff>../.designer/backup/icons_win/dick.PNG</normaloff>../.designer/backup/icons_win/dick.PNG</iconset>
    </property>
    <property name="text">
     <string>Thick</string>
@@ -276,7 +276,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>icons_win/mittel.PNG</normaloff>icons_win/mittel.PNG</iconset>
+     <normaloff>../.designer/backup/icons_win/mittel.PNG</normaloff>../.designer/backup/icons_win/mittel.PNG</iconset>
    </property>
    <property name="text">
     <string>Medium</string>
@@ -288,7 +288,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>icons_win/duenn.PNG</normaloff>icons_win/duenn.PNG</iconset>
+     <normaloff>../.designer/backup/icons_win/duenn.PNG</normaloff>../.designer/backup/icons_win/duenn.PNG</iconset>
    </property>
    <property name="text">
     <string>Thin</string>
@@ -300,7 +300,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>icons_win/rot.PNG</normaloff>icons_win/rot.PNG</iconset>
+     <normaloff>../.designer/backup/icons_win/rot.PNG</normaloff>../.designer/backup/icons_win/rot.PNG</iconset>
    </property>
    <property name="text">
     <string>Red</string>
@@ -312,7 +312,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>icons_win/blau.PNG</normaloff>icons_win/blau.PNG</iconset>
+     <normaloff>../.designer/backup/icons_win/blau.PNG</normaloff>../.designer/backup/icons_win/blau.PNG</iconset>
    </property>
    <property name="text">
     <string>Blue</string>
@@ -324,7 +324,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>icons_win/gelb.PNG</normaloff>icons_win/gelb.PNG</iconset>
+     <normaloff>../.designer/backup/icons_win/gelb.PNG</normaloff>../.designer/backup/icons_win/gelb.PNG</iconset>
    </property>
    <property name="text">
     <string>Yellow</string>
@@ -333,7 +333,7 @@
   <action name="actionUndo">
    <property name="icon">
     <iconset>
-     <normaloff>icons_win/undo.PNG</normaloff>icons_win/undo.PNG</iconset>
+     <normaloff>../.designer/backup/icons_win/undo.PNG</normaloff>../.designer/backup/icons_win/undo.PNG</iconset>
    </property>
    <property name="text">
     <string>Undo</string>
@@ -342,7 +342,7 @@
   <action name="actionRedo">
    <property name="icon">
     <iconset>
-     <normaloff>icons_win/redo.PNG</normaloff>icons_win/redo.PNG</iconset>
+     <normaloff>../.designer/backup/icons_win/redo.PNG</normaloff>../.designer/backup/icons_win/redo.PNG</iconset>
    </property>
    <property name="text">
     <string>Redo</string>
@@ -376,7 +376,7 @@
   <action name="actionColorpicker">
    <property name="icon">
     <iconset>
-     <normaloff>icons_win/Farbe.PNG</normaloff>icons_win/Farbe.PNG</iconset>
+     <normaloff>../.designer/backup/icons_win/Farbe.PNG</normaloff>../.designer/backup/icons_win/Farbe.PNG</iconset>
    </property>
    <property name="text">
     <string>Colorpicker</string>
@@ -385,7 +385,7 @@
   <action name="actionStrokewidth">
    <property name="icon">
     <iconset>
-     <normaloff>icons_win/Strichdicke.PNG</normaloff>icons_win/Strichdicke.PNG</iconset>
+     <normaloff>../.designer/backup/icons_win/Strichdicke.PNG</normaloff>../.designer/backup/icons_win/Strichdicke.PNG</iconset>
    </property>
    <property name="text">
     <string>Strokewidth</string>
