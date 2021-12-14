@@ -1,5 +1,3 @@
-
-
 class CommandInvoker:
 
     def __init__(self):

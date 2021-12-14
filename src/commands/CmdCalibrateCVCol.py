@@ -1,8 +1,7 @@
-from PyQt5.QtGui import QColor, QTransform
-from PyQt5.QtWidgets import QApplication, QMessageBox, QWidget
-from PyQt5.QtCore import QObject, pyqtSlot
-from PyQt5 import QtGui, QtWidgets
-from CommandInterface import CommandInterface
+from PyQt5.QtGui import QColor
+from PyQt5.QtWidgets import QApplication, QMessageBox
+from PyQt5.QtCore import QObject
+from commands.CommandInterface import CommandInterface
 from PIL import ImageQt
 import numpy as np
 

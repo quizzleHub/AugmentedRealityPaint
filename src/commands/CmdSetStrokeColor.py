@@ -1,5 +1,5 @@
 from PyQt5.QtGui import QColor
-from CommandInterface import CommandInterface
+from commands.CommandInterface import CommandInterface
 
 
 class CmdSetStrokeColor(CommandInterface):
@@ -9,7 +9,7 @@ class CmdSetStrokeColor(CommandInterface):
         self.model = model
         self.isUndoableBool = True
     def execute(self):
-        self.view.grafikView.setStrokeColor(QColor(255,0,0))
+        self.view.grafikView.setStrokeColor(QColor(0,0,255))
     def redo(self):
         print("Action redone")
     def undo(self):

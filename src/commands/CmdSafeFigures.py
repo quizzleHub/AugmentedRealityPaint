@@ -1,4 +1,4 @@
-from CommandInterface import CommandInterface
+from commands.CommandInterface import CommandInterface
 
 
 class CmdSafeFigures(CommandInterface):

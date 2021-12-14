@@ -1,8 +1,8 @@
-from Figure import Figure
+from models.Figure import Figure
 from PyQt5.QtWidgets import QFileDialog
 import pickle
 
-class GrafikModel():
+class GraphicsModel():
     
     def __init__(self) -> None:
         self.figures = []
