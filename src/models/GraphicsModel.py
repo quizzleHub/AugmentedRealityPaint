@@ -24,15 +24,17 @@ class GraphicsModel():
     def safeFigures(self):
         dialog = QFileDialog()
         filename, _ = dialog.getSaveFileName()
-        file = open(filename, "wb")
-        pickle.dump(self.figures, file)
-        file.close()
+        if filename != "":
+            file = open(filename, "wb")
+            pickle.dump(self.figures, file)
+            file.close()
  
     def openFigures(self):
         filename, _ = QFileDialog().getOpenFileName()
-        file = open(filename, "rb")
-        self.figures = pickle.load(file)
-        file.close()
+        if filename != "":
+            file = open(filename, "rb")
+            self.figures = pickle.load(file)
+            file.close()
 
 
         
