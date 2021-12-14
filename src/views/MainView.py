@@ -23,8 +23,8 @@ class MainView(QMainWindow):
         self._ui = Ui_View()
         self._ui.setupUi(self)
         self.grafikView = grafikView
-        self._ui.menuUndo.mousePressEvent = self.undoEvent
-        self._ui.menuRedo.mousePressEvent = self.redoEvent
+        self._ui.actionUndo.mousePressEvent = self.undoEvent
+        self._ui.actionRedo.mousePressEvent = self.redoEvent
         self._ui.graphicsView.mousePressEvent = self.canvasPressedEvent
 
 
@@ -66,71 +66,58 @@ class MainView(QMainWindow):
     def getGraphicsView(self):
         return self._ui.graphicsView
 
-    def getbtnOptionen(self):
-        return self._ui.menuOptionen
+    def getbtnFile(self):
+        return self._ui.menuFile
 
-    def getbtnNeu(self):
-        return self._ui.actionNeu
+    def getbtnClear_all(self):
+        return self._ui.actionClear_all
 
-    def getbtnOeffnen(self):
-        return self._ui.actionOeffnen
+    def getbtnOpen(self):
+        return self._ui.actionOpen
 
-    def getbtnSpeichern(self):
-        return self._ui.actionSpeichern
+    def getbtnSave(self):
+        return self._ui.actionSave
 
-    def getbtnExportieren(self):
-        return self._ui.actionExportieren
+    def getbtnCalibrate(self):
+        return self._ui.actionCalibrate
 
-    def getbtnKalibrieren(self):
-        return self._ui.actionKalibrieren
+    def getbtnHelp(self):
+        return self._ui.actionHelp
 
-    def getbtnHilfe(self):
-        return self._ui.actionHilfe
+    def getbtnPaint(self):
+        return self._ui.actionPaint
 
-    def getbtnZeichnen(self):
-        return self._ui.menuZeichnen
+    def getbtnErase(self):
+        return self._ui.actionErase
 
-    def getbtnRadieren(self):
-        return self._ui.menuRadieren
+    def getbtnRed(self):
+        return self._ui.actionRed
 
-    def getbtnFarbe(self):
-        return self._ui.menuFarbe
 
-    def getbtnRot(self):
-        return self._ui.actionrot
+    def getbtnBlue(self):
+        return self._ui.actionBlue
 
-    def getbtnGruen(self):
-        return self._ui.actiongruen
+    def getbtnYellow(self):
+        return self._ui.actionYellow
 
-    def getbtnBlau(self):
-        return self._ui.actionblau
 
-    def getbtnGelb(self):
-        return self._ui.actiongelb
+    def getbtnThick(self):
+        return self._ui.actionThick
 
-    def getbtnWeiss(self):
-        return self._ui.actionweiss
+    def getbtnMedium(self):
+        return self._ui.actionMedium
 
-    def getbtnSchwarz(self):
-        return self._ui.actionschwarz
-
-    def getbtnStrichdicke(self):
-        return self._ui.menuStrichdicke
-
-    def getbtnDick(self):
-        return self._ui.actionDick
-
-    def getbtnMittel(self):
-        return self._ui.actionMittel
-
-    def getbtnDuenn(self):
-        return self._ui.actionDuenn
+    def getbtnThin(self):
+        return self._ui.actionThin
 
     def getbtnUndo(self):
-        return self._ui.menuUndo
+        return self._ui.actionUndo
 
     def getbtnRedo(self):
-        return self._ui.menuRedo
+        return self._ui.actionRedo
     
-    def getCentralWidget(self):
-        return self._ui.centralwidget
+    def getbtnColorPicker(self):
+        return self._ui.actionColorpicker
+
+    def getbtnStrokeWidthPicker(self):
+        return self._ui.actionStrokewidth

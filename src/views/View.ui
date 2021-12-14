@@ -17,8 +17,8 @@
    <widget class="QLabel" name="GraphicsView">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>0</y>
+      <x>-50</x>
+      <y>-180</y>
       <width>1231</width>
       <height>771</height>
      </rect>
@@ -55,116 +55,56 @@
      <x>0</x>
      <y>0</y>
      <width>1232</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
    <property name="nativeMenuBar">
     <bool>false</bool>
    </property>
-   <widget class="QMenu" name="menuOptionen">
+   <widget class="QMenu" name="menuFile">
     <property name="title">
-     <string>Optionen</string>
+     <string>File</string>
     </property>
-    <addaction name="actionNeu"/>
-    <addaction name="actionOeffnen"/>
-    <addaction name="actionSpeichern"/>
-    <addaction name="actionExportieren"/>
-    <addaction name="actionKalibrieren"/>
-    <addaction name="actionHilfe"/>
+    <addaction name="actionClear_all"/>
+    <addaction name="actionOpen"/>
+    <addaction name="actionSave"/>
+    <addaction name="actionCalibrate"/>
+    <addaction name="actionHelp"/>
    </widget>
-   <widget class="QMenu" name="menuZeichnen">
-    <property name="toolTip">
-     <string>Zeichnen</string>
-    </property>
+   <widget class="QMenu" name="menuPaint_Settings">
     <property name="title">
-     <string>Zeichnen</string>
+     <string>Paint Settings</string>
     </property>
-    <property name="icon">
-     <iconset>
-      <normaloff>zeichnen.PNG</normaloff>zeichnen.PNG</iconset>
-    </property>
+    <addaction name="actionColorpicker"/>
+    <addaction name="actionStrokewidth"/>
    </widget>
-   <widget class="QMenu" name="menuRadieren">
-    <property name="toolTip">
-     <string>Entferne bereits gemalte Striche</string>
-    </property>
-    <property name="title">
-     <string>Radieren</string>
-    </property>
-    <property name="icon">
-     <iconset>
-      <normaloff>../Downloads/images-removebg-preview.png</normaloff>../Downloads/images-removebg-preview.png</iconset>
-    </property>
-   </widget>
-   <widget class="QMenu" name="menuFarbe">
-    <property name="toolTip">
-     <string>Wähle eine Zeichenfarbe</string>
-    </property>
-    <property name="title">
-     <string>Farbe</string>
-    </property>
-    <property name="icon">
-     <iconset>
-      <normaloff>Farbe.PNG</normaloff>Farbe.PNG</iconset>
-    </property>
-    <addaction name="actionrot"/>
-    <addaction name="actiongruen"/>
-    <addaction name="actionblau"/>
-    <addaction name="actiongelb"/>
-    <addaction name="actionweiss"/>
-    <addaction name="actionschwarz"/>
-   </widget>
-   <widget class="QMenu" name="menuStrichdicke">
-    <property name="toolTip">
-     <string>Wähle eine Strichdicke aus</string>
-    </property>
-    <property name="title">
-     <string>Strichdicke</string>
-    </property>
-    <property name="icon">
-     <iconset>
-      <normaloff>Strichdicke.PNG</normaloff>Strichdicke.PNG</iconset>
-    </property>
-    <addaction name="actionDuenn"/>
-    <addaction name="actionMittel"/>
-    <addaction name="actionDick"/>
-   </widget>
-   <widget class="QMenu" name="menuUndo">
-    <property name="toolTip">
-     <string>Mache den letzten Schritt rückgängig</string>
-    </property>
-    <property name="title">
-     <string>Undo</string>
-    </property>
-    <property name="icon">
-     <iconset>
-      <normaloff>undo.PNG</normaloff>undo.PNG</iconset>
-    </property>
-   </widget>
-   <widget class="QMenu" name="menuRedo">
-    <property name="toolTip">
-     <string>Wiederhole den letzten Schritt</string>
-    </property>
-    <property name="title">
-     <string>Redo</string>
-    </property>
-    <property name="icon">
-     <iconset>
-      <normaloff>redo.PNG</normaloff>redo.PNG</iconset>
-    </property>
-   </widget>
-   <addaction name="menuOptionen"/>
-   <addaction name="menuZeichnen"/>
-   <addaction name="menuRadieren"/>
-   <addaction name="menuFarbe"/>
-   <addaction name="menuStrichdicke"/>
-   <addaction name="menuUndo"/>
-   <addaction name="menuRedo"/>
+   <addaction name="menuFile"/>
+   <addaction name="menuPaint_Settings"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionPaint"/>
+   <addaction name="actionErase"/>
+   <addaction name="actionRed"/>
+   <addaction name="actionBlue"/>
+   <addaction name="actionYellow"/>
+   <addaction name="actionThick"/>
+   <addaction name="actionMedium"/>
+   <addaction name="actionThin"/>
+   <addaction name="actionUndo"/>
+   <addaction name="actionRedo"/>
+  </widget>
   <action name="actionNeu">
    <property name="text">
-    <string>Neu</string>
+    <string>Clear all</string>
    </property>
    <property name="toolTip">
     <string>Erstelle ein neues Bild</string>
@@ -213,7 +153,7 @@
   <action name="actionrot">
    <property name="icon">
     <iconset>
-     <normaloff>rot.PNG</normaloff>rot.PNG</iconset>
+     <normaloff>AugmentedRealityPaint/src/.designer/backup/rot.PNG</normaloff>AugmentedRealityPaint/src/.designer/backup/rot.PNG</iconset>
    </property>
    <property name="text">
     <string>rot</string>
@@ -222,7 +162,7 @@
   <action name="actiongruen">
    <property name="icon">
     <iconset>
-     <normaloff>gruen.PNG</normaloff>gruen.PNG</iconset>
+     <normaloff>AugmentedRealityPaint/src/.designer/backup/gruen.PNG</normaloff>AugmentedRealityPaint/src/.designer/backup/gruen.PNG</iconset>
    </property>
    <property name="text">
     <string>grün</string>
@@ -234,7 +174,7 @@
   <action name="actionblau">
    <property name="icon">
     <iconset>
-     <normaloff>blau.PNG</normaloff>blau.PNG</iconset>
+     <normaloff>AugmentedRealityPaint/src/.designer/backup/blau.PNG</normaloff>AugmentedRealityPaint/src/.designer/backup/blau.PNG</iconset>
    </property>
    <property name="text">
     <string>blau</string>
@@ -243,7 +183,7 @@
   <action name="actiongelb">
    <property name="icon">
     <iconset>
-     <normaloff>gelb.PNG</normaloff>gelb.PNG</iconset>
+     <normaloff>AugmentedRealityPaint/src/.designer/backup/gelb.PNG</normaloff>AugmentedRealityPaint/src/.designer/backup/gelb.PNG</iconset>
    </property>
    <property name="text">
     <string>gelb</string>
@@ -252,7 +192,7 @@
   <action name="actionweiss">
    <property name="icon">
     <iconset>
-     <normaloff>weiss.PNG</normaloff>weiss.PNG</iconset>
+     <normaloff>AugmentedRealityPaint/src/.designer/backup/weiss.PNG</normaloff>AugmentedRealityPaint/src/.designer/backup/weiss.PNG</iconset>
    </property>
    <property name="text">
     <string>weiß</string>
@@ -261,7 +201,7 @@
   <action name="actionDuenn">
    <property name="icon">
     <iconset>
-     <normaloff>icons/duenn.PNG</normaloff>icons/duenn.PNG</iconset>
+     <normaloff>AugmentedRealityPaint/src/.designer/backup/icons/duenn.PNG</normaloff>AugmentedRealityPaint/src/.designer/backup/icons/duenn.PNG</iconset>
    </property>
    <property name="text">
     <string>Dünn</string>
@@ -270,7 +210,7 @@
   <action name="actionMittel">
    <property name="icon">
     <iconset>
-     <normaloff>icons/mittel.PNG</normaloff>icons/mittel.PNG</iconset>
+     <normaloff>AugmentedRealityPaint/src/.designer/backup/icons/mittel.PNG</normaloff>AugmentedRealityPaint/src/.designer/backup/icons/mittel.PNG</iconset>
    </property>
    <property name="text">
     <string>Mittel</string>
@@ -279,7 +219,7 @@
   <action name="actionDick">
    <property name="icon">
     <iconset>
-     <normaloff>icons/dick.PNG</normaloff>icons/dick.PNG</iconset>
+     <normaloff>AugmentedRealityPaint/src/.designer/backup/icons/dick.PNG</normaloff>AugmentedRealityPaint/src/.designer/backup/icons/dick.PNG</iconset>
    </property>
    <property name="text">
     <string>Dick</string>
@@ -288,10 +228,167 @@
   <action name="actionschwarz">
    <property name="icon">
     <iconset>
-     <normaloff>schwarz.PNG</normaloff>schwarz.PNG</iconset>
+     <normaloff>AugmentedRealityPaint/src/.designer/backup/schwarz.PNG</normaloff>AugmentedRealityPaint/src/.designer/backup/schwarz.PNG</iconset>
    </property>
    <property name="text">
     <string>schwarz</string>
+   </property>
+  </action>
+  <action name="actionPaint">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>AugmentedRealityPaint/src/.designer/backup/icons_win/zeichnen.PNG</normaloff>AugmentedRealityPaint/src/.designer/backup/icons_win/zeichnen.PNG</iconset>
+   </property>
+   <property name="text">
+    <string>Paint</string>
+   </property>
+  </action>
+  <action name="actionErase">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>AugmentedRealityPaint/src/.designer/backup/icons_win/radierer.PNG</normaloff>AugmentedRealityPaint/src/.designer/backup/icons_win/radierer.PNG</iconset>
+   </property>
+   <property name="text">
+    <string>Erase</string>
+   </property>
+  </action>
+  <action name="actionThick">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>AugmentedRealityPaint/src/.designer/backup/icons_win/dick.PNG</normaloff>AugmentedRealityPaint/src/.designer/backup/icons_win/dick.PNG</iconset>
+   </property>
+   <property name="text">
+    <string>Thick</string>
+   </property>
+  </action>
+  <action name="actionMedium">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>AugmentedRealityPaint/src/.designer/backup/icons_win/mittel.PNG</normaloff>AugmentedRealityPaint/src/.designer/backup/icons_win/mittel.PNG</iconset>
+   </property>
+   <property name="text">
+    <string>Medium</string>
+   </property>
+  </action>
+  <action name="actionThin">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>AugmentedRealityPaint/src/.designer/backup/icons_win/duenn.PNG</normaloff>AugmentedRealityPaint/src/.designer/backup/icons_win/duenn.PNG</iconset>
+   </property>
+   <property name="text">
+    <string>Thin</string>
+   </property>
+  </action>
+  <action name="actionRed">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>AugmentedRealityPaint/src/.designer/backup/icons_win/rot.PNG</normaloff>AugmentedRealityPaint/src/.designer/backup/icons_win/rot.PNG</iconset>
+   </property>
+   <property name="text">
+    <string>Red</string>
+   </property>
+  </action>
+  <action name="actionBlue">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>AugmentedRealityPaint/src/.designer/backup/icons_win/blau.PNG</normaloff>AugmentedRealityPaint/src/.designer/backup/icons_win/blau.PNG</iconset>
+   </property>
+   <property name="text">
+    <string>Blue</string>
+   </property>
+  </action>
+  <action name="actionYellow">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>AugmentedRealityPaint/src/.designer/backup/icons_win/gelb.PNG</normaloff>AugmentedRealityPaint/src/.designer/backup/icons_win/gelb.PNG</iconset>
+   </property>
+   <property name="text">
+    <string>Yellow</string>
+   </property>
+  </action>
+  <action name="actionUndo">
+   <property name="icon">
+    <iconset>
+     <normaloff>AugmentedRealityPaint/src/.designer/backup/icons_win/undo.PNG</normaloff>AugmentedRealityPaint/src/.designer/backup/icons_win/undo.PNG</iconset>
+   </property>
+   <property name="text">
+    <string>Undo</string>
+   </property>
+  </action>
+  <action name="actionRedo">
+   <property name="icon">
+    <iconset>
+     <normaloff>AugmentedRealityPaint/src/.designer/backup/icons_win/redo.PNG</normaloff>AugmentedRealityPaint/src/.designer/backup/icons_win/redo.PNG</iconset>
+   </property>
+   <property name="text">
+    <string>Redo</string>
+   </property>
+  </action>
+  <action name="actionClear_all">
+   <property name="text">
+    <string>Clear all</string>
+   </property>
+  </action>
+  <action name="actionOpen">
+   <property name="text">
+    <string>Open</string>
+   </property>
+  </action>
+  <action name="actionSave">
+   <property name="text">
+    <string>Save</string>
+   </property>
+  </action>
+  <action name="actionCalibrate">
+   <property name="text">
+    <string>Calibrate</string>
+   </property>
+  </action>
+  <action name="actionHelp">
+   <property name="text">
+    <string>Help</string>
+   </property>
+  </action>
+  <action name="actionColorpicker">
+   <property name="icon">
+    <iconset>
+     <normaloff>AugmentedRealityPaint/src/.designer/backup/icons_win/Farbe.PNG</normaloff>AugmentedRealityPaint/src/.designer/backup/icons_win/Farbe.PNG</iconset>
+   </property>
+   <property name="text">
+    <string>Colorpicker</string>
+   </property>
+  </action>
+  <action name="actionStrokewidth">
+   <property name="icon">
+    <iconset>
+     <normaloff>AugmentedRealityPaint/src/.designer/backup/icons_win/Strichdicke.PNG</normaloff>AugmentedRealityPaint/src/.designer/backup/icons_win/Strichdicke.PNG</iconset>
+   </property>
+   <property name="text">
+    <string>Strokewidth</string>
    </property>
   </action>
  </widget>
