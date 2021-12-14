@@ -116,5 +116,8 @@ class MainView(QMainWindow):
     def getbtnRedo(self):
         return self._ui.actionRedo
     
-    def getCentralWidget(self):
-        return self._ui.centralwidget
+    def getbtnColorPicker(self):
+        return self._ui.actionColorpicker
+
+    def getbtnStrokeWidthPicker(self):
+        return self._ui.actionStrokewidth

@@ -35,6 +35,8 @@ class MainController(QObject):  # windowListener, ActionListener
         self.btnThin = self.view.getbtnThin()
         self.btnUndo = self.view.getbtnUndo()
         self.btnRedo = self.view.getbtnRedo()
+        self.btnColorPicker = self.view.getbtnColorPicker()
+        self.btnStrokeWidthPicker = self.view.getbtnStrokeWidthPicker()
 
         # all commands
         self.cmdSetStrokeColor = CmdSetStrokeColor(self.view, self.cvModel)
@@ -49,24 +51,26 @@ class MainController(QObject):  # windowListener, ActionListener
 
     def registerEvents(self):
         # register event to actionPerformed for all buttons
-        self.btnClear_all.triggered.connect(self.actionPerformed)
+        #self.btnClear_all.triggered.connect(self.actionPerformed)
         self.btnOpen.triggered.connect(self.actionPerformed)
         self.btnSave.triggered.connect(self.actionPerformed)
         self.btnCalibrate.triggered.connect(self.actionPerformed)
-        self.btnHelp.triggered.connect(self.actionPerformed)
-        self.btnPaint.triggered.connect(self.actionPerformed)
-        self.btnErase.triggered.connect(self.actionPerformed)
+        #self.btnHelp.triggered.connect(self.actionPerformed)
+        #self.btnPaint.triggered.connect(self.actionPerformed)
+        #self.btnErase.triggered.connect(self.actionPerformed)
         self.btnBlue.triggered.connect(self.actionPerformed)
         self.btnYellow.triggered.connect(self.actionPerformed)
-        self.btnThick.triggered.connect(self.actionPerformed)
-        self.btnMedium.triggered.connect(self.actionPerformed)
-        self.btnThin.triggered.connect(self.actionPerformed)
+        self.btnRed.triggered.connect(self.actionPerformed)
+        #self.btnThick.triggered.connect(self.actionPerformed)
+        #self.btnMedium.triggered.connect(self.actionPerformed)
+        #self.btnThin.triggered.connect(self.actionPerformed)
+        #colorpicker
+        #strokewidthpicker
 
         print("registered events in BtnController")
 
     def registerCommands(self):
         # register buttons to commands
-        # self.commandInvoker.addCommand(self.btnNeu, self.cmdAction)
         self.commandInvoker.addCommand(self.btnOpen, self.cmdOpenFigures)
         self.commandInvoker.addCommand(self.btnSave, self.cmdSafeFigures)
         # self.commandInvoker.addCommand(self.btnExportieren, self.cmdAction)
@@ -74,12 +78,9 @@ class MainController(QObject):  # windowListener, ActionListener
         # self.commandInvoker.addCommand(self.btnHilfe, self.cmdAction)
         # self.commandInvoker.addCommand(self.btnZeichnen, self.cmdAction)
         # self.commandInvoker.addCommand(self.btnRadieren, self.cmdAction)
-        # self.commandInvoker.addCommand(self.btnRot, self.cmdSetStrokeColor)
-        # self.commandInvoker.addCommand(self.btnGruen, self.cmdAction)
-        # self.commandInvoker.addCommand(self.btnBlau, self.cmdAction)
-        # self.commandInvoker.addCommand(self.btnGelb, self.cmdAction)
-        # self.commandInvoker.addCommand(self.btnWeiss, self.cmdAction)
-        # self.commandInvoker.addCommand(self.btnSchwarz, self.cmdAction)
+        self.commandInvoker.addCommand(self.btnRed, self.cmdSetStrokeColor)
+        self.commandInvoker.addCommand(self.btnBlue, self.cmdSetStrokeColor)
+        self.commandInvoker.addCommand(self.btnYellow, self.cmdSetStrokeColor)
         # self.commandInvoker.addCommand(self.btnDick, self.cmdAction)
         # self.commandInvoker.addCommand(self.btnMittel, self.cmdAction)
         # self.commandInvoker.addCommand(self.btnDuenn, self.cmdAction)
@@ -94,13 +95,12 @@ class MainController(QObject):  # windowListener, ActionListener
 
         self.view.keyPressed.connect(self.keyPressEvent)
         self.view.keyReleased.connect(self.keyReleaseEvent)
-        # self.view.canvasPressed.connect(self.canvasClick)
         self.view.quitApp.connect(self.quitApp)
         self.view.windowResize.connect(self.windowResize)
         self.view.windowHide.connect(self.windowHide)
         self.view.undoPress.connect(self.undo)
         self.view.redoPress.connect(self.redo)
-        # self.view.windowActivate.connect(self.windowActivate)
+
 
     def actionPerformed(self):
         eventSource = self.sender()
