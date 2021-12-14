@@ -5,6 +5,7 @@ from commands.CommandInvoker import CommandInvoker
 from commands.CmdCalibrateCVCol import CmdCalibrateCVCol
 from commands.CmdSafeFigures import CmdSafeFigures
 from commands.CmdOpenFigures import CmdOpenFigures
+from commands.CmdClearFigures import CmdClearFigures
 from commands.CmdSetStrokeColor import CmdSetStrokeColor
 
 
@@ -43,6 +44,7 @@ class MainController(QObject):  # windowListener, ActionListener
         self.cmdCalibrateCVCol = CmdCalibrateCVCol(self.view, self.cvModel)
         self.cmdSafeFigures = CmdSafeFigures(self.view, self.grafikModel)
         self.cmdOpenFigures = CmdOpenFigures(self.view, self.grafikModel)
+        self.cmdClearFigures = CmdClearFigures(self.view, self.grafikModel)
         # etc...
 
         # set correct window aspectratio for camera
@@ -51,7 +53,7 @@ class MainController(QObject):  # windowListener, ActionListener
 
     def registerEvents(self):
         # register event to actionPerformed for all buttons
-        #self.btnClear_all.triggered.connect(self.actionPerformed)
+        self.btnClear_all.triggered.connect(self.actionPerformed)
         self.btnOpen.triggered.connect(self.actionPerformed)
         self.btnSave.triggered.connect(self.actionPerformed)
         self.btnCalibrate.triggered.connect(self.actionPerformed)
@@ -73,6 +75,7 @@ class MainController(QObject):  # windowListener, ActionListener
         # register buttons to commands
         self.commandInvoker.addCommand(self.btnOpen, self.cmdOpenFigures)
         self.commandInvoker.addCommand(self.btnSave, self.cmdSafeFigures)
+        self.commandInvoker.addCommand(self.btnClear_all, self.cmdClearFigures)
         # self.commandInvoker.addCommand(self.btnExportieren, self.cmdAction)
         self.commandInvoker.addCommand(self.btnCalibrate, self.cmdCalibrateCVCol)
         # self.commandInvoker.addCommand(self.btnHilfe, self.cmdAction)
