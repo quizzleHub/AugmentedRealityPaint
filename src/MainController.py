@@ -117,7 +117,6 @@ class MainController(QObject):  # windowListener, ActionListener
         self.view.undoPress.connect(self.undo)
         self.view.redoPress.connect(self.redo)
 
-
     def actionPerformed(self, *args):
         eventSource = self.sender()
         print("trying to perform action: " + eventSource.text() + "_" + str(id(eventSource)))
@@ -137,17 +136,22 @@ class MainController(QObject):  # windowListener, ActionListener
             return
 
         if event.key() == QtCore.Qt.Key_Space:
+            #if drawingMode
+            if self.graphicsModel.getMode() == 0:   
+                #create new figure where CVModel can append points
+                print("new figure created")
+                self.graphicsModel.addFigure(self.view.graphicsView.getStrokeColor(), self.view.graphicsView.getStrokeWidth())
+            
+            #turn on tracking in CVModel
             self.cvModel.trackingFlag = True
 
-            if self.graphicsModel.getMode() == 0:
-                print("new figure")
-                self.graphicsModel.addFigure(self.view.graphicsView.getStrokeColor(), self.view.graphicsView.getStrokeWidth())
-                
     def keyReleaseEvent(self, event):
         if event.key() == QtCore.Qt.Key_Space:
+            #turn off tracking in CVModel
             self.cvModel.trackingFlag = False
 
-            if self.graphicsModel.getMode() == 0:
+            #if drawingMode
+            if self.graphicsModel.getMode() == 0:   
                 #check if last figure is empty and delete it
                 figure = self.graphicsModel.getLastFigure()
                 points = figure.getPoints()
@@ -177,10 +181,8 @@ class MainController(QObject):  # windowListener, ActionListener
         cRect = QtCore.QRect(0, 0, vW, vH)
         self.view.getGraphicsView().setGeometry(cRect)
 
-
     def windowHide(self):
         print("window hide event")
 
     def windowActivate(self):
         print("window activate event")
-
