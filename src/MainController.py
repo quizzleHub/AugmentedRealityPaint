@@ -11,6 +11,9 @@ from commands.CmdSafeFigures import CmdSafeFigures
 from commands.CmdOpenFigures import CmdOpenFigures
 from commands.CmdClearFigures import CmdClearFigures
 from commands.CmdSetStrokeColor import CmdSetStrokeColor
+from commands.CmdDrawingMode import CmdDrawingMode
+from commands.CmdErasingMode import CmdErasingMode
+from models.GraphicsModel import GraphicsModel
 
 
 class MainController(QObject):  # windowListener, ActionListener
@@ -47,9 +50,11 @@ class MainController(QObject):  # windowListener, ActionListener
         self.cmdCalibrateCVCol = CmdCalibrateCVCol(self.view, self.cvModel)
         self.cmdSafeFigures = CmdSafeFigures(self.view, self.graphicsModel)
         self.cmdOpenFigures = CmdOpenFigures(self.view, self.graphicsModel)
+        self.cmdClearFigures = CmdClearFigures(self.view, self.graphicsModel)
         self.cmdSetStrokeColor = CmdSetStrokeColor(self.view, self.graphicsModel)
         self.cmdSetStrokeWidth = CmdSetStrokeWidth(self.view, self.graphicsModel)
-        self.cmdClearFigures = CmdClearFigures(self.view, self.graphicsModel)
+        self.cmdDrawingMode = CmdDrawingMode(self.view, self.graphicsModel)
+        self.cmdErasingMode = CmdErasingMode(self.view, self.graphicsModel)
         # etc...
 
         # set correct window aspectratio for camera
@@ -64,8 +69,8 @@ class MainController(QObject):  # windowListener, ActionListener
         self.btnCalibrate.triggered.connect(self.actionPerformed)
         self.btnHelp.triggered.connect(self.actionPerformed)
 
-        #self.btnPaint.triggered.connect(self.actionPerformed)
-        #self.btnErase.triggered.connect(self.actionPerformed)
+        self.btnPaint.triggered.connect(self.actionPerformed)
+        self.btnErase.triggered.connect(self.actionPerformed)
 
         self.btnBlue.triggered.connect(lambda: self.actionPerformed(QColor(102, 140, 255)))
         self.btnYellow.triggered.connect(lambda: self.actionPerformed(QColor(255,255,128)))
@@ -85,6 +90,9 @@ class MainController(QObject):  # windowListener, ActionListener
         # self.commandInvoker.addCommand(self.btnExportieren, self.cmdAction)
         self.commandInvoker.addCommand(self.btnCalibrate, self.cmdCalibrateCVCol)
 
+        self.commandInvoker.addCommand(self.btnPaint, self.cmdDrawingMode)
+        self.commandInvoker.addCommand(self.btnErase, self.cmdErasingMode)
+
         self.commandInvoker.addCommand(self.btnBlue, self.cmdSetStrokeColor)
         self.commandInvoker.addCommand(self.btnYellow, self.cmdSetStrokeColor)
         self.commandInvoker.addCommand(self.btnRed, self.cmdSetStrokeColor)
@@ -98,7 +106,7 @@ class MainController(QObject):  # windowListener, ActionListener
     def connectSignals(self):
         self.cvModelThread.started.connect(self.cvModel.run)
         self.cvModel.newCamFrame.connect(self.view.graphicsView.updateCanvas)
-        self.cvModel.newTrackedCoords.connect(self.graphicsModel.addPoint)
+        self.cvModel.newTrackedCoords.connect(self.graphicsModel.recPoint)
         self.cvModel.exitSig.connect(self.cvModelThread.quit)
 
         self.view.keyPressed.connect(self.keyPressEvent)
@@ -129,20 +137,23 @@ class MainController(QObject):  # windowListener, ActionListener
             return
 
         if event.key() == QtCore.Qt.Key_Space:
-            print("new figure")
-            self.graphicsModel.addFigure(self.view.graphicsView.getStrokeColor(), self.view.graphicsView.getStrokeWidth())
             self.cvModel.trackingFlag = True
 
+            if self.graphicsModel.getMode() == 0:
+                print("new figure")
+                self.graphicsModel.addFigure(self.view.graphicsView.getStrokeColor(), self.view.graphicsView.getStrokeWidth())
+                
     def keyReleaseEvent(self, event):
         if event.key() == QtCore.Qt.Key_Space:
             self.cvModel.trackingFlag = False
 
-            #check if last figure is empty and delete it
-            figure = self.graphicsModel.getLastFigure()
-            points = figure.getPoints()
-            if not points:
-                self.graphicsModel.deleteLastFigure()
-                print("last figure deleted")
+            if self.graphicsModel.getMode() == 0:
+                #check if last figure is empty and delete it
+                figure = self.graphicsModel.getLastFigure()
+                points = figure.getPoints()
+                if not points:
+                    self.graphicsModel.deleteLastFigure()
+                    print("last figure deleted")
 
     def quitApp(self):
         # collect all threads
