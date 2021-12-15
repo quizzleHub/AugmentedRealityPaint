@@ -1,5 +1,5 @@
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QPen, QPixmap, QTransform, QPainter, QColor
+from PyQt5.QtGui import QPen, QPixmap, QTransform, QPainter, QColor, QBrush
 
 
 class GraphicsView:
@@ -11,12 +11,16 @@ class GraphicsView:
 
         self.painter = QPainter()
         self.pen = QPen()
-        #default color and width
+
+        #default values
         self.currentPenColor = QColor(224,102,255)
         self.currentStrokeWidth = 2.7
+        self.currentStrokePattern = 1 #solid line
+        self.currentBrushStyle = 1 #solid style
+        self.currentPenCapStyle = 32 #rounded edges
 
         #self.lineType = Qt.SolideLine
-        #self.pen.setStyle()
+        #self.pen.setStyle(3)
         #self.pen.setBrush(QtGui.QColor)
 
 
@@ -29,6 +33,15 @@ class GraphicsView:
 
     def setStrokeWidth(self, floatWidth):
         self.currentStrokeWidth = floatWidth
+    
+    def setStrokePattern(self, strokePattern):
+        self.strokePattern = strokePattern
+    
+    def setBrushStyle(self, brushStyle):
+        self.currentBrushStyle = brushStyle
+
+    def setPenCapStyle(self, penCapStyle):
+        self.currentPenCapStyle = penCapStyle
      
 
 
@@ -37,8 +50,10 @@ class GraphicsView:
         transformedImage = image.transformed(QTransform().scale(-1, 1)) #mirror
 
         self.painter.begin(transformedImage)
-        self.pen.setColor(self.currentPenColor)
         self.pen.setWidthF(self.currentStrokeWidth)
+        self.pen.setBrush(QBrush(self.currentPenColor,self.currentBrushStyle))
+        self.pen.setCapStyle(self.currentPenCapStyle)
+        self.pen.setStyle(self.currentStrokePattern)
         self.painter.setPen(self.pen)
 
         figures = self.grafikModel.getFigures()

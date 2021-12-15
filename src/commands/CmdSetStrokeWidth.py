@@ -1,3 +1,4 @@
+from typing import Match
 from PyQt5.QtWidgets import QDialog, QWidget
 from PyQt5 import QtWidgets
 from commands.CommandInterface import CommandInterface
@@ -14,16 +15,34 @@ class CmdSetStrokeWidth(CommandInterface):
         self.view = view                
         self.model = model
         self.isUndoableBool = False
+        self.strokePatternLookUp = {
+            0:1,
+            1:2,
+            2:3,
+            3:4,
+            4:5,
+        }
+        self.brushStyleLookUp = {
+            0:1,
+            1:2,
+            2:3,
+            3:4,
+            4:5,
+            5:6
+
+        }
+
     def execute(self, *args):
         if (type(args[0]) == float):    #if width argument #what is this behavior?
             self.view.grafikView.setStrokeWidth(args[0])
         else: #if no parameter -> strokeWidthPicker
             #strokeWidthPicker = StrokeWidthPicker(self.view)
             #strokeWidthPicker.exec()
-            penPickerDialog = QtWidgets.QDialog()
-            penPickerUi = Ui_Dialog()
-            penPickerUi.setupUi(penPickerDialog)
-            penPickerDialog.exec()
+            self.penPickerDialog = QtWidgets.QDialog()
+            self.penPickerUi = Ui_Dialog()
+            self.penPickerUi.setupUi(self.penPickerDialog)
+            self.penPickerUi.btnApplySettings.clicked.connect(self.getPenProperties)
+            self.penPickerDialog.exec()
             
             
         print("CmdSetStrokeWidth executed")      
@@ -33,6 +52,30 @@ class CmdSetStrokeWidth(CommandInterface):
         print("Action undone")
     def isUndoable(self):
         return self.isUndoableBool
+    def getPenProperties(self):
+        self.strokeWidth = self.penPickerUi.sldStrokeWidth.value()
+        self.strokePattern = self.penPickerUi.cmbBoxStrokePattern.currentIndex()
+        self.brushStyle = self.penPickerUi.cmbBoxBrushStyle.currentIndex()
+        self.penCapStyle = self.penPickerUi.cmbBoxPenCapStyle.currentIndex()
+        #map pencapstyle to correct hex val
+        if(self.penCapStyle == 0):
+            self.penCapStyle = 0x10
+        elif(self.penCapStyle == 1):
+            self.penCapStyle = 0x00
+        else:
+            self.penCapStyle = 0x20
+        self.setPenProperties()
+
+        
+        
+    def setPenProperties(self):
+        self.view.grafikView.setStrokeWidth(self.strokeWidth)
+        self.view.grafikView.setStrokePattern(self.strokePattern+1) #offset noPattern
+        self.view.grafikView.setBrushStyle(self.brushStyle+1)   #offset noBrush
+        self.view.grafikView.setPenCapStyle(self.penCapStyle)
+        self.penPickerDialog.close()
+
+
 
     
 
@@ -115,7 +158,7 @@ class Ui_Dialog(object):
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
-        Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
+        Dialog.setWindowTitle(_translate("Dialog", "Pen picker"))
         self.lblStrokeWidth.setText(_translate("Dialog", "Stroke width:"))
         self.lblBrushStyle.setText(_translate("Dialog", "Brush style"))
         self.cmbBoxStrokePattern.setItemText(0, _translate("Dialog", "Solid line"))
@@ -146,6 +189,10 @@ class Ui_Dialog(object):
         self.cmbBoxPenCapStyle.setItemText(1, _translate("Dialog", "Flat cap"))
         self.cmbBoxPenCapStyle.setItemText(2, _translate("Dialog", "Round cap"))
         self.btnApplySettings.setText(_translate("Dialog", "Apply settings"))
+
+        #connect
+        #self.btnApplySettings.clicked.connect(self.returnVals)
+
 
 
 
