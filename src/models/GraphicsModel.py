@@ -7,8 +7,8 @@ class GraphicsModel():
     def __init__(self) -> None:
         self.figures = []
     
-    def addFigure(self):
-        self.figures.append(Figure())   
+    def addFigure(self, qcolor, floatWidth):
+        self.figures.append(Figure(qcolor, floatWidth))   
 
     def getFigures(self):
         return self.figures

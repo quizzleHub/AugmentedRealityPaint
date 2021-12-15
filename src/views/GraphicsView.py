@@ -19,7 +19,6 @@ class GraphicsView:
         #self.pen.setStyle()
         #self.pen.setBrush(QtGui.QColor)
 
-
     #____setter__________
     def setCanvas(self, canvas):
         self.canvas = canvas
@@ -29,9 +28,18 @@ class GraphicsView:
 
     def setStrokeWidth(self, floatWidth):
         self.currentStrokeWidth = floatWidth
-     
+    
+    #____getter__________
+    def getStrokeColor(self):
+        return self.currentPenColor
 
+    def getStrokeWidth(self):
+        return self.currentStrokeWidth
 
+    def getPen(self):
+        return self.pen
+
+    #____functions__________
     def updateCanvas(self, image):
 
         transformedImage = image.transformed(QTransform().scale(-1, 1)) #mirror
@@ -45,6 +53,9 @@ class GraphicsView:
 
         for f in figures:
             points = f.getPoints()
+            self.pen.setColor(f.getStrokeColor())
+            self.pen.setWidthF(f.getStrokeWidth())
+            self.painter.setPen(self.pen)
             for i in range(1, len(points)):
                 p1 = points[i-1]
                 p2 = points[i]

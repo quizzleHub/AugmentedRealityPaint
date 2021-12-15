@@ -97,7 +97,7 @@ class MainController(QObject):  # windowListener, ActionListener
 
     def connectSignals(self):
         self.cvModelThread.started.connect(self.cvModel.run)
-        self.cvModel.newCamFrame.connect(self.view.grafikView.updateCanvas)
+        self.cvModel.newCamFrame.connect(self.view.graphicsView.updateCanvas)
         self.cvModel.newTrackedCoords.connect(self.graphicsModel.addPoint)
         self.cvModel.exitSig.connect(self.cvModelThread.quit)
 
@@ -130,7 +130,7 @@ class MainController(QObject):  # windowListener, ActionListener
 
         if event.key() == QtCore.Qt.Key_Space:
             print("new figure")
-            self.graphicsModel.addFigure()
+            self.graphicsModel.addFigure(self.view.graphicsView.getStrokeColor(), self.view.graphicsView.getStrokeWidth())
             self.cvModel.trackingFlag = True
 
     def keyReleaseEvent(self, event):

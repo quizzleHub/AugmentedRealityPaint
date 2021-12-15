@@ -9,7 +9,7 @@ class CmdSetStrokeWidth(CommandInterface):
         self.model = model
         self.isUndoableBool = False
     def execute(self, *args):
-        self.view.grafikView.setStrokeWidth(args[0])
+        self.view.graphicsView.setStrokeWidth(args[0])
         print("CmdSetStrokeWidth executed")      
     def redo(self):
         print("Action redone")

@@ -9,7 +9,7 @@ class CmdSetStrokeColor(CommandInterface):
         self.model = model
         self.isUndoableBool = False
     def execute(self, *args):
-        self.view.grafikView.setStrokeColor(args[0])
+        self.view.graphicsView.setStrokeColor(args[0])
         print("CmdSetStrokeColor executed")   
     def redo(self):
         print("Action redone")
