@@ -1,11 +1,13 @@
 from PyQt5 import QtCore
 from PyQt5.QtCore import QObject, QSize
+from PyQt5.QtGui import QColor
+from PyQt5.QtWidgets import QColorDialog
 
 from commands.CommandInvoker import CommandInvoker
 from commands.CmdCalibrateCVCol import CmdCalibrateCVCol
 from commands.CmdSafeFigures import CmdSafeFigures
 from commands.CmdOpenFigures import CmdOpenFigures
-from commands.CmdSetStrokeColor import CmdSetStrokeColor
+
 
 
 class MainController(QObject):  # windowListener, ActionListener
@@ -17,7 +19,7 @@ class MainController(QObject):  # windowListener, ActionListener
         self.cvModel = cvModel
         self.grafikModel = grafikModel
         self.commandInvoker = CommandInvoker()
-        # self.aspectRatio = cvModel.getAspectRatio()
+        
 
         # get buttons
         self.btnClear_all = self.view.getbtnClear_all()
@@ -39,7 +41,6 @@ class MainController(QObject):  # windowListener, ActionListener
         self.btnStrokeWidthPicker = self.view.getbtnStrokeWidthPicker()
 
         # all commands
-        self.cmdSetStrokeColor = CmdSetStrokeColor(self.view, self.cvModel)
         self.cmdCalibrateCVCol = CmdCalibrateCVCol(self.view, self.cvModel)
         self.cmdSafeFigures = CmdSafeFigures(self.view, self.grafikModel)
         self.cmdOpenFigures = CmdOpenFigures(self.view, self.grafikModel)
@@ -58,12 +59,14 @@ class MainController(QObject):  # windowListener, ActionListener
         #self.btnHelp.triggered.connect(self.actionPerformed)
         #self.btnPaint.triggered.connect(self.actionPerformed)
         #self.btnErase.triggered.connect(self.actionPerformed)
-        self.btnBlue.triggered.connect(self.actionPerformed)
-        self.btnYellow.triggered.connect(self.actionPerformed)
-        self.btnRed.triggered.connect(self.actionPerformed)
-        #self.btnThick.triggered.connect(self.actionPerformed)
-        #self.btnMedium.triggered.connect(self.actionPerformed)
-        #self.btnThin.triggered.connect(self.actionPerformed)
+
+        self.btnBlue.triggered.connect(lambda: self.setStrokeColor(QColor(102, 140, 255)))
+        self.btnYellow.triggered.connect(lambda: self.setStrokeColor(QColor(255,255,128)))
+        self.btnRed.triggered.connect(lambda: self.setStrokeColor(QColor(255,102,102)))
+        self.btnColorPicker.triggered.connect(lambda: self.setStrokeColor(QColorDialog.getColor()))
+        self.btnThick.triggered.connect(lambda: self.setStrokeWidth(7.3))
+        self.btnMedium.triggered.connect(lambda: self.setStrokeWidth(4.3))
+        self.btnThin.triggered.connect(lambda: self.setStrokeWidth(1.3))
         #colorpicker
         #strokewidthpicker
 
@@ -78,9 +81,6 @@ class MainController(QObject):  # windowListener, ActionListener
         # self.commandInvoker.addCommand(self.btnHilfe, self.cmdAction)
         # self.commandInvoker.addCommand(self.btnZeichnen, self.cmdAction)
         # self.commandInvoker.addCommand(self.btnRadieren, self.cmdAction)
-        self.commandInvoker.addCommand(self.btnRed, self.cmdSetStrokeColor)
-        self.commandInvoker.addCommand(self.btnBlue, self.cmdSetStrokeColor)
-        self.commandInvoker.addCommand(self.btnYellow, self.cmdSetStrokeColor)
         # self.commandInvoker.addCommand(self.btnDick, self.cmdAction)
         # self.commandInvoker.addCommand(self.btnMittel, self.cmdAction)
         # self.commandInvoker.addCommand(self.btnDuenn, self.cmdAction)
@@ -150,6 +150,12 @@ class MainController(QObject):  # windowListener, ActionListener
         self.view.resize(vW, vH)
         cRect = QtCore.QRect(0, 0, vW, vH)
         self.view.getGraphicsView().setGeometry(cRect)
+
+    def setStrokeColor(self, qcolor):
+        self.view.grafikView.setStrokeColor(qcolor)
+    
+    def setStrokeWidth(self, strokeWidth):
+        self.view.grafikView.setStrokeWidth(strokeWidth)
 
     def windowHide(self):
         print("window hide event")

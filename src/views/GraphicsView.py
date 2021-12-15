@@ -11,30 +11,34 @@ class GraphicsView:
 
         self.painter = QPainter()
         self.pen = QPen()
+        #default color and width
+        self.currentPenColor = QColor(224,102,255)
+        self.currentStrokeWidth = 2.7
 
         #self.lineType = Qt.SolideLine
         #self.pen.setStyle()
-        #self.pen.setBrush(QtGui.QColor
-        self.pen.setColor(QColor(255, 0, 0))
-        self.pen.setWidthF(3.2)
+        #self.pen.setBrush(QtGui.QColor)
 
+
+    #____setter__________
     def setCanvas(self, canvas):
         self.canvas = canvas
 
     def setStrokeColor(self, qcolor):
-        self.pen.setColor(qcolor)
-        self.painter.setPen(self.pen)
+        self.currentPenColor = qcolor
 
     def setStrokeWidth(self, floatWidth):
-        self.pen.setWidthF(floatWidth)
-        self.painter.setPen(self.pen)
+        self.currentStrokeWidth = floatWidth
      
 
 
     def updateCanvas(self, image):
 
         transformedImage = image.transformed(QTransform().scale(-1, 1)) #mirror
+
         self.painter.begin(transformedImage)
+        self.pen.setColor(self.currentPenColor)
+        self.pen.setWidthF(self.currentStrokeWidth)
         self.painter.setPen(self.pen)
 
         figures = self.grafikModel.getFigures()
