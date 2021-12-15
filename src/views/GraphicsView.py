@@ -36,9 +36,6 @@ class GraphicsView:
     def getStrokeWidth(self):
         return self.currentStrokeWidth
 
-    def getPen(self):
-        return self.pen
-
     #____functions__________
     def updateCanvas(self, image):
 
