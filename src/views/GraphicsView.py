@@ -4,9 +4,9 @@ from PyQt5.QtGui import QPen, QPixmap, QTransform, QPainter, QColor
 
 class GraphicsView:
     
-    def __init__(self, grafikModel):
+    def __init__(self, graphicsModel):
 
-        self.grafikModel = grafikModel
+        self.graphicsModel = graphicsModel
         self.canvas = None
 
         self.painter = QPainter()
@@ -41,7 +41,7 @@ class GraphicsView:
         self.pen.setWidthF(self.currentStrokeWidth)
         self.painter.setPen(self.pen)
 
-        figures = self.grafikModel.getFigures()
+        figures = self.graphicsModel.getFigures()
 
         for f in figures:
             points = f.getPoints()
