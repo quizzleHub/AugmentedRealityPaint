@@ -42,9 +42,6 @@ class GraphicsView:
         transformedImage = image.transformed(QTransform().scale(-1, 1)) #mirror
 
         self.painter.begin(transformedImage)
-        self.pen.setColor(self.currentPenColor)
-        self.pen.setWidthF(self.currentStrokeWidth)
-        self.painter.setPen(self.pen)
 
         figures = self.graphicsModel.getFigures()
 
