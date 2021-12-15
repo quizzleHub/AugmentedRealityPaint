@@ -7,7 +7,7 @@ class CmdSafeFigures(CommandInterface):
         self.view = view                
         self.model = model
         self.isUndoableBool = False
-    def execute(self):
+    def execute(self, *args):
         print("SafeFigures executed")
         self.model.safeFigures()
     def redo(self):

@@ -9,7 +9,7 @@ class CmdHelp(CommandInterface):
         self.view = view                
         self.model = model
         self.isUndoableBool = False
-    def execute(self):
+    def execute(self, *args):
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Information)
         msg.setText("This is a message box")

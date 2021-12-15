@@ -2,6 +2,8 @@ from PyQt5 import QtCore
 from PyQt5.QtCore import QObject, QSize
 from PyQt5.QtGui import QColor
 from PyQt5.QtWidgets import QColorDialog
+from commands.CmdSetStrokeColor import CmdSetStrokeColor
+from commands.CmdSetStrokeWidth import CmdSetStrokeWidth
 
 from commands.CommandInvoker import CommandInvoker
 from commands.CmdCalibrateCVCol import CmdCalibrateCVCol
@@ -12,12 +14,12 @@ from commands.CmdOpenFigures import CmdOpenFigures
 
 class MainController(QObject):  # windowListener, ActionListener
 
-    def __init__(self, view, cvModelThread, cvModel, grafikModel):
+    def __init__(self, view, cvModelThread, cvModel, graphicsModel):
         super().__init__()
         self.view = view
         self.cvModelThread = cvModelThread
         self.cvModel = cvModel
-        self.grafikModel = grafikModel
+        self.graphicsModel = graphicsModel
         self.commandInvoker = CommandInvoker()
         
 
@@ -42,8 +44,10 @@ class MainController(QObject):  # windowListener, ActionListener
 
         # all commands
         self.cmdCalibrateCVCol = CmdCalibrateCVCol(self.view, self.cvModel)
-        self.cmdSafeFigures = CmdSafeFigures(self.view, self.grafikModel)
-        self.cmdOpenFigures = CmdOpenFigures(self.view, self.grafikModel)
+        self.cmdSafeFigures = CmdSafeFigures(self.view, self.graphicsModel)
+        self.cmdOpenFigures = CmdOpenFigures(self.view, self.graphicsModel)
+        self.cmdSetStrokeColor = CmdSetStrokeColor(self.view, self.graphicsModel)
+        self.cmdSetStrokeWidth = CmdSetStrokeWidth(self.view, self.graphicsModel)
         # etc...
 
         # set correct window aspectratio for camera
@@ -56,41 +60,41 @@ class MainController(QObject):  # windowListener, ActionListener
         self.btnOpen.triggered.connect(self.actionPerformed)
         self.btnSave.triggered.connect(self.actionPerformed)
         self.btnCalibrate.triggered.connect(self.actionPerformed)
-        #self.btnHelp.triggered.connect(self.actionPerformed)
+        self.btnHelp.triggered.connect(self.actionPerformed)
+
         #self.btnPaint.triggered.connect(self.actionPerformed)
         #self.btnErase.triggered.connect(self.actionPerformed)
 
-        self.btnBlue.triggered.connect(lambda: self.setStrokeColor(QColor(102, 140, 255)))
-        self.btnYellow.triggered.connect(lambda: self.setStrokeColor(QColor(255,255,128)))
-        self.btnRed.triggered.connect(lambda: self.setStrokeColor(QColor(255,102,102)))
-        self.btnColorPicker.triggered.connect(lambda: self.setStrokeColor(QColorDialog.getColor()))
-        self.btnThick.triggered.connect(lambda: self.setStrokeWidth(7.3))
-        self.btnMedium.triggered.connect(lambda: self.setStrokeWidth(4.3))
-        self.btnThin.triggered.connect(lambda: self.setStrokeWidth(1.3))
-        #colorpicker
+        self.btnBlue.triggered.connect(lambda: self.actionPerformed(QColor(102, 140, 255)))
+        self.btnYellow.triggered.connect(lambda: self.actionPerformed(QColor(255,255,128)))
+        self.btnRed.triggered.connect(lambda: self.actionPerformed(QColor(255,102,102)))
+        self.btnColorPicker.triggered.connect(lambda: self.actionPerformed(QColorDialog.getColor()))
+        self.btnThick.triggered.connect(lambda: self.actionPerformed(7.3))
+        self.btnMedium.triggered.connect(lambda: self.actionPerformed(4.3))
+        self.btnThin.triggered.connect(lambda: self.actionPerformed(1.3))
         #strokewidthpicker
-
         print("registered events in BtnController")
 
     def registerCommands(self):
         # register buttons to commands
         self.commandInvoker.addCommand(self.btnOpen, self.cmdOpenFigures)
         self.commandInvoker.addCommand(self.btnSave, self.cmdSafeFigures)
-        # self.commandInvoker.addCommand(self.btnExportieren, self.cmdAction)
         self.commandInvoker.addCommand(self.btnCalibrate, self.cmdCalibrateCVCol)
-        # self.commandInvoker.addCommand(self.btnHilfe, self.cmdAction)
-        # self.commandInvoker.addCommand(self.btnZeichnen, self.cmdAction)
-        # self.commandInvoker.addCommand(self.btnRadieren, self.cmdAction)
-        # self.commandInvoker.addCommand(self.btnDick, self.cmdAction)
-        # self.commandInvoker.addCommand(self.btnMittel, self.cmdAction)
-        # self.commandInvoker.addCommand(self.btnDuenn, self.cmdAction)
 
+        self.commandInvoker.addCommand(self.btnBlue, self.cmdSetStrokeColor)
+        self.commandInvoker.addCommand(self.btnYellow, self.cmdSetStrokeColor)
+        self.commandInvoker.addCommand(self.btnRed, self.cmdSetStrokeColor)
+        self.commandInvoker.addCommand(self.btnColorPicker, self.cmdSetStrokeColor)
+
+        self.commandInvoker.addCommand(self.btnThick, self.cmdSetStrokeWidth)
+        self.commandInvoker.addCommand(self.btnMedium, self.cmdSetStrokeWidth)
+        self.commandInvoker.addCommand(self.btnThin, self.cmdSetStrokeWidth)
         print("registerd Commands in BtnController")
 
     def connectSignals(self):
         self.cvModelThread.started.connect(self.cvModel.run)
         self.cvModel.newCamFrame.connect(self.view.grafikView.updateCanvas)
-        self.cvModel.newTrackedCoords.connect(self.grafikModel.addPoint)
+        self.cvModel.newTrackedCoords.connect(self.graphicsModel.addPoint)
         self.cvModel.exitSig.connect(self.cvModelThread.quit)
 
         self.view.keyPressed.connect(self.keyPressEvent)
@@ -102,10 +106,10 @@ class MainController(QObject):  # windowListener, ActionListener
         self.view.redoPress.connect(self.redo)
 
 
-    def actionPerformed(self):
+    def actionPerformed(self, *args):
         eventSource = self.sender()
         print("trying to perform action: " + eventSource.text() + "_" + str(id(eventSource)))
-        self.commandInvoker.executeCommand(eventSource)
+        self.commandInvoker.executeCommand(eventSource, *args)
 
     def undo(self):
         self.commandInvoker.undoCommand()
@@ -122,7 +126,7 @@ class MainController(QObject):  # windowListener, ActionListener
 
         if event.key() == QtCore.Qt.Key_Space:
             print("new figure")
-            self.grafikModel.addFigure()
+            self.graphicsModel.addFigure()
             self.cvModel.trackingFlag = True
 
     def keyReleaseEvent(self, event):
@@ -151,11 +155,6 @@ class MainController(QObject):  # windowListener, ActionListener
         cRect = QtCore.QRect(0, 0, vW, vH)
         self.view.getGraphicsView().setGeometry(cRect)
 
-    def setStrokeColor(self, qcolor):
-        self.view.grafikView.setStrokeColor(qcolor)
-    
-    def setStrokeWidth(self, strokeWidth):
-        self.view.grafikView.setStrokeWidth(strokeWidth)
 
     def windowHide(self):
         print("window hide event")

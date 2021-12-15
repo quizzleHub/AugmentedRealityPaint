@@ -26,7 +26,7 @@ class CmdCalibrateCVCol(QObject, CommandInterface):
         self.saturationRange = 10
         self.valueRange = 10
 
-    def execute(self):
+    def execute(self, *args):
         self.alertUser()
         #find the pixel we clicked on
         canvasQPixmap = self.canvas.pixmap()

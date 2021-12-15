@@ -8,9 +8,9 @@ class CommandInvoker:
     def addCommand(self, component, command):
         self.commands[component] = command
 
-    def executeCommand(self, component):
+    def executeCommand(self, component, *args):
         cmd = self.commands.get(component)
-        cmd.execute()
+        cmd.execute(*args)
         if (cmd.isUndoable()):          #if isUndoable
             self.undoStack.append(cmd)
 

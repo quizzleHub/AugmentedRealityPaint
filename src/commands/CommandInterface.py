@@ -1,7 +1,7 @@
 class CommandInterface:
     def __init__(self):
         self.isUndoableBool: bool
-    def execute(self):
+    def execute(self, *args):
         pass
     def undo(self):
         pass
