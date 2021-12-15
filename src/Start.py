@@ -20,21 +20,21 @@ class Start(QApplication):
         self.grafikModel = GraphicsModel()
 
         self.grafikView = GraphicsView(self.grafikModel)
-        self.main_view = MainView(self.grafikView)
-        self.grafikView.setCanvas(self.main_view.getGraphicsView())
+        self.mainView = MainView(self.grafikView)
+        self.grafikView.setCanvas(self.mainView.getGraphicsView())
 
         self.cvModelThread = QtCore.QThread()
         self.cvModel = CVModel(self.grafikModel, self.grafikView)
         self.cvModel.moveToThread(self.cvModelThread)
 
-        self.btnController = MainController(self.main_view, self.cvModelThread, self.cvModel, self.grafikModel)
+        self.btnController = MainController(self.mainView, self.cvModelThread, self.cvModel, self.grafikModel)
         self.btnController.registerEvents()
         self.btnController.registerCommands()
         self.btnController.connectSignals()
 
         self.cvModelThread.start()
 
-        self.main_view.show()
+        self.mainView.show()
         
 
 if __name__ == '__main__':
