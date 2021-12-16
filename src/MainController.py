@@ -74,6 +74,7 @@ class MainController(QObject):  # windowListener, ActionListener
         self.btnThick.triggered.connect(lambda: self.actionPerformed(7.3))
         self.btnMedium.triggered.connect(lambda: self.actionPerformed(4.3))
         self.btnThin.triggered.connect(lambda: self.actionPerformed(1.3))
+        self.btnStrokeWidthPicker.triggered.connect(self.actionPerformed)
         #strokewidthpicker
         print("registered events in BtnController")
 
@@ -93,6 +94,7 @@ class MainController(QObject):  # windowListener, ActionListener
         self.commandInvoker.addCommand(self.btnThick, self.cmdSetStrokeWidth)
         self.commandInvoker.addCommand(self.btnMedium, self.cmdSetStrokeWidth)
         self.commandInvoker.addCommand(self.btnThin, self.cmdSetStrokeWidth)
+        self.commandInvoker.addCommand(self.btnStrokeWidthPicker, self.cmdSetStrokeWidth)
         print("registerd Commands in BtnController")
 
     def connectSignals(self):

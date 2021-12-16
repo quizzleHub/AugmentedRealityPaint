@@ -1,5 +1,5 @@
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QPen, QPixmap, QTransform, QPainter, QColor
+from PyQt5.QtGui import QPen, QPixmap, QTransform, QPainter, QColor, QBrush
 
 
 class GraphicsView:
@@ -11,35 +11,27 @@ class GraphicsView:
 
         self.painter = QPainter()
         self.pen = QPen()
-        #default color and width
+
+        #default values
         self.currentPenColor = QColor(224,102,255)
         self.currentStrokeWidth = 2.7
-
-        #self.lineType = Qt.SolideLine
-        #self.pen.setStyle()
-        #self.pen.setBrush(QtGui.QColor)
-
-
-    #____setter__________
-    def setCanvas(self, canvas):
-        self.canvas = canvas
-
-    def setStrokeColor(self, qcolor):
-        self.currentPenColor = qcolor
-
-    def setStrokeWidth(self, floatWidth):
-        self.currentStrokeWidth = floatWidth
-     
-
+        self.currentStrokePattern = 1 #solid line
+        self.currentBrushStyle = 1 #solid style
+        self.currentPenCapStyle = 32 #rounded edges
 
     def updateCanvas(self, image):
 
         transformedImage = image.transformed(QTransform().scale(-1, 1)) #mirror
 
         self.painter.begin(transformedImage)
-        self.pen.setColor(self.currentPenColor)
         self.pen.setWidthF(self.currentStrokeWidth)
+        self.pen.setBrush(QBrush(self.currentPenColor,self.currentBrushStyle))
+        self.pen.setCapStyle(self.currentPenCapStyle)
+        self.pen.setStyle(self.currentStrokePattern)
         self.painter.setPen(self.pen)
+        self.painter.setRenderHint(QPainter.SmoothPixmapTransform, True)
+        self.painter.setRenderHint(QPainter.HighQualityAntialiasing, True)
+        
 
         figures = self.grafikModel.getFigures()
 
@@ -56,5 +48,38 @@ class GraphicsView:
         self.canvas.setPixmap(QPixmap.fromImage(scaledImage))
 
 
+    #____getter__________
 
+    def getStrokeColor(self):
+        return self.currentPenColor
+    
+    def getStrokeWidth(self):
+        return self.currentStrokeWidth
 
+    def getStrokePattern(self):
+        return self.currentStrokePattern
+
+    def getBrushStyle(self):
+        return self.currentBrushStyle
+
+    def getPenCapStyle(self):
+        return self.currentPenCapStyle
+
+    #____setter__________
+    def setCanvas(self, canvas):
+        self.canvas = canvas
+
+    def setStrokeColor(self, qcolor):
+        self.currentPenColor = qcolor
+
+    def setStrokeWidth(self, floatWidth):
+        self.currentStrokeWidth = floatWidth
+    
+    def setStrokePattern(self, strokePattern):
+        self.strokePattern = strokePattern
+    
+    def setBrushStyle(self, brushStyle):
+        self.currentBrushStyle = brushStyle
+
+    def setPenCapStyle(self, penCapStyle):
+        self.currentPenCapStyle = penCapStyle
