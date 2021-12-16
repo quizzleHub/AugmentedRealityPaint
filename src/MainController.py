@@ -2,8 +2,6 @@ from PyQt5 import QtCore
 from PyQt5.QtCore import QObject, QSize
 from PyQt5.QtGui import QColor
 from PyQt5.QtWidgets import QColorDialog
-from commands.CmdSetStrokeColor import CmdSetStrokeColor
-from commands.CmdSetStrokeWidth import CmdSetStrokeWidth
 
 from commands.CommandInvoker import CommandInvoker
 from commands.CmdCalibrateCVCol import CmdCalibrateCVCol
@@ -13,8 +11,10 @@ from commands.CmdClearFigures import CmdClearFigures
 from commands.CmdSetStrokeColor import CmdSetStrokeColor
 from commands.CmdDrawingMode import CmdDrawingMode
 from commands.CmdErasingMode import CmdErasingMode
-from models.GraphicsModel import GraphicsModel
-
+from commands.CmdSetStrokeColor import CmdSetStrokeColor
+from commands.CmdSetStrokeWidth import CmdSetStrokeWidth
+from commands.CmdExportDwgNB import CmdExportDrawingNB
+from commands.CmdExportDwgWB import CmdExportDrawingWB
 
 class MainController(QObject):  # windowListener, ActionListener
 
@@ -26,7 +26,6 @@ class MainController(QObject):  # windowListener, ActionListener
         self.graphicsModel = graphicsModel
         self.commandInvoker = CommandInvoker()
         
-
         # get buttons
         self.btnClear_all = self.view.getbtnClear_all()
         self.btnOpen = self.view.getbtnOpen()
@@ -55,6 +54,8 @@ class MainController(QObject):  # windowListener, ActionListener
         self.cmdSetStrokeWidth = CmdSetStrokeWidth(self.view, self.graphicsModel)
         self.cmdDrawingMode = CmdDrawingMode(self.view, self.graphicsModel)
         self.cmdErasingMode = CmdErasingMode(self.view, self.graphicsModel)
+        self.cmdExportDrawingNB = CmdExportDrawingNB(self.view, self.graphicsModel, self.cvModel)
+        self.cmdExportDrawingWB = CmdExportDrawingWB(self.view, self.graphicsModel, self.cvModel)
         # etc...
 
         # set correct window aspectratio for camera
@@ -72,8 +73,10 @@ class MainController(QObject):  # windowListener, ActionListener
         self.btnPaint.triggered.connect(self.actionPerformed)
         self.btnErase.triggered.connect(self.actionPerformed)
 
-        self.btnBlue.triggered.connect(lambda: self.actionPerformed(QColor(102, 140, 255)))
-        self.btnYellow.triggered.connect(lambda: self.actionPerformed(QColor(255,255,128)))
+        #self.btnBlue.triggered.connect(lambda: self.actionPerformed(QColor(102, 140, 255)))
+        self.btnBlue.triggered.connect(self.actionPerformed)                                            #change that back!!
+        #self.btnYellow.triggered.connect(lambda: self.actionPerformed(QColor(255,255,128)))
+        self.btnYellow.triggered.connect(self.actionPerformed)                                          #change that back!!
         self.btnRed.triggered.connect(lambda: self.actionPerformed(QColor(255,102,102)))
         self.btnColorPicker.triggered.connect(lambda: self.actionPerformed(QColorDialog.getColor()))
         self.btnThick.triggered.connect(lambda: self.actionPerformed(7.3))
@@ -93,8 +96,10 @@ class MainController(QObject):  # windowListener, ActionListener
         self.commandInvoker.addCommand(self.btnPaint, self.cmdDrawingMode)
         self.commandInvoker.addCommand(self.btnErase, self.cmdErasingMode)
 
-        self.commandInvoker.addCommand(self.btnBlue, self.cmdSetStrokeColor)
-        self.commandInvoker.addCommand(self.btnYellow, self.cmdSetStrokeColor)
+        #self.commandInvoker.addCommand(self.btnBlue, self.cmdSetStrokeColor)
+        self.commandInvoker.addCommand(self.btnBlue, self.cmdExportDrawingWB)                               #change that back!!
+        #self.commandInvoker.addCommand(self.btnYellow, self.cmdSetStrokeColor)
+        self.commandInvoker.addCommand(self.btnYellow, self.cmdExportDrawingNB)                             #change that back!!
         self.commandInvoker.addCommand(self.btnRed, self.cmdSetStrokeColor)
         self.commandInvoker.addCommand(self.btnColorPicker, self.cmdSetStrokeColor)
 

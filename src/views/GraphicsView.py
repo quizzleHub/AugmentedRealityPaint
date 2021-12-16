@@ -8,6 +8,7 @@ class GraphicsView:
 
         self.graphicsModel = graphicsModel
         self.canvas = None
+        self.scaledImage = None
 
         self.painter = QPainter()
         self.pen = QPen()
@@ -30,6 +31,12 @@ class GraphicsView:
         self.currentStrokeWidth = floatWidth
     
     #____getter__________
+    def getCanvas(self):
+        return self.canvas 
+
+    def getScaledImage(self):
+        return self.scaledImage
+
     def getStrokeColor(self):
         return self.currentPenColor
 
@@ -38,11 +45,27 @@ class GraphicsView:
 
     #____functions__________
     def updateCanvas(self, image):
-
         transformedImage = image.transformed(QTransform().scale(-1, 1)) #mirror
 
         self.painter.begin(transformedImage)
+        self.drawFigures()
+        self.painter.end()
 
+        self.scaledImage = transformedImage.scaled(self.canvas.width(), self.canvas.height(), Qt.KeepAspectRatio)
+        self.canvas.setPixmap(QPixmap.fromImage(self.scaledImage))
+
+    def drawImage(self, width, height):
+        image = QPixmap(width, height).toImage()
+        image.fill(QColor(255,255,255))
+
+        self.painter.begin(image)
+        self.drawFigures()
+        self.painter.end()
+
+        scaledImage = image.scaled(self.canvas.width(), self.canvas.height(), Qt.KeepAspectRatio)
+        return scaledImage
+
+    def drawFigures(self):
         figures = self.graphicsModel.getFigures()
 
         for f in figures:
@@ -54,12 +77,3 @@ class GraphicsView:
                 p1 = points[i-1]
                 p2 = points[i]
                 self.painter.drawLine(p1[0], p1[1], p2[0], p2[1])
-
-        self.painter.end()
-        
-        scaledImage = transformedImage.scaled(self.canvas.width(), self.canvas.height(), Qt.KeepAspectRatio)
-        self.canvas.setPixmap(QPixmap.fromImage(scaledImage))
-
-
-
-

@@ -63,6 +63,12 @@ class GraphicsModel():
             self.figures = pickle.load(file)
             file.close()
 
+    def exportDrawing(self, qImage):
+        dialog = QFileDialog()
+        filename, _ = dialog.getSaveFileName()
+        if filename != "":
+            qImage.save(filename, "PNG", -1)
+
     def findFigure(self, point):
         #Algorithm to find a figure
         precX = point[0]    # x coordinate of received Point from CVModel
