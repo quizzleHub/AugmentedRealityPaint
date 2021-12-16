@@ -34,7 +34,7 @@ class CmdSetStrokeWidth(CommandInterface):
 
     def execute(self, *args):
         if (type(args[0]) == float):    #if width argument #what is this behavior?
-            self.view.grafikView.setStrokeWidth(args[0])
+            self.view.graphicsView.setStrokeWidth(args[0])
         else: #if no parameter -> strokeWidthPicker
             #strokeWidthPicker = StrokeWidthPicker(self.view)
             #strokeWidthPicker.exec()
@@ -69,10 +69,10 @@ class CmdSetStrokeWidth(CommandInterface):
         
         
     def setPenProperties(self):
-        self.view.grafikView.setStrokeWidth(self.strokeWidth)
-        self.view.grafikView.setStrokePattern(self.strokePattern+1) #offset noPattern
-        self.view.grafikView.setBrushStyle(self.brushStyle+1)   #offset noBrush
-        self.view.grafikView.setPenCapStyle(self.penCapStyle)
+        self.view.graphicsView.setStrokeWidth(self.strokeWidth)
+        self.view.graphicsView.setStrokePattern(self.strokePattern+1) #offset noPattern
+        self.view.graphicsView.setBrushStyle(self.brushStyle+1)   #offset noBrush
+        self.view.graphicsView.setPenCapStyle(self.penCapStyle)
         self.penPickerDialog.close()
 
 

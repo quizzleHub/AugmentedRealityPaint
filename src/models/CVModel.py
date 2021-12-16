@@ -29,7 +29,14 @@ class CVModel(QObject):
         self.h, self.w, self.ch = frame.shape
         self.aspectRatio = float(self.w) / float(self.h)
 
+    #____getter__________
+    def getHeight(self):
+        return self.h
 
+    def getWidth(self):
+        return self.w
+
+    #____Thread__________
     def run(self):
         while True:
             (grabbed, frame) = self.camera.read()  #grab new cam frame
@@ -67,5 +74,3 @@ class CVModel(QObject):
             if not self.runningFlag:
                 self.exitSig.emit()
                 break
-
-

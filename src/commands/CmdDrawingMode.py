@@ -1,16 +1,15 @@
 from commands.CommandInterface import CommandInterface
 
 
-
-class CmdSetStrokeColor(CommandInterface):
+class CmdDrawingMode(CommandInterface):
 
     def __init__(self, view, model):
         self.view = view                
         self.model = model
         self.isUndoableBool = False
     def execute(self, *args):
-        self.view.graphicsView.setStrokeColor(args[0])
-        print("CmdSetStrokeColor executed")   
+        print("DrawingMode executed - Mode: 0")
+        self.model.setMode(0)
     def redo(self):
         print("Action redone")
     def undo(self):

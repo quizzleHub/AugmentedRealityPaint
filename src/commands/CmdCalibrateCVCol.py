@@ -16,7 +16,7 @@ class CmdCalibrateCVCol(QObject, CommandInterface):
         self.isUndoableBool = False
         self.view.canvasPressed.connect(self.canvasClick)
         self.userPressedCanvas = False
-        self.canvas = self.view.grafikView.canvas
+        self.canvas = self.view.graphicsView.canvas
 
         self.mousePressPosX = 50
         self.mousePressPosY = 50

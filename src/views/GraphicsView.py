@@ -4,10 +4,11 @@ from PyQt5.QtGui import QPen, QPixmap, QTransform, QPainter, QColor, QBrush
 
 class GraphicsView:
     
-    def __init__(self, grafikModel):
+    def __init__(self, graphicsModel):
 
-        self.grafikModel = grafikModel
+        self.graphicsModel = graphicsModel
         self.canvas = None
+        self.scaledImage = None
 
         self.painter = QPainter()
         self.pen = QPen()
@@ -19,36 +20,53 @@ class GraphicsView:
         self.currentBrushStyle = 1 #solid style
         self.currentPenCapStyle = 32 #rounded edges
 
+    #____functions__________
     def updateCanvas(self, image):
-
         transformedImage = image.transformed(QTransform().scale(-1, 1)) #mirror
 
-        self.painter.begin(transformedImage)
-        self.pen.setWidthF(self.currentStrokeWidth)
-        self.pen.setBrush(QBrush(self.currentPenColor,self.currentBrushStyle))
-        self.pen.setCapStyle(self.currentPenCapStyle)
-        self.pen.setStyle(self.currentStrokePattern)
-        self.painter.setPen(self.pen)
-        self.painter.setRenderHint(QPainter.SmoothPixmapTransform, True)
-        self.painter.setRenderHint(QPainter.HighQualityAntialiasing, True)
-        
+        self.painter.begin(transformedImage)        
+        self.drawFigures()
+        self.painter.end()
 
-        figures = self.grafikModel.getFigures()
+        self.scaledImage = transformedImage.scaled(self.canvas.width(), self.canvas.height(), Qt.KeepAspectRatio)
+        self.canvas.setPixmap(QPixmap.fromImage(self.scaledImage))
+
+    def drawImage(self, width, height):
+        image = QPixmap(width, height).toImage()
+        image.fill(QColor(255,255,255))
+
+        self.painter.begin(image)
+        self.drawFigures()
+        self.painter.end()
+
+        scaledImage = image.scaled(self.canvas.width(), self.canvas.height(), Qt.KeepAspectRatio)
+        return scaledImage
+
+    def drawFigures(self):
+        figures = self.graphicsModel.getFigures()
 
         for f in figures:
             points = f.getPoints()
+
+            self.pen.setWidthF(f.getStrokeWidth())
+            self.pen.setBrush(QBrush(f.getStrokeColor(), f.getBrushStyle()))
+            self.pen.setCapStyle(f.getPenCapStyle())
+            self.pen.setStyle(f.getStrokePattern())
+            self.painter.setPen(self.pen)
+            self.painter.setRenderHint(QPainter.SmoothPixmapTransform, True)
+            self.painter.setRenderHint(QPainter.HighQualityAntialiasing, True)
+
             for i in range(1, len(points)):
                 p1 = points[i-1]
                 p2 = points[i]
                 self.painter.drawLine(p1[0], p1[1], p2[0], p2[1])
-
-        self.painter.end()
         
-        scaledImage = transformedImage.scaled(self.canvas.width(), self.canvas.height(), Qt.KeepAspectRatio)
-        self.canvas.setPixmap(QPixmap.fromImage(scaledImage))
-
-
     #____getter__________
+    def getCanvas(self):
+        return self.canvas 
+
+    def getScaledImage(self):
+        return self.scaledImage
 
     def getStrokeColor(self):
         return self.currentPenColor
@@ -83,3 +101,4 @@ class GraphicsView:
 
     def setPenCapStyle(self, penCapStyle):
         self.currentPenCapStyle = penCapStyle
+

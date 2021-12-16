@@ -16,13 +16,13 @@ class MainView(QMainWindow):
  
 
 
-    def __init__(self, grafikView):
+    def __init__(self, graphicsView):
         super().__init__()
 
         
         self._ui = Ui_View()
         self._ui.setupUi(self)
-        self.grafikView = grafikView
+        self.graphicsView = graphicsView
         self._ui.actionUndo.mousePressEvent = self.undoEvent
         self._ui.actionRedo.mousePressEvent = self.redoEvent
         self._ui.graphicsView.mousePressEvent = self.canvasPressedEvent
