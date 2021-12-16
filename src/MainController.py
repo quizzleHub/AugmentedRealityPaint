@@ -198,3 +198,7 @@ class MainController(QObject):  # windowListener, ActionListener
 
     def windowActivate(self):
         print("window activate event")
+
+    def startUp(self):
+        self.cmdCalibrateCVCol.execute()
+
