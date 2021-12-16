@@ -88,16 +88,16 @@ class GraphicsModel():
                 """
 
                 if p1x <= p2x and p1y <= p2y:       #movement from e1 to e3
-                    if precX > p1x and precX < p2x and precY > p1y and precY < p2y:
+                    if precX >= p1x and precX <= p2x and precY >= p1y and precY <= p2y:
                         return self.figures.index(f)
-                elif p2x <= p1x and p2y <= p1y:     #movement from e3 to e1
-                    if precX > p2x and precX < p1x and precY > p2y and precY < p1y:
+                elif p1x >= p2x and p1y >= p2y:     #movement from e3 to e1
+                    if precX <= p1x and precX >= p2x and precY <= p1y and precY >= p2y:
                         return self.figures.index(f)
-                elif p2x <= p1x and p2y >= p1y:     #movement from e4 to e2
-                    if precX < p1x and precX > p2x and precY > p1y and precY < p2y:
+                elif p1x >= p2x and p1y <= p2y:     #movement from e4 to e2
+                    if precX <= p1x and precX >= p2x and precY >= p1y and precY <= p2y:
                         return self.figures.index(f)
                 elif p1x <= p2x and p1y >= p2y:     #movement from e2 to e4
-                    if precX > p1x and precX < p2x and precY > p2y and precY < p1y:
+                    if precX >= p1x and precX <= p2x and precY >= p2y and precY <= p1y:
                         return self.figures.index(f) 
                 else:
                     print("this should not happen...")
