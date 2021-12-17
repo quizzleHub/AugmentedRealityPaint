@@ -46,10 +46,10 @@ class GraphicsModel():
     
     def clearFigures(self):
         self.figures.clear()
-
+    
     def safeFigures(self):
         dialog = QFileDialog()
-        filename, _ = dialog.getSaveFileName()
+        filename, _ = dialog.getSaveFileName(None, "", "", "*.arp")
         if filename != "":
             file = open(filename, "wb")
             pickle.dump(self.figures, file)
@@ -64,9 +64,9 @@ class GraphicsModel():
             
     def exportDrawing(self, qImage):
         dialog = QFileDialog()
-        filename, _ = dialog.getSaveFileName()
+        filename, _ = dialog.getSaveFileName(None, "", "", "*.jpg")
         if filename != "":
-            qImage.save(filename, "PNG", -1)
+            qImage.save(filename, "JPEG", -1)
 
     def bSpline(self):
         """smooth out the last points of stroke"""
