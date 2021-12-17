@@ -16,20 +16,32 @@ class CmdSetStrokeWidth(CommandInterface):
         self.model = model
         self.isUndoableBool = False
         self.strokePatternLookUp = {
-            0:1,
-            1:2,
-            2:3,
-            3:4,
-            4:5,
+            0:Qt.SolidLine,
+            1:Qt.DashLine,
+            2:Qt.DotLine,
+            3:Qt.DashDotLine,
+            4:Qt.DashDotDotLine,
         }
         self.brushStyleLookUp = {
-            0:1,
-            1:2,
-            2:3,
-            3:4,
-            4:5,
-            5:6
-
+            0:Qt.SolidPattern,
+            1:Qt.Dense1Pattern,
+            2:Qt.Dense2Pattern,
+            3:Qt.Dense3Pattern,
+            4:Qt.Dense4Pattern,
+            5:Qt.Dense5Pattern,
+            6:Qt.Dense6Pattern,
+            7:Qt.Dense7Pattern,
+            8:Qt.HorPattern,
+            9:Qt.VerPattern,
+            10:Qt.CrossPattern,
+            11:Qt.BDiagPattern,
+            12:Qt.FDiagPattern,
+            13:Qt.DiagCrossPattern
+        }
+        self.penCapStyleLookUp = {
+            0:Qt.SquareCap,
+            1:Qt.FlatCap,
+            2:Qt.RoundCap
         }
 
     def execute(self, *args):
@@ -41,10 +53,9 @@ class CmdSetStrokeWidth(CommandInterface):
             self.penPickerDialog = QtWidgets.QDialog()
             self.penPickerUi = Ui_Dialog()
             self.penPickerUi.setupUi(self.penPickerDialog)
-            self.penPickerUi.btnApplySettings.clicked.connect(self.getPenProperties)
+            self.penPickerUi.btnApplySettings.clicked.connect(self.getSelectedPenProperties)
+            self.getCurrentPenProperties()
             self.penPickerDialog.exec()
-            
-            
         print("CmdSetStrokeWidth executed")      
     def redo(self):
         print("Action redone")
@@ -52,32 +63,33 @@ class CmdSetStrokeWidth(CommandInterface):
         print("Action undone")
     def isUndoable(self):
         return self.isUndoableBool
-    def getPenProperties(self):
+    def getSelectedPenProperties(self):
         self.strokeWidth = self.penPickerUi.sldStrokeWidth.value()
-        self.strokePattern = self.penPickerUi.cmbBoxStrokePattern.currentIndex()
-        self.brushStyle = self.penPickerUi.cmbBoxBrushStyle.currentIndex()
-        self.penCapStyle = self.penPickerUi.cmbBoxPenCapStyle.currentIndex()
-        #map pencapstyle to correct hex val
-        if(self.penCapStyle == 0):
-            self.penCapStyle = 0x10
-        elif(self.penCapStyle == 1):
-            self.penCapStyle = 0x00
-        else:
-            self.penCapStyle = 0x20
+        self.strokePattern = self.strokePatternLookUp[self.penPickerUi.cmbBoxStrokePattern.currentIndex()]
+        self.brushStyle = self.brushStyleLookUp[self.penPickerUi.cmbBoxBrushStyle.currentIndex()]
+        self.penCapStyle = self.penCapStyleLookUp[self.penPickerUi.cmbBoxPenCapStyle.currentIndex()]
         self.setPenProperties()
-
-        
-        
+  
     def setPenProperties(self):
         self.view.graphicsView.setStrokeWidth(self.strokeWidth)
-        self.view.graphicsView.setStrokePattern(self.strokePattern+1) #offset noPattern
-        self.view.graphicsView.setBrushStyle(self.brushStyle+1)   #offset noBrush
+        self.view.graphicsView.setStrokePattern(self.strokePattern)
+        self.view.graphicsView.setBrushStyle(self.brushStyle)
         self.view.graphicsView.setPenCapStyle(self.penCapStyle)
         self.penPickerDialog.close()
 
+    def getCurrentPenProperties(self):
+        self.penPickerUi.sldStrokeWidth.setValue(self.view.graphicsView.getStrokeWidth())
+        #get key by value -> rip
+        strokePatternIndex = list(self.strokePatternLookUp.keys())[list(self.strokePatternLookUp.values()).index(self.view.graphicsView.getStrokePattern())]
+        self.penPickerUi.cmbBoxStrokePattern.setCurrentIndex(strokePatternIndex)
 
+        brushStyleIndex = list(self.brushStyleLookUp.keys())[list(self.brushStyleLookUp.values()).index(self.view.graphicsView.getBrushStyle())]
+        self.penPickerUi.cmbBoxBrushStyle.setCurrentIndex(brushStyleIndex)
 
+        penCapStyleIndex = list(self.penCapStyleLookUp.keys())[list(self.penCapStyleLookUp.values()).index(self.view.graphicsView.getPenCapStyle())]
+        self.penPickerUi.cmbBoxPenCapStyle.setCurrentIndex(penCapStyleIndex)
     
+
 
 
 
@@ -118,9 +130,6 @@ class Ui_Dialog(object):
         self.gridLayout.addWidget(self.sldStrokeWidth, 0, 1, 1, 1)
         self.cmbBoxBrushStyle = QtWidgets.QComboBox(Dialog)
         self.cmbBoxBrushStyle.setObjectName("cmbBoxBrushStyle")
-        self.cmbBoxBrushStyle.addItem("")
-        self.cmbBoxBrushStyle.addItem("")
-        self.cmbBoxBrushStyle.addItem("")
         self.cmbBoxBrushStyle.addItem("")
         self.cmbBoxBrushStyle.addItem("")
         self.cmbBoxBrushStyle.addItem("")
@@ -180,18 +189,12 @@ class Ui_Dialog(object):
         self.cmbBoxBrushStyle.setItemText(11, _translate("Dialog", "B-diagonal pattern"))
         self.cmbBoxBrushStyle.setItemText(12, _translate("Dialog", "F-diagonal pattern"))
         self.cmbBoxBrushStyle.setItemText(13, _translate("Dialog", "Diagonal cross pattern"))
-        self.cmbBoxBrushStyle.setItemText(14, _translate("Dialog", "Linear gradient pattern"))
-        self.cmbBoxBrushStyle.setItemText(15, _translate("Dialog", "Radial gradient pattern"))
-        self.cmbBoxBrushStyle.setItemText(16, _translate("Dialog", "Conical gradient pattern"))
         self.lblStrokePattern.setText(_translate("Dialog", "Stroke pattern"))
         self.lblPenCapStyle.setText(_translate("Dialog", "Pen cap style"))
         self.cmbBoxPenCapStyle.setItemText(0, _translate("Dialog", "Square cap"))
         self.cmbBoxPenCapStyle.setItemText(1, _translate("Dialog", "Flat cap"))
         self.cmbBoxPenCapStyle.setItemText(2, _translate("Dialog", "Round cap"))
         self.btnApplySettings.setText(_translate("Dialog", "Apply settings"))
-
-        #connect
-        #self.btnApplySettings.clicked.connect(self.returnVals)
 
 
 
