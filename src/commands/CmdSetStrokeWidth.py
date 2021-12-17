@@ -1,11 +1,8 @@
-from typing import Match
-from PyQt5.QtWidgets import QDialog, QWidget
 from PyQt5 import QtWidgets
 from commands.CommandInterface import CommandInterface
 
-from PyQt5.QtWidgets import QWidget, QSlider, QHBoxLayout, QLabel, QMainWindow, QVBoxLayout
 from PyQt5.QtCore import Qt
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtCore, QtWidgets
 
 
 
@@ -195,8 +192,3 @@ class Ui_Dialog(object):
         self.cmbBoxPenCapStyle.setItemText(1, _translate("Dialog", "Flat cap"))
         self.cmbBoxPenCapStyle.setItemText(2, _translate("Dialog", "Round cap"))
         self.btnApplySettings.setText(_translate("Dialog", "Apply settings"))
-
-
-
-
-        
