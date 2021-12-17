@@ -27,14 +27,16 @@ class Start(QApplication):
         self.cvModel = CVModel(self.grafikModel, self.grafikView)
         self.cvModel.moveToThread(self.cvModelThread)
 
-        self.btnController = MainController(self.mainView, self.cvModelThread, self.cvModel, self.grafikModel)
-        self.btnController.registerEvents()
-        self.btnController.registerCommands()
-        self.btnController.connectSignals()
+        self.mainController = MainController(self.mainView, self.cvModelThread, self.cvModel, self.grafikModel)
+        self.mainController.registerEvents()
+        self.mainController.registerCommands()
+        self.mainController.connectSignals()
 
         self.cvModelThread.start()
 
         self.mainView.show()
+
+        self.mainController.startUp()
         
 
 if __name__ == '__main__':

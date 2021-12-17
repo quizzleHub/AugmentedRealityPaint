@@ -16,9 +16,9 @@ class GraphicsView:
         #default values
         self.currentPenColor = QColor(224,102,255)
         self.currentStrokeWidth = 2.7
-        self.currentStrokePattern = 1 #solid line
-        self.currentBrushStyle = 1 #solid style
-        self.currentPenCapStyle = 32 #rounded edges
+        self.currentStrokePattern = Qt.SolidLine
+        self.currentBrushStyle = Qt.SolidPattern
+        self.currentPenCapStyle = Qt.RoundCap
 
     #____functions__________
     def updateCanvas(self, image):
