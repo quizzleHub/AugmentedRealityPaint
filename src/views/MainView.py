@@ -11,8 +11,7 @@ class MainView(QMainWindow):
     quitApp = pyqtSignal(QEvent)
     windowResize = pyqtSignal(QEvent)
     windowHide = pyqtSignal(QEvent)
-    redoPress = pyqtSignal(QEvent)
-    undoPress = pyqtSignal(QEvent)
+
  
 
 
@@ -23,8 +22,6 @@ class MainView(QMainWindow):
         self._ui = Ui_View()
         self._ui.setupUi(self)
         self.graphicsView = graphicsView
-        self._ui.actionUndo.mousePressEvent = self.undoEvent
-        self._ui.actionRedo.mousePressEvent = self.redoEvent
         self._ui.graphicsView.mousePressEvent = self.canvasPressedEvent
 
 
@@ -54,11 +51,7 @@ class MainView(QMainWindow):
         super(MainView, self).hideEvent(event)
         self.windowHide.emit(event)
 
-    def undoEvent(self, event):
-        self.undoPress.emit(event)
 
-    def redoEvent(self, event):
-        self.redoPress.emit(event)
 
 
 
@@ -110,11 +103,6 @@ class MainView(QMainWindow):
     def getbtnThin(self):
         return self._ui.actionThin
 
-    def getbtnUndo(self):
-        return self._ui.actionUndo
-
-    def getbtnRedo(self):
-        return self._ui.actionRedo
     
     def getbtnColorPicker(self):
         return self._ui.actionColorpicker

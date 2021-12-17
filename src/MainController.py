@@ -40,8 +40,6 @@ class MainController(QObject):  # windowListener, ActionListener
         self.btnThick = self.view.getbtnThick()
         self.btnMedium = self.view.getbtnMedium()
         self.btnThin = self.view.getbtnThin()
-        self.btnUndo = self.view.getbtnUndo()
-        self.btnRedo = self.view.getbtnRedo()
         self.btnColorPicker = self.view.getbtnColorPicker()
         self.btnStrokeWidthPicker = self.view.getbtnStrokeWidthPicker()
 
@@ -97,8 +95,7 @@ class MainController(QObject):  # windowListener, ActionListener
         self.view.quitApp.connect(self.quitApp)
         self.view.windowResize.connect(self.windowResize)
         self.view.windowHide.connect(self.windowHide)
-        self.view.undoPress.connect(self.undo)
-        self.view.redoPress.connect(self.redo)
+
 
     def registerCommands(self):
         # register buttons to commands
@@ -129,11 +126,6 @@ class MainController(QObject):  # windowListener, ActionListener
         print("trying to perform action: " + eventSource.text() + "_" + str(id(eventSource)))
         self.commandInvoker.executeCommand(eventSource, *args)
 
-    def undo(self):
-        self.commandInvoker.undoCommand()
-
-    def redo(self):
-        self.commandInvoker.redoCommand()
 
     # Key-Source:
     # https://doc.qt.io/archives/qtjambi-4.5.2_01/com/trolltech/qt/core/Qt.Key.html#Key_Q
