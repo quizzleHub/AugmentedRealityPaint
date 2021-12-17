@@ -6,6 +6,7 @@
 AugmentedRealityPaint is a tool that offers the user the possibility to draw on the screen via object recognition and object tracking. To do this, simply hold an object up to the camera (preferably one color and round) and briefly calibrate it, and you can start drawing by pressing the space bar.
 
 **Why all this?** <br /> 
+
 It should not only be a small alternative to the classic pen and paper, but also animate us to move more in everyday life. Unfortunately, we sit too often and too long, so the focus is on gesture-controlled drawing. And children can draw playfully and increase their own creativity. 
 
 
