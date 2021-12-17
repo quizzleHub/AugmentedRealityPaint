@@ -3,6 +3,10 @@ With AugmentedRealityPaint you can draw via object tracking. Simply hold an obje
 
 ### hier beispielfoto einfügen
 
+## Requirements
+- Python3
+- Webcam
+- Win10 or linux or macOS
 
 ## Installation
 Clone the project and navigate into project folder. Install the dependencies. Run.
