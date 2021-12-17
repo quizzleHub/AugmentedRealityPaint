@@ -12,21 +12,13 @@ class MainView(QMainWindow):
     windowResize = pyqtSignal(QEvent)
     windowHide = pyqtSignal(QEvent)
 
- 
-
-
     def __init__(self, graphicsView):
         super().__init__()
-
-        
         self._ui = Ui_View()
         self._ui.setupUi(self)
         self.graphicsView = graphicsView
         self._ui.graphicsView.mousePressEvent = self.canvasPressedEvent
 
-
-    #_____emit events______
-    # all possible events: https://doc.qt.io/qt-5/qevent.html
     def keyPressEvent(self, event):
         super(MainView, self).keyPressEvent(event)
         self.keyPressed.emit(event)
@@ -38,7 +30,6 @@ class MainView(QMainWindow):
     def canvasPressedEvent(self, event):
         self.canvasPressed.emit(event)
         
-
     def closeEvent(self, event):
         super(MainView,self).closeEvent(event)
         self.quitApp.emit(event)
@@ -50,10 +41,6 @@ class MainView(QMainWindow):
     def hideEvent(self, event):
         super(MainView, self).hideEvent(event)
         self.windowHide.emit(event)
-
-
-
-
 
     #_____Getter______
     def getGraphicsView(self):
@@ -86,13 +73,11 @@ class MainView(QMainWindow):
     def getbtnRed(self):
         return self._ui.actionRed
 
-
     def getbtnBlue(self):
         return self._ui.actionBlue
 
     def getbtnYellow(self):
         return self._ui.actionYellow
-
 
     def getbtnThick(self):
         return self._ui.actionThick
@@ -102,7 +87,6 @@ class MainView(QMainWindow):
 
     def getbtnThin(self):
         return self._ui.actionThin
-
     
     def getbtnColorPicker(self):
         return self._ui.actionColorpicker

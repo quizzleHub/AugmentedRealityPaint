@@ -8,12 +8,11 @@ class CmdExportDrawingNB(CommandInterface):
         self.cvModel = cvModel
         self.isUndoableBool = False
     def execute(self, *args):
-        print("ExportDrawingNB executed")
         qImage = self.view.graphicsView.drawImage(self.cvModel.getWidth(), self.cvModel.getHeight())
         self.graphicsModel.exportDrawing(qImage)
     def redo(self):
-        print("Action redone")
+        pass
     def undo(self):
-        print("Action undone")
+        pass
     def isUndoable(self):
         return self.isUndoableBool

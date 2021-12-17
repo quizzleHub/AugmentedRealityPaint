@@ -8,11 +8,10 @@ class CmdOpenFigures(CommandInterface):
         self.model = model
         self.isUndoableBool = False
     def execute(self, *args):
-        print("OpenFigures executed")
         self.model.openFigures()
     def redo(self):
-        print("Action redone")
+        pass
     def undo(self):
-        print("Action undone")
+        pass
     def isUndoable(self):
         return self.isUndoableBool

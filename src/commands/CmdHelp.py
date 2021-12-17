@@ -17,13 +17,10 @@ class CmdHelp(CommandInterface):
         msg.setWindowTitle("MessageBox demo")
         msg.setDetailedText("The details are as follows:")
         msg.setStandardButtons(QMessageBox.Ok)
-        msg.exec_()
-
-        print("CmdHelp executed")
-        
+        msg.exec_()     
     def redo(self):
-        print("Action redone")
+        pass
     def undo(self):
-        print("Action undone")
+        pass
     def isUndoable(self):
         return self.isUndoableBool

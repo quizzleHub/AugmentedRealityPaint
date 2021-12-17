@@ -47,9 +47,6 @@ class CmdCalibrateCVCol(QObject, CommandInterface):
         #set color boundaries
         self.model.colLower = np.array([colLowerHue, 100, 100])
         self.model.colUpper = np.array([colUpperHue, 255, 255])
-        print("calibrate executed")
-
-
 
     def redo(self):
         pass
@@ -57,7 +54,6 @@ class CmdCalibrateCVCol(QObject, CommandInterface):
         pass
     def isUndoable(self):
         return self.isUndoableBool
-
 
     def alertUser(self):
         self.userPressedCanvas = False
@@ -69,17 +65,13 @@ class CmdCalibrateCVCol(QObject, CommandInterface):
         msg.setWindowTitle("")
         msg.exec()
 
-
         #very bad!
         while(not self.userPressedCanvas):
             QApplication.processEvents()
 
-
         msg.setText("All done")
         msg.setInformativeText("You can use your object to start drawing now!")
         msg.exec()
-
-
 
     def canvasClick(self,event):
         self.mousePressPosX  = event.pos().x()

@@ -33,7 +33,6 @@ class GraphicsModel():
             figureIndex = self.findFigure(point)
             if figureIndex != None:
                 self.deleteFigure(figureIndex)
-                print("Figure deleted: " + str(figureIndex))
 
     #____functions__________
     def getLastFigure(self):

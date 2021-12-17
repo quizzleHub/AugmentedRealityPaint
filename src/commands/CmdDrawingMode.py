@@ -8,11 +8,10 @@ class CmdDrawingMode(CommandInterface):
         self.model = model
         self.isUndoableBool = False
     def execute(self, *args):
-        print("DrawingMode executed - Mode: 0")
         self.model.setMode(0)
     def redo(self):
-        print("Action redone")
+        pass
     def undo(self):
-        print("Action undone")
+        pass
     def isUndoable(self):
         return self.isUndoableBool

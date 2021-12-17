@@ -53,11 +53,10 @@ class CmdSetStrokeWidth(CommandInterface):
             self.penPickerUi.btnApplySettings.clicked.connect(self.getSelectedPenProperties)
             self.getCurrentPenProperties()
             self.penPickerDialog.exec()
-        print("CmdSetStrokeWidth executed")      
     def redo(self):
-        print("Action redone")
+        pass
     def undo(self):
-        print("Action undone")
+        pass
     def isUndoable(self):
         return self.isUndoableBool
     def getSelectedPenProperties(self):

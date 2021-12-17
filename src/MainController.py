@@ -2,6 +2,7 @@ from PyQt5 import QtCore
 from PyQt5.QtCore import QObject, QSize
 from PyQt5.QtGui import QColor
 from PyQt5.QtWidgets import QColorDialog
+from commands.CmdHelp import CmdHelp
 
 from commands.CommandInvoker import CommandInvoker
 from commands.CmdCalibrateCVCol import CmdCalibrateCVCol
@@ -54,6 +55,7 @@ class MainController(QObject):  # windowListener, ActionListener
         self.cmdErasingMode = CmdErasingMode(self.view, self.graphicsModel)
         self.cmdExportDrawingNB = CmdExportDrawingNB(self.view, self.graphicsModel, self.cvModel)
         self.cmdExportDrawingWB = CmdExportDrawingWB(self.view, self.graphicsModel, self.cvModel)
+        self.cmdHelp = CmdHelp(self.view, self.cvModel)
         # etc...
 
         # set correct window aspectratio for camera
@@ -102,16 +104,14 @@ class MainController(QObject):  # windowListener, ActionListener
         self.commandInvoker.addCommand(self.btnOpen, self.cmdOpenFigures)
         self.commandInvoker.addCommand(self.btnSave, self.cmdSafeFigures)
         self.commandInvoker.addCommand(self.btnClear_all, self.cmdClearFigures)
-        # self.commandInvoker.addCommand(self.btnExportieren, self.cmdAction)
         self.commandInvoker.addCommand(self.btnCalibrate, self.cmdCalibrateCVCol)
+        self.commandInvoker.addCommand(self.btnHelp, self.cmdHelp)
 
         self.commandInvoker.addCommand(self.btnPaint, self.cmdDrawingMode)
         self.commandInvoker.addCommand(self.btnErase, self.cmdErasingMode)
 
-        #self.commandInvoker.addCommand(self.btnBlue, self.cmdSetStrokeColor)
-        self.commandInvoker.addCommand(self.btnBlue, self.cmdExportDrawingWB)                               #change that back!!
-        #self.commandInvoker.addCommand(self.btnYellow, self.cmdSetStrokeColor)
-        self.commandInvoker.addCommand(self.btnYellow, self.cmdExportDrawingNB)                             #change that back!!
+        self.commandInvoker.addCommand(self.btnBlue, self.cmdSetStrokeColor)
+        self.commandInvoker.addCommand(self.btnYellow, self.cmdSetStrokeColor)
         self.commandInvoker.addCommand(self.btnRed, self.cmdSetStrokeColor)
         self.commandInvoker.addCommand(self.btnColorPicker, self.cmdSetStrokeColor)
 
@@ -123,7 +123,6 @@ class MainController(QObject):  # windowListener, ActionListener
 
     def actionPerformed(self, *args):
         eventSource = self.sender()
-        print("trying to perform action: " + eventSource.text() + "_" + str(id(eventSource)))
         self.commandInvoker.executeCommand(eventSource, *args)
 
 
@@ -138,14 +137,12 @@ class MainController(QObject):  # windowListener, ActionListener
             #if drawingMode
             if self.graphicsModel.getMode() == 0:   
                 #create new figure where CVModel can append points
-                print("new figure created")
                 strokeColor = self.view.graphicsView.getStrokeColor()
                 strokeWidth = self.view.graphicsView.getStrokeWidth()
                 strokePattern = self.view.graphicsView.getStrokePattern()
                 brushStyle = self.view.graphicsView.getBrushStyle()
                 penCapStyle = self.view.graphicsView.getPenCapStyle()
-                self.graphicsModel.addFigure(strokeColor, strokeWidth, strokePattern, brushStyle, penCapStyle)
-            
+                self.graphicsModel.addFigure(strokeColor, strokeWidth, strokePattern, brushStyle, penCapStyle) 
             #turn on tracking in CVModel
             self.cvModel.trackingFlag = True
 
@@ -153,7 +150,6 @@ class MainController(QObject):  # windowListener, ActionListener
         if event.key() == QtCore.Qt.Key_Space:
             #turn off tracking in CVModel
             self.cvModel.trackingFlag = False
-
             #if drawingMode
             if self.graphicsModel.getMode() == 0:   
                 #check if last figure is empty and delete it
@@ -161,12 +157,11 @@ class MainController(QObject):  # windowListener, ActionListener
                 points = figure.getPoints()
                 if not points:
                     self.graphicsModel.deleteLastFigure()
-                    print("last figure deleted")
 
     def quitApp(self):
         # collect all threads
         self.cvModel.runningFlag = False
-        print("exit clean Up")
+
 
     def windowResize(self, event):
         # force camera aspectratio to mainwindow
