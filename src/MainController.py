@@ -30,6 +30,8 @@ class MainController(QObject):  # windowListener, ActionListener
         self.btnClear_all = self.view.getbtnClear_all()
         self.btnOpen = self.view.getbtnOpen()
         self.btnSave = self.view.getbtnSave()
+        self.btnExportWB = self.view.getbtnExportWB()
+        self.btnExportNB = self.view.getbtnExportNB()
         self.btnCalibrate = self.view.getbtnCalibrate()
         self.btnHelp = self.view.getbtnHelp()
         self.btnPaint = self.view.getbtnPaint()
@@ -65,23 +67,23 @@ class MainController(QObject):  # windowListener, ActionListener
         self.btnClear_all.triggered.connect(self.actionPerformed)
         self.btnOpen.triggered.connect(self.actionPerformed)
         self.btnSave.triggered.connect(self.actionPerformed)
+        self.btnExportNB.triggered.connect(self.actionPerformed)
+        self.btnExportWB.triggered.connect(self.actionPerformed)
         self.btnCalibrate.triggered.connect(self.actionPerformed)
         self.btnHelp.triggered.connect(self.actionPerformed)
 
         self.btnPaint.triggered.connect(self.actionPerformed)
         self.btnErase.triggered.connect(self.actionPerformed)
 
-        #self.btnBlue.triggered.connect(lambda: self.actionPerformed(QColor(102, 140, 255)))
-        self.btnBlue.triggered.connect(self.actionPerformed)                                            #change that back!!
-        #self.btnYellow.triggered.connect(lambda: self.actionPerformed(QColor(255,255,128)))
-        self.btnYellow.triggered.connect(self.actionPerformed)                                          #change that back!!
+        self.btnBlue.triggered.connect(lambda: self.actionPerformed(QColor(102, 140, 255)))
+        self.btnYellow.triggered.connect(lambda: self.actionPerformed(QColor(255,255,128)))
         self.btnRed.triggered.connect(lambda: self.actionPerformed(QColor(255,102,102)))
         self.btnColorPicker.triggered.connect(lambda: self.actionPerformed(QColorDialog.getColor()))
         self.btnThick.triggered.connect(lambda: self.actionPerformed(7.3))
         self.btnMedium.triggered.connect(lambda: self.actionPerformed(4.3))
         self.btnThin.triggered.connect(lambda: self.actionPerformed(1.3))
         self.btnStrokeWidthPicker.triggered.connect(self.actionPerformed)
-        #strokewidthpicker
+
         print("registered events in BtnController")
 
     def connectSignals(self):
@@ -102,16 +104,15 @@ class MainController(QObject):  # windowListener, ActionListener
         self.commandInvoker.addCommand(self.btnOpen, self.cmdOpenFigures)
         self.commandInvoker.addCommand(self.btnSave, self.cmdSafeFigures)
         self.commandInvoker.addCommand(self.btnClear_all, self.cmdClearFigures)
-        # self.commandInvoker.addCommand(self.btnExportieren, self.cmdAction)
+        self.commandInvoker.addCommand(self.btnExportNB, self.cmdExportDrawingNB)
+        self.commandInvoker.addCommand(self.btnExportWB, self.cmdExportDrawingWB)
         self.commandInvoker.addCommand(self.btnCalibrate, self.cmdCalibrateCVCol)
 
         self.commandInvoker.addCommand(self.btnPaint, self.cmdDrawingMode)
         self.commandInvoker.addCommand(self.btnErase, self.cmdErasingMode)
 
-        #self.commandInvoker.addCommand(self.btnBlue, self.cmdSetStrokeColor)
-        self.commandInvoker.addCommand(self.btnBlue, self.cmdExportDrawingWB)                               #change that back!!
-        #self.commandInvoker.addCommand(self.btnYellow, self.cmdSetStrokeColor)
-        self.commandInvoker.addCommand(self.btnYellow, self.cmdExportDrawingNB)                             #change that back!!
+        self.commandInvoker.addCommand(self.btnBlue, self.cmdSetStrokeColor)
+        self.commandInvoker.addCommand(self.btnYellow, self.cmdSetStrokeColor)
         self.commandInvoker.addCommand(self.btnRed, self.cmdSetStrokeColor)
         self.commandInvoker.addCommand(self.btnColorPicker, self.cmdSetStrokeColor)
 
