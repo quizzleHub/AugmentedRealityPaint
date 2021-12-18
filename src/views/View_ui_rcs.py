@@ -5,14 +5,11 @@ from sys import platform
 
 class Ui_View(object):
     def setupUi(self, View):
-        cwd = Path.cwd()
-        rootdir = cwd.parent.absolute()
-
+        projDir = Path(__file__).parent.parent.parent.absolute()
         if platform == "linux" or platform == "win32":
-            iconsdir = rootdir / "icons_win"
+            iconsdir = projDir / "icons_win"
         else:
-            iconsdir = rootdir / "icons_mac"
-
+            iconsdir = projDir / "icons_mac"
         View.setObjectName("View")
         View.resize(1232, 768)
         self.centralwidget = QtWidgets.QWidget(View)

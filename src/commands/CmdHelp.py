@@ -11,8 +11,7 @@ class CmdHelp(CommandInterface):
         self.view = view                
         self.model = model
         self.isUndoableBool = False
-        cwd = Path.cwd()
-        self.htmlContent = codecs.open(cwd/"commands"/"Help.html", 'r').read()
+        self.htmlContent = codecs.open(Path(__file__).with_name('Help.html'), 'r').read()
     def execute(self, *args):
         self.helpDialog = QtWidgets.QDialog()
         self.helpDialogUi = Ui_Help()
