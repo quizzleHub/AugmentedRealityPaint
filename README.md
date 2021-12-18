@@ -14,7 +14,8 @@ Clone the project and navigate into project folder. Install the dependencies. Ru
 git clone https://github.com/quizzleHub/AugmentedRealityPaint.git
 cd AugmentedRealityPaint
 pip3 install -r requirements.txt
-python3 src/Start.py
+cd src
+python3 Start.py
 ```
 ## Use
 ARP prompts you at startup to calibrate the object you want to track. Once you calibrated, you can start drawing by holding space. 
