@@ -1,7 +1,7 @@
 # Augmented Reality Paint
-With AugmentedRealityPaint you can draw via object tracking. Simply hold an object into the camera, calibrate and start drawing by pressing space.
+With AugmentedRealityPaint you can draw via object tracking. Simply hold an object into the camera, calibrate and start drawing by holding space.
 
-![alt text](http://url/to/img.png)
+![alt text](https://github.com/quizzleHub/AugmentedRealityPaint/blob/master/ARPExample.png)
 
 ## Requirements
 - Python3
