@@ -48,6 +48,12 @@ class CmdCalibrateCVCol(QObject, CommandInterface):
         self.model.colLower = np.array([colLowerHue, 100, 100])
         self.model.colUpper = np.array([colUpperHue, 255, 255])
 
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Information)
+        msg.setText("All done")
+        msg.setInformativeText("You can use your object to start drawing now!")
+        msg.exec()
+
     def redo(self):
         pass
     def undo(self):
@@ -69,9 +75,6 @@ class CmdCalibrateCVCol(QObject, CommandInterface):
         while(not self.userPressedCanvas):
             QApplication.processEvents()
 
-        msg.setText("All done")
-        msg.setInformativeText("You can use your object to start drawing now!")
-        msg.exec()
 
     def canvasClick(self,event):
         self.mousePressPosX  = event.pos().x()

@@ -16,27 +16,35 @@ class GraphicsModel():
 
     #____receiver_________
     def recPoint(self, point):
-        #recPoint gets called by CVModel when a new tracking coordinate is available
-        if self.mode == 0:                          #if drawingMode append Point
-            #dont add identical points
-            points = self.figures[-1].points
-            if (len(points) == 0):
-                self.figures[-1].addPoint(point)
-            else:
-                lastPoint = points[-1]
-                if(lastPoint[0] == point[0] and lastPoint[1] == point[1]):
-                    return
+        """recPoint gets called by CVModel when a new tracking coordinate is available"""
+        if self.mode == 0:      #if drawingMode append Point
+            if self.pointValid(point):
                 self.figures[-1].addPoint(point)
                 self.bSpline()  #smooth line
-
-        elif self.mode == 1:                        #if erasingMode find and delete figure
+        elif self.mode == 1:    #if erasingMode find and delete figure
             figureIndex = self.findFigure(point)
             if figureIndex != None:
                 self.deleteFigure(figureIndex)
 
-    #____functions__________
-    def getLastFigure(self):
-        return self.figures[-1]
+    def pointValid(self, point):
+        #avoid identical points and sudden jumps
+        minDelta = 1
+        maxDelta = 100
+        points = self.figures[-1].points
+
+        if (len(points) == 0): #first point always valid
+            return True
+
+        lastPoint = points[-1]
+        dx = abs(point[0]-lastPoint[0])
+        dy = abs(point[1]-lastPoint[1])
+        xInRange = minDelta < dx < maxDelta
+        yInRange = minDelta < dy < maxDelta
+
+        if (xInRange and yInRange):
+            return True
+        else:
+            return False
 
     def deleteLastFigure(self):
         del self.figures[-1]
@@ -135,6 +143,9 @@ class GraphicsModel():
 
     def getMode(self):
         return self.mode
+
+    def getLastFigure(self):
+        return self.figures[-1]
 
     #____setter__________
     def setMode(self, intMode):
