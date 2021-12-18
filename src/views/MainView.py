@@ -58,17 +58,25 @@ class MainView(QMainWindow):
     def getbtnSave(self):
         return self._ui.actionSave
 
+    def getbtnExportNB(self):
+        return self._ui.actionwithout_Camera_Background
+
+    def getbtnExportWB(self):
+        return self._ui.actionwith_Camera_Background
+
     def getbtnCalibrate(self):
         return self._ui.actionCalibrate
 
     def getbtnHelp(self):
         return self._ui.actionHelp
 
+
     def getbtnPaint(self):
         return self._ui.actionPaint
 
     def getbtnErase(self):
         return self._ui.actionErase
+
 
     def getbtnRed(self):
         return self._ui.actionRed

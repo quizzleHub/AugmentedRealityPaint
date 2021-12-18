@@ -31,6 +31,8 @@ class MainController(QObject):
         self.btnClear_all = self.view.getbtnClear_all()
         self.btnOpen = self.view.getbtnOpen()
         self.btnSave = self.view.getbtnSave()
+        self.btnExportWB = self.view.getbtnExportWB()
+        self.btnExportNB = self.view.getbtnExportNB()
         self.btnCalibrate = self.view.getbtnCalibrate()
         self.btnHelp = self.view.getbtnHelp()
         self.btnPaint = self.view.getbtnPaint()
@@ -66,6 +68,8 @@ class MainController(QObject):
         self.btnClear_all.triggered.connect(self.actionPerformed)
         self.btnOpen.triggered.connect(self.actionPerformed)
         self.btnSave.triggered.connect(self.actionPerformed)
+        self.btnExportNB.triggered.connect(self.actionPerformed)
+        self.btnExportWB.triggered.connect(self.actionPerformed)
         self.btnCalibrate.triggered.connect(self.actionPerformed)
         self.btnHelp.triggered.connect(self.actionPerformed)
 
@@ -98,6 +102,8 @@ class MainController(QObject):
         self.commandInvoker.addCommand(self.btnOpen, self.cmdOpenFigures)
         self.commandInvoker.addCommand(self.btnSave, self.cmdSafeFigures)
         self.commandInvoker.addCommand(self.btnClear_all, self.cmdClearFigures)
+        self.commandInvoker.addCommand(self.btnExportNB, self.cmdExportDrawingNB)
+        self.commandInvoker.addCommand(self.btnExportWB, self.cmdExportDrawingWB)
         self.commandInvoker.addCommand(self.btnCalibrate, self.cmdCalibrateCVCol)
         self.commandInvoker.addCommand(self.btnHelp, self.cmdHelp)
 
