@@ -17,7 +17,7 @@ from commands.CmdSetStrokeWidth import CmdSetStrokeWidth
 from commands.CmdExportDwgNB import CmdExportDrawingNB
 from commands.CmdExportDwgWB import CmdExportDrawingWB
 
-class MainController(QObject):  # windowListener, ActionListener
+class MainController(QObject):
 
     def __init__(self, view, cvModelThread, cvModel, graphicsModel):
         super().__init__()
@@ -56,7 +56,6 @@ class MainController(QObject):  # windowListener, ActionListener
         self.cmdExportDrawingNB = CmdExportDrawingNB(self.view, self.graphicsModel, self.cvModel)
         self.cmdExportDrawingWB = CmdExportDrawingWB(self.view, self.graphicsModel, self.cvModel)
         self.cmdHelp = CmdHelp(self.view, self.cvModel)
-        # etc...
 
         # set correct window aspectratio for camera
         self.aspectRatio = self.cvModel.aspectRatio
@@ -73,18 +72,14 @@ class MainController(QObject):  # windowListener, ActionListener
         self.btnPaint.triggered.connect(self.actionPerformed)
         self.btnErase.triggered.connect(self.actionPerformed)
 
-        #self.btnBlue.triggered.connect(lambda: self.actionPerformed(QColor(102, 140, 255)))
-        self.btnBlue.triggered.connect(self.actionPerformed)                                            #change that back!!
-        #self.btnYellow.triggered.connect(lambda: self.actionPerformed(QColor(255,255,128)))
-        self.btnYellow.triggered.connect(self.actionPerformed)                                          #change that back!!
+        self.btnBlue.triggered.connect(lambda: self.actionPerformed(QColor(102, 140, 255)))
+        self.btnYellow.triggered.connect(lambda: self.actionPerformed(QColor(255,255,128)))
         self.btnRed.triggered.connect(lambda: self.actionPerformed(QColor(255,102,102)))
         self.btnColorPicker.triggered.connect(lambda: self.actionPerformed(QColorDialog.getColor()))
         self.btnThick.triggered.connect(lambda: self.actionPerformed(7.3))
         self.btnMedium.triggered.connect(lambda: self.actionPerformed(4.3))
         self.btnThin.triggered.connect(lambda: self.actionPerformed(1.3))
         self.btnStrokeWidthPicker.triggered.connect(self.actionPerformed)
-        #strokewidthpicker
-        print("registered events in BtnController")
 
     def connectSignals(self):
         self.cvModelThread.started.connect(self.cvModel.run)
@@ -100,7 +95,6 @@ class MainController(QObject):  # windowListener, ActionListener
 
 
     def registerCommands(self):
-        # register buttons to commands
         self.commandInvoker.addCommand(self.btnOpen, self.cmdOpenFigures)
         self.commandInvoker.addCommand(self.btnSave, self.cmdSafeFigures)
         self.commandInvoker.addCommand(self.btnClear_all, self.cmdClearFigures)
@@ -119,15 +113,10 @@ class MainController(QObject):  # windowListener, ActionListener
         self.commandInvoker.addCommand(self.btnMedium, self.cmdSetStrokeWidth)
         self.commandInvoker.addCommand(self.btnThin, self.cmdSetStrokeWidth)
         self.commandInvoker.addCommand(self.btnStrokeWidthPicker, self.cmdSetStrokeWidth)
-        print("registerd Commands in BtnController")
 
     def actionPerformed(self, *args):
         eventSource = self.sender()
         self.commandInvoker.executeCommand(eventSource, *args)
-
-
-    # Key-Source:
-    # https://doc.qt.io/archives/qtjambi-4.5.2_01/com/trolltech/qt/core/Qt.Key.html#Key_Q
 
     def keyPressEvent(self, event):
         if event.isAutoRepeat():
@@ -181,10 +170,10 @@ class MainController(QObject):  # windowListener, ActionListener
         self.view.getGraphicsView().setGeometry(cRect)
 
     def windowHide(self):
-        print("window hide event")
+        pass
 
     def windowActivate(self):
-        print("window activate event")
+        pass
 
     def startUp(self):
         self.cmdCalibrateCVCol.execute()
