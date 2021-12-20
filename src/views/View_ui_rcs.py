@@ -168,8 +168,7 @@ class Ui_View(object):
         self.actionSave.setText(_translate("View", "Save"))
         self.actionCalibrate.setText(_translate("View", "Calibrate"))
         self.actionHelp.setText(_translate("View", "Help"))
-        self.actionColorpicker.setText(_translate("View", "Colorpicker"))
-        self.actionStrokewidth.setText(_translate("View", "Strokewidth"))
-        self.actionwith_Camera_Background.setText(_translate("View", "JPEG with Camera Background"))
-        self.actionwithout_Camera_Background.setText(_translate("View", "JPEG without Camera Background"))
-
+        self.actionColorpicker.setText(_translate("View", "Color picker"))
+        self.actionStrokewidth.setText(_translate("View", "Pen picker"))
+        self.actionwith_Camera_Background.setText(_translate("View", "JPG with camera background"))
+        self.actionwithout_Camera_Background.setText(_translate("View", "JPG without camera background"))

@@ -63,6 +63,11 @@ class MainController(QObject):
         self.aspectRatio = self.cvModel.aspectRatio
         self.view.resize(self.view.width(), self.view.width() / self.aspectRatio)
 
+        # preset for buttons
+        self.view.getbtnPaint().setChecked(True)
+        self.view.getbtnRed().setChecked(True)
+        self.view.getbtnMedium().setChecked(True)
+
     def registerEvents(self):
         # register event to actionPerformed for all buttons
         self.btnClear_all.triggered.connect(self.actionPerformed)
@@ -76,14 +81,14 @@ class MainController(QObject):
         self.btnPaint.triggered.connect(self.actionPerformed)
         self.btnErase.triggered.connect(self.actionPerformed)
 
-        self.btnBlue.triggered.connect(lambda: self.actionPerformed(QColor(102, 140, 255)))
-        self.btnYellow.triggered.connect(lambda: self.actionPerformed(QColor(255,255,128)))
-        self.btnRed.triggered.connect(lambda: self.actionPerformed(QColor(255,102,102)))
-        self.btnColorPicker.triggered.connect(lambda: self.actionPerformed(QColorDialog.getColor()))
-        self.btnThick.triggered.connect(lambda: self.actionPerformed(7.3))
-        self.btnMedium.triggered.connect(lambda: self.actionPerformed(4.3))
-        self.btnThin.triggered.connect(lambda: self.actionPerformed(1.3))
-        self.btnStrokeWidthPicker.triggered.connect(self.actionPerformed)
+        self.btnBlue.triggered.connect(lambda: self.actionPerformed(QColor(102, 140, 255), self.btnBlue))
+        self.btnYellow.triggered.connect(lambda: self.actionPerformed(QColor(255,255,128), self.btnYellow))
+        self.btnRed.triggered.connect(lambda: self.actionPerformed(QColor(255,102,102), self.btnRed))
+        self.btnColorPicker.triggered.connect(lambda: self.actionPerformed(QColorDialog.getColor(), self.btnColorPicker))
+        self.btnThick.triggered.connect(lambda: self.actionPerformed(7.3, self.btnThick))
+        self.btnMedium.triggered.connect(lambda: self.actionPerformed(4.3, self.btnMedium))
+        self.btnThin.triggered.connect(lambda: self.actionPerformed(1.3, self.btnThin))
+        self.btnStrokeWidthPicker.triggered.connect(lambda: self.actionPerformed(None, self.btnStrokeWidthPicker))
 
     def connectSignals(self):
         self.cvModelThread.started.connect(self.cvModel.run)
@@ -96,7 +101,6 @@ class MainController(QObject):
         self.view.quitApp.connect(self.quitApp)
         self.view.windowResize.connect(self.windowResize)
         self.view.windowHide.connect(self.windowHide)
-
 
     def registerCommands(self):
         self.commandInvoker.addCommand(self.btnOpen, self.cmdOpenFigures)

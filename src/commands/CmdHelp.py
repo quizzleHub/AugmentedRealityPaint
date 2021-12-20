@@ -12,6 +12,7 @@ class CmdHelp(CommandInterface):
         self.model = model
         self.isUndoableBool = False
         self.htmlContent = codecs.open(Path(__file__).with_name('Help.html'), 'r').read()
+        
     def execute(self, *args):
         self.helpDialog = QtWidgets.QDialog()
         self.helpDialogUi = Ui_Help()
@@ -22,14 +23,15 @@ class CmdHelp(CommandInterface):
 
     def redo(self):
         pass
+
     def undo(self):
         pass
+
     def isUndoable(self):
         return self.isUndoableBool
+
     def quitHelp(self):
         self.helpDialog.close()
-
-
 
 
 class Ui_Help(object):
@@ -50,4 +52,3 @@ class Ui_Help(object):
         self.buttonBox.setObjectName("buttonBox")
         self.verticalLayout.addWidget(self.buttonBox)
         
-

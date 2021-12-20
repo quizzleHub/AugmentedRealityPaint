@@ -75,13 +75,7 @@ class CmdCalibrateCVCol(QObject, CommandInterface):
         while(not self.userPressedCanvas):
             QApplication.processEvents()
 
-
     def canvasClick(self,event):
         self.mousePressPosX  = event.pos().x()
         self.mousePressPosY = event.pos().y()
         self.userPressedCanvas = True
-
-
-
-
-

@@ -1,9 +1,6 @@
-from PyQt5 import QtWidgets
 from commands.CommandInterface import CommandInterface
-
 from PyQt5.QtCore import Qt
 from PyQt5 import QtCore, QtWidgets
-
 
 
 class CmdSetStrokeWidth(CommandInterface):
@@ -53,6 +50,24 @@ class CmdSetStrokeWidth(CommandInterface):
             self.penPickerUi.btnApplySettings.clicked.connect(self.getSelectedPenProperties)
             self.getCurrentPenProperties()
             self.penPickerDialog.exec()
+
+        if args[1] == self.view.getbtnThick():
+            self.view.getbtnMedium().setChecked(False)
+            self.view.getbtnThin().setChecked(False)
+
+        if args[1] == self.view.getbtnMedium():
+            self.view.getbtnThick().setChecked(False)
+            self.view.getbtnThin().setChecked(False)
+
+        if args[1] == self.view.getbtnThin():
+            self.view.getbtnThick().setChecked(False)
+            self.view.getbtnMedium().setChecked(False)
+
+        if args[1] == self.view.getbtnStrokeWidthPicker():
+            self.view.getbtnThick().setChecked(False)
+            self.view.getbtnMedium().setChecked(False)
+            self.view.getbtnThin().setChecked(False)
+
     def redo(self):
         pass
     def undo(self):

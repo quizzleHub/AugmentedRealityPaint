@@ -7,11 +7,16 @@ class CmdDrawingMode(CommandInterface):
         self.view = view                
         self.model = model
         self.isUndoableBool = False
+        
     def execute(self, *args):
         self.model.setMode(0)
+        self.view.getbtnErase().setChecked(False)
+
     def redo(self):
         pass
+
     def undo(self):
         pass
+    
     def isUndoable(self):
         return self.isUndoableBool
