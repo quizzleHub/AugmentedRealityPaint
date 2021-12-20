@@ -14,8 +14,8 @@ class GraphicsView:
         self.pen = QPen()
 
         #default values
-        self.currentPenColor = QColor(224,102,255)
-        self.currentStrokeWidth = 2.7
+        self.currentPenColor = QColor(255,0,0)
+        self.currentStrokeWidth = 4.3
         self.currentStrokePattern = Qt.SolidLine
         self.currentBrushStyle = Qt.SolidPattern
         self.currentPenCapStyle = Qt.RoundCap
