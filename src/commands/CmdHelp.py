@@ -3,7 +3,6 @@ from PyQt5 import QtCore, QtWidgets
 import codecs
 from pathlib import Path
 
-#https://github.com/smoqadam/pyqt-md-reader/blob/master/main.py
 
 class CmdHelp(CommandInterface):
 

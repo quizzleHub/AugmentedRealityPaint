@@ -4,6 +4,7 @@ import pickle
 from scipy import interpolate
 import numpy as np
 
+
 class GraphicsModel():
     
     def __init__(self) -> None:

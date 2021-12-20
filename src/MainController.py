@@ -17,6 +17,7 @@ from commands.CmdSetStrokeWidth import CmdSetStrokeWidth
 from commands.CmdExportDwgNB import CmdExportDrawingNB
 from commands.CmdExportDwgWB import CmdExportDrawingWB
 
+
 class MainController(QObject):
 
     def __init__(self, view, cvModelThread, cvModel, graphicsModel):
@@ -161,7 +162,6 @@ class MainController(QObject):
         # collect all threads
         self.cvModel.runningFlag = False
 
-
     def windowResize(self, event):
         # force camera aspectratio to mainwindow
         oldSize = event.oldSize()
@@ -187,4 +187,3 @@ class MainController(QObject):
 
     def startUp(self):
         self.cmdCalibrateCVCol.execute()
-

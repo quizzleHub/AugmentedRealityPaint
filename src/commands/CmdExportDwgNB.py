@@ -1,5 +1,6 @@
 from commands.CommandInterface import CommandInterface
 
+
 class CmdExportDrawingNB(CommandInterface):
 
     def __init__(self, view, graphicsModel, cvModel):

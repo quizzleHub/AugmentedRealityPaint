@@ -14,7 +14,10 @@ class CmdErasingMode(CommandInterface):
 
     def redo(self):
         pass
+
     def undo(self):
         pass
+
     def isUndoable(self):
         return self.isUndoableBool
+        

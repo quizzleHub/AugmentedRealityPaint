@@ -101,4 +101,3 @@ class GraphicsView:
 
     def setPenCapStyle(self, penCapStyle):
         self.currentPenCapStyle = penCapStyle
-

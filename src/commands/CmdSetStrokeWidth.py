@@ -70,10 +70,13 @@ class CmdSetStrokeWidth(CommandInterface):
 
     def redo(self):
         pass
+
     def undo(self):
         pass
+
     def isUndoable(self):
         return self.isUndoableBool
+
     def getSelectedPenProperties(self):
         self.strokeWidth = self.penPickerUi.sldStrokeWidth.value()
         self.strokePattern = self.strokePatternLookUp[self.penPickerUi.cmbBoxStrokePattern.currentIndex()]
@@ -100,10 +103,7 @@ class CmdSetStrokeWidth(CommandInterface):
         penCapStyleIndex = list(self.penCapStyleLookUp.keys())[list(self.penCapStyleLookUp.values()).index(self.view.graphicsView.getPenCapStyle())]
         self.penPickerUi.cmbBoxPenCapStyle.setCurrentIndex(penCapStyleIndex)
     
-
-
-
-
+    
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")

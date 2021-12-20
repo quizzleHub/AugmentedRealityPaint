@@ -39,8 +39,7 @@ class Start(QApplication):
 
         self.mainController.startUp()
         
-
+        
 if __name__ == '__main__':
     app = Start(sys.argv)
     sys.exit(app.exec_())
-

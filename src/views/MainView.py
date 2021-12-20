@@ -2,6 +2,7 @@ from PyQt5.QtWidgets import QMainWindow
 from PyQt5.QtCore import QEvent, pyqtSignal
 from views.View_ui_rcs import Ui_View
 
+
 class MainView(QMainWindow):
 
     ##pyqtSignals
@@ -70,13 +71,11 @@ class MainView(QMainWindow):
     def getbtnHelp(self):
         return self._ui.actionHelp
 
-
     def getbtnPaint(self):
         return self._ui.actionPaint
 
     def getbtnErase(self):
         return self._ui.actionErase
-
 
     def getbtnRed(self):
         return self._ui.actionRed

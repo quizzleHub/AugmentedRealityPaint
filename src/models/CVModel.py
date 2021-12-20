@@ -3,6 +3,7 @@ from PyQt5.QtGui import QImage
 import numpy as np
 import cv2
 
+
 class CVModel(QObject):
     
     #signals must be class variables!
