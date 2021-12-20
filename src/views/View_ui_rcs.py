@@ -150,7 +150,7 @@ class Ui_View(object):
 
     def retranslateUi(self, View):
         _translate = QtCore.QCoreApplication.translate
-        View.setWindowTitle(_translate("View", "View"))
+        View.setWindowTitle(_translate("View", "Augmented Reality Paint"))
         self.menuFile.setTitle(_translate("View", "File"))
         self.menuExport.setTitle(_translate("View", "Export..."))
         self.menuEdit.setTitle(_translate("View", "Edit"))
