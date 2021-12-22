@@ -21,10 +21,7 @@ class CmdCalibrateCVCol(QObject, CommandInterface):
         self.mousePressPosX = 50
         self.mousePressPosY = 50
 
-        #hsv range 
         self.hueRange = 3
-        self.saturationRange = 10
-        self.valueRange = 10
 
     def execute(self, *args):
         self.alertUser()
@@ -48,11 +45,13 @@ class CmdCalibrateCVCol(QObject, CommandInterface):
         self.model.colLower = np.array([colLowerHue, 100, 100])
         self.model.colUpper = np.array([colUpperHue, 255, 255])
 
+        self.canvas.setStyleSheet("border: 4px solid green;")
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Information)
         msg.setText("All done")
         msg.setInformativeText("You can use your object to start drawing now!")
         msg.exec()
+        self.canvas.setStyleSheet("border: 0px solid green;")
 
     def redo(self):
         pass
@@ -64,18 +63,20 @@ class CmdCalibrateCVCol(QObject, CommandInterface):
         return self.isUndoableBool
 
     def alertUser(self):
+
         self.userPressedCanvas = False
-        
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Information)
         msg.setText("Calibrate tracking")
         msg.setInformativeText("Please hold the object you would like to track into the camera and click on it.")
         msg.setWindowTitle("")
         msg.exec()
+        self.canvas.setStyleSheet("border: 2px dashed red;")
 
         #very bad!
         while(not self.userPressedCanvas):
             QApplication.processEvents()
+
 
     def canvasClick(self,event):
         self.mousePressPosX  = event.pos().x()
